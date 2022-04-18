@@ -4,7 +4,8 @@ interface CircleProgressProps {
     size?: number;
     strokeWidth?: number;
     percentage: number;
-    color?: string
+    color?: string;
+    label?: string | number
 }
 
 const CircleProgress: FC<CircleProgressProps> = (
@@ -12,7 +13,8 @@ const CircleProgress: FC<CircleProgressProps> = (
         size = 30,
         strokeWidth = 3,
         color = 'green',
-        percentage
+        percentage,
+        label = ''
     }: CircleProgressProps
 ) => {
     const viewBox = `0 0 ${size} ${size}`;
@@ -41,6 +43,18 @@ const CircleProgress: FC<CircleProgressProps> = (
                 transform={`rotate(-90 ${size / 2} ${size / 2})`}
                 strokeLinecap="round"
             />
+            {!!label &&
+                <text
+                    fill="black"
+                    fontSize="10px"
+                    x="50%"
+                    y="50%"
+                    dy="4px"
+                    textAnchor="middle"
+                >
+                    {`${label}`}
+                </text>
+            }
         </svg>
     )
 }

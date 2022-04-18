@@ -27,6 +27,10 @@ const MakeTweet = () => {
         getPercentage();
     }
 
+    const getProgressLabel = (): number | undefined => {
+        return progressBarColor === TweetLengthEnum.DANGER ? SYMBOL_MAX_LENGTH - value : undefined;
+    }
+
     const getPercentage = (): number => {
         return value * 100 / SYMBOL_MAX_LENGTH
     }
@@ -35,7 +39,7 @@ const MakeTweet = () => {
         <div className="w-full">
             <TwitterTextArea onChangeHandler={onChange} />
             <div style={{margin: '30px'}}>
-                {!!value && <CircleProgress percentage={getPercentage()} color={progressBarColor} />}
+                {!!value && <CircleProgress percentage={getPercentage()} color={progressBarColor} label={getProgressLabel()} />}
             </div>
         </div>
     )
