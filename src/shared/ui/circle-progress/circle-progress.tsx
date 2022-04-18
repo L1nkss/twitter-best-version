@@ -5,7 +5,8 @@ interface CircleProgressProps {
     strokeWidth?: number;
     percentage: number;
     color?: string;
-    label?: string | number
+    label?: string | number;
+    isCirclesVisible?: boolean
 }
 
 const CircleProgress: FC<CircleProgressProps> = (
@@ -14,7 +15,8 @@ const CircleProgress: FC<CircleProgressProps> = (
         strokeWidth = 3,
         color = 'green',
         percentage,
-        label = ''
+        label = '',
+        isCirclesVisible = true
     }: CircleProgressProps
 ) => {
     const viewBox = `0 0 ${size} ${size}`;
@@ -22,11 +24,16 @@ const CircleProgress: FC<CircleProgressProps> = (
     const circumference = radius * Math.PI * 2; // длина окружности
     const dash = (percentage * circumference) / 100;
 
+
+    const getCircleStroke = (color: string): string => {
+        return isCirclesVisible ? color : 'transparent';
+    }
+
     return (
         <svg width={size} height={size} viewBox={viewBox}>
             <circle
                 fill="none"
-                stroke="#ccc"
+                stroke={getCircleStroke('#ccc')}
                 cx={size / 2}
                 cy={size / 2}
                 r={radius}
@@ -34,7 +41,7 @@ const CircleProgress: FC<CircleProgressProps> = (
             />
             <circle
                 fill="none"
-                stroke={color}
+                stroke={getCircleStroke(color)}
                 cx={size / 2}
                 cy={size / 2}
                 r={radius}
@@ -45,7 +52,7 @@ const CircleProgress: FC<CircleProgressProps> = (
             />
             {!!label &&
                 <text
-                    fill="black"
+                    fill={color}
                     fontSize="10px"
                     x="50%"
                     y="50%"

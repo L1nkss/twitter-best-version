@@ -8,6 +8,7 @@ const MakeTweet = () => {
 
     const [value, setValue] = useState<number>(0);
     const [progressBarColor, setProgressBarColor] = useState<TweetLengthEnum>(TweetLengthEnum.GOOD);
+    const [isCirclesVisible, setIsCirclesVisible] = useState<boolean>(true);
 
     useEffect(() => {
         const symbolsLeft = SYMBOL_MAX_LENGTH - value;
@@ -17,7 +18,8 @@ const MakeTweet = () => {
         } else if (symbolsLeft <= 20 && symbolsLeft > 0) {
             setProgressBarColor(TweetLengthEnum.WARNING)
         } else {
-            setProgressBarColor(TweetLengthEnum.DANGER)
+            setProgressBarColor(TweetLengthEnum.DANGER);
+            setIsCirclesVisible(symbolsLeft > -50);
         }
 
     }, [value])
@@ -39,7 +41,13 @@ const MakeTweet = () => {
         <div className="w-full">
             <TwitterTextArea onChangeHandler={onChange} />
             <div style={{margin: '30px'}}>
-                {!!value && <CircleProgress percentage={getPercentage()} color={progressBarColor} label={getProgressLabel()} />}
+                {!!value &&
+                <CircleProgress
+                    percentage={getPercentage()}
+                    color={progressBarColor}
+                    label={getProgressLabel()}
+                    isCirclesVisible={isCirclesVisible}
+                />}
             </div>
         </div>
     )

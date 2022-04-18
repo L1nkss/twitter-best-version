@@ -10,4 +10,10 @@
   position: absolute;
   z-index: -1;
  }
+
+ &__text {
+  max-width: 900px;
+  max-height: 750px;
+  overflow-y: auto;
+ }
 }

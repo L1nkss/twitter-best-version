@@ -1,4 +1,4 @@
-import {FC, FormEvent, useEffect, useRef, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 
 interface TwitterTextAreaProps {
     placeholder?: string;
@@ -14,8 +14,6 @@ const TwitterTextArea: FC<TwitterTextAreaProps> = ({placeholder = 'What`s happen
         setShowPlaceholder(!Boolean(value))
     }, [value])
 
-
-
     const changeHandler = () => {
         if (textareaRef.current) {
             setValue(textareaRef.current.innerText);
@@ -27,7 +25,12 @@ const TwitterTextArea: FC<TwitterTextAreaProps> = ({placeholder = 'What`s happen
     return (
         <div className="twitter-textarea">
             {showPlaceholder && <div className="twitter-textarea__placeholder">{placeholder}</div>}
-            <div ref={textareaRef} contentEditable="true" className="w-full max-w-full" onInput={changeHandler}/>
+            <div
+                ref={textareaRef}
+                contentEditable="true"
+                className="twitter-textarea__text w-full"
+                onInput={changeHandler}
+            />
         </div>
     )
 }
