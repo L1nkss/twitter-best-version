@@ -1,0 +1,13 @@
+// ===============================================
+// TWITTER TEXTAREA
+// ===============================================
+
+
+.twitter-textarea {
+ position: relative;
+
+ &__placeholder {
+  position: absolute;
+  z-index: -1;
+ }
+}

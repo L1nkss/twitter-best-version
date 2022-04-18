@@ -8,11 +8,13 @@ function App() {
   return (
     <div className="container flex mx-auto">
         <Navigation />
-        <Routes>
-            <Route path="home" element={<Home />} />
-            <Route path="bookmarks" element={<Bookmarks />} />
-            <Route path="/" element={<Navigate to="/home" />} />
-        </Routes>
+        <main className="grow main-content">
+            <Routes>
+                <Route path="home" element={<Home />} />
+                <Route path="bookmarks" element={<Bookmarks />} />
+                <Route path="/" element={<Navigate to="/home" />} />
+            </Routes>
+        </main>
     </div>
   );
 }
