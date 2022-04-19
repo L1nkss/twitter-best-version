@@ -2,6 +2,7 @@ import TwitterTextArea from "../../../shared/ui/twitter-textarea/twitter-textare
 import {useEffect, useState} from "react";
 import CircleProgress from "../../../shared/ui/circle-progress/circle-progress";
 import {TweetLengthEnum} from "./models/TweetLength.enum";
+import Button from "../../../shared/ui/button/button";
 
 const MakeTweet = () => {
     const SYMBOL_MAX_LENGTH = 50;
@@ -41,13 +42,16 @@ const MakeTweet = () => {
         <div className="w-full">
             <TwitterTextArea onChangeHandler={onChange} />
             <div style={{margin: '30px'}}>
-                {!!value &&
-                <CircleProgress
-                    percentage={getPercentage()}
-                    color={progressBarColor}
-                    label={getProgressLabel()}
-                    isCirclesVisible={isCirclesVisible}
-                />}
+                {
+                    !!value && <CircleProgress
+                        percentage={getPercentage()}
+                        color={progressBarColor}
+                        label={getProgressLabel()}
+                        isCirclesVisible={isCirclesVisible}
+                    />
+                }
+
+                <Button>Tweet</Button>
             </div>
         </div>
     )
