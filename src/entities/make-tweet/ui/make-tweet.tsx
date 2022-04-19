@@ -55,9 +55,9 @@ const MakeTweet = () => {
     }
 
     return (
-        <div className="w-full">
-            <TwitterTextArea onChangeHandler={onChange} />
-            <div style={{margin: '30px'}}>
+        <div className="w-full make-tweet">
+            <TwitterTextArea onChangeHandler={onChange} classes={'make-tweet__textarea'} />
+            <div>
                 <div className="flex items-center justify-end">
                     {
                         !!value && <CircleProgress

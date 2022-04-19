@@ -1,9 +1,15 @@
 import avatar from './mock-avatar/avatar.jpg';
+import {FC} from "react";
+import cn from "classnames"
+
+interface UserAvatarProps {
+    classes?: string
+}
 
 // todo временный компонент -> переделать
-const UserAvatar = () => {
+const UserAvatar: FC<UserAvatarProps> = ({classes = ''}: UserAvatarProps) => {
     return (
-        <div className="user-avatar">
+        <div className={cn('user-avatar', classes)}>
             <img src={avatar} alt=""/>
         </div>
     )

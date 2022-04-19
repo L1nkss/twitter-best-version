@@ -1,11 +1,18 @@
 import {FC, useEffect, useRef, useState} from "react";
+import cn from "classnames";
 
 interface TwitterTextAreaProps {
     placeholder?: string;
-    onChangeHandler?: (...rest: any) => any
+    onChangeHandler?: (...rest: any) => any;
+    classes?: string
 }
 
-const TwitterTextArea: FC<TwitterTextAreaProps> = ({placeholder = 'What`s happening?', onChangeHandler = () => {}}: TwitterTextAreaProps) => {
+const TwitterTextArea: FC<TwitterTextAreaProps> = (
+    {
+        placeholder = 'What`s happening?',
+        onChangeHandler = () => {},
+        classes = ''
+    }: TwitterTextAreaProps) => {
     const [value, setValue] = useState<string>('');
     const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true);
     const textareaRef = useRef<HTMLDivElement>(null);
@@ -23,7 +30,7 @@ const TwitterTextArea: FC<TwitterTextAreaProps> = ({placeholder = 'What`s happen
     }
 
     return (
-        <div className="twitter-textarea">
+        <div className={cn("twitter-textarea", classes)}>
             {showPlaceholder && <div className="twitter-textarea__placeholder">{placeholder}</div>}
             <div
                 ref={textareaRef}
