@@ -1,22 +1,26 @@
 import {FC} from "react";
+import cn from "classnames";
 
 interface CircleProgressProps {
     size?: number;
     strokeWidth?: number;
-    percentage: number;
+    percentage?: number;
     color?: string;
     label?: string | number;
-    isCirclesVisible?: boolean
+    isCirclesVisible?: boolean;
+    rotate?: boolean
 }
 
 const CircleProgress: FC<CircleProgressProps> = (
     {
         size = 30,
         strokeWidth = 3,
-        color = 'green',
-        percentage,
+        color = '#1D9BF0',
+        percentage = 25,
         label = '',
-        isCirclesVisible = true
+        isCirclesVisible = true,
+        rotate
+
     }: CircleProgressProps
 ) => {
     const viewBox = `0 0 ${size} ${size}`;
@@ -30,7 +34,7 @@ const CircleProgress: FC<CircleProgressProps> = (
     }
 
     return (
-        <svg width={size} height={size} viewBox={viewBox}>
+        <svg width={size} height={size} viewBox={viewBox} className={cn({'rotating': rotate})}>
             <circle
                 fill="none"
                 stroke={getCircleStroke('#ccc')}

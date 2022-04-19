@@ -18,11 +18,10 @@ const Button: FC<ButtonProps> = (
     return (
         <button
             {...props}
-            className={cn("button button--primary", props.className,
-                {'button--loading': isLoading})}
+            className={cn("button button--primary", props.className)}
             disabled={props.disabled}>
             {!isLoading && <span>{props.children}</span>}
-            {/*{isLoading && <CircleProgress percentage={25} />}*/}
+            {isLoading && <CircleProgress size={17} strokeWidth={2} rotate={true} />}
         </button>
     )
 }

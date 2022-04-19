@@ -1,0 +1,17 @@
+// ===============================================
+// ANIMATIONS
+// ===============================================
+
+.rotating {
+ animation-name: rotating;
+ animation-duration: 1.2s;
+ animation-timing-function: linear;
+ animation-iteration-count: infinite;
+}
+
+
+@keyframes rotating {
+ 100% {
+  transform: rotate(360deg);
+ }
+}

@@ -31,18 +31,7 @@
  align-items: center;
  flex: 0 0 160px;
  box-shadow: 2px 5px 10px #e4e4e4;
-
- // todo Переделать на компонент спиннер
- &:before {
-  content: "";
-  display: inline-block;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  border: 0 none;
-  margin-right: 0;
-  transition: all .5s;
- }
+ min-height: 42px;
 
  &--primary {
   color: #FFFFFF;
@@ -52,17 +41,5 @@
  &:disabled {
   opacity: 0.5;
   cursor: not-allowed;
- }
-
- // todo Переделать на компонент спиннер
- &--loading {
-  &:before {
-   width: 20px;
-   height: 20px;
-   border: 2px solid #99CCFF;
-   border-top-color: white;
-   margin-right: 10px;
-   animation: rotating 1s infinite;
-  }
  }
 }
