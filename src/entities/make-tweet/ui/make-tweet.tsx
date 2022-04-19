@@ -42,16 +42,18 @@ const MakeTweet = () => {
         <div className="w-full">
             <TwitterTextArea onChangeHandler={onChange} />
             <div style={{margin: '30px'}}>
-                {
-                    !!value && <CircleProgress
-                        percentage={getPercentage()}
-                        color={progressBarColor}
-                        label={getProgressLabel()}
-                        isCirclesVisible={isCirclesVisible}
-                    />
-                }
+                <div className="flex items-center justify-end">
+                    {
+                        !!value && <CircleProgress
+                            percentage={getPercentage()}
+                            color={progressBarColor}
+                            label={getProgressLabel()}
+                            isCirclesVisible={isCirclesVisible}
+                        />
+                    }
 
-                <Button>Tweet</Button>
+                    <Button>Tweet</Button>
+                </div>
             </div>
         </div>
     )
