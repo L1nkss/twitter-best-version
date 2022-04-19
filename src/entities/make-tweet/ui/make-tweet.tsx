@@ -10,6 +10,8 @@ const MakeTweet = () => {
     const [value, setValue] = useState<number>(0);
     const [progressBarColor, setProgressBarColor] = useState<TweetLengthEnum>(TweetLengthEnum.GOOD);
     const [isCirclesVisible, setIsCirclesVisible] = useState<boolean>(true);
+    const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
+    const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
 
     useEffect(() => {
         const symbolsLeft = SYMBOL_MAX_LENGTH - value;
@@ -20,8 +22,10 @@ const MakeTweet = () => {
             setProgressBarColor(TweetLengthEnum.WARNING)
         } else {
             setProgressBarColor(TweetLengthEnum.DANGER);
-            setIsCirclesVisible(symbolsLeft > -50);
         }
+
+        setIsButtonDisabled(symbolsLeft < 0 || !value);
+        setIsCirclesVisible(symbolsLeft > -50);
 
     }, [value])
 
@@ -38,6 +42,18 @@ const MakeTweet = () => {
         return value * 100 / SYMBOL_MAX_LENGTH
     }
 
+    const createTweet = async () => {
+        setIsTweetCreating(true);
+        // Какая то логика создания твита
+        try {
+            setTimeout(() => {
+                setIsTweetCreating(false);
+            }, 3000)
+        } catch (err) {
+
+        }
+    }
+
     return (
         <div className="w-full">
             <TwitterTextArea onChangeHandler={onChange} />
@@ -52,7 +68,7 @@ const MakeTweet = () => {
                         />
                     }
 
-                    <Button>Tweet</Button>
+                    <Button onClick={createTweet} disabled={isButtonDisabled} isLoading={isTweetCreating}>Tweet</Button>
                 </div>
             </div>
         </div>
