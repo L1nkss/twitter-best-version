@@ -2,12 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+//Mixins
+@import "mixins";
+
+//Variables
+@import "variables";
 
 // Helpers
 @import "helpers";
 
 // Components
 @import "components";
+
+// Widgets
+@import "widgets";
 
 // Pages
 @import "pages";

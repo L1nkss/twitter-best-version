@@ -1,0 +1,66 @@
+// ===============================================
+// COLOR MIXINS
+// ===============================================
+@use 'sass:string';
+@use 'sass:list';
+
+
+/*
+	Create CSS custom properties from color map.
+	EXAMPLE:
+	$cl: (
+		blue-10: #1D253B,
+	);
+	@include get-cls($cl);
+	RESULT:
+	--blue-10: 29, 37, 59;
+	--cl-blue-10: rgb(var(--blue-10));
+	INFO: One '@each' expression were split into two to achieve
+	more readability of custom properties in a dev tools.
+*/
+@mixin get-colors($map, $prefix: 'cl') {
+ @each $prop, $val in $map {
+  $val: red($val) + ', ' + green($val) + ', ' + blue($val);
+
+  #{'--' + $prop}: string.unquote($val);
+ }
+
+ @each $prop in $map {
+  $prop: list.nth($prop, 1);
+
+  #{'--' + $prefix + '-' + $prop}: rgb(var(#{'--' + $prop}));
+ }
+}
+
+
+/*
+	Create RGBA custom property from given color.
+	EXAMPLE:
+	$ca-blue-10 {
+		10: .5,
+		20: .3,
+		30: .1,
+	}
+	@include get-alphas($cl, 'blue-10', $ca-blue-10)
+	RESULT:
+	--ca-blue-10-10: rgba(var(--blue-10), .5)
+	--ca-blue-10-20: rgba(var(--blue-10), .3)
+	--ca-blue-10-30: rgba(var(--blue-10), .1)
+*/
+@mixin get-alpha($palette, $cl, $ca, $prefix: 'ca') {
+ $i: 10;
+
+ @if (type-of($ca) == list) {
+  @each $alpha in $ca {
+   #{'--' + $prefix + '-' + $cl + '-' + $i}: rgba(var(#{'--' + $cl}), $alpha);
+
+   $i: $i + 10;
+  }
+ }
+
+ @if (type-of($ca) == map) {
+  @each $postfix, $alpha in $ca {
+   #{'--' + $prefix + '-' + $cl + '-' + $postfix}: rgba(var(#{'--' + $cl}), $alpha);
+  }
+ }
+}

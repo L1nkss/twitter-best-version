@@ -2,7 +2,7 @@ import MakeTwitterContainer from "../../../widgets/make-tweet-container/ui/make-
 
 const Home = () => {
     return (
-        <div style={{height: '1000px'}} className="home-page">
+        <div style={{height: '2000px'}} className="home-page">
             <header className="home-header p-4">
                 <h2>Home</h2>
             </header>
