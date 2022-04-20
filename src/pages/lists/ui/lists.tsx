@@ -1,6 +1,10 @@
+import PageHeader from "../../../shared/ui/page-header/page-header";
+
 const Lists = () => {
     return (
-        <div>Lists Page</div>
+        <div>
+            <PageHeader pageName={'Lists Page'} />
+        </div>
     )
 }
 

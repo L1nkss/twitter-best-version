@@ -1,11 +1,11 @@
 import MakeTwitterContainer from "../../../widgets/make-tweet-container/ui/make-twitter-container";
+import PageHeader from "../../../shared/ui/page-header/page-header";
 
 const Home = () => {
     return (
+        // временный стиль для прокрутки
         <div style={{height: '2000px'}} className="home-page">
-            <header className="home-header p-4">
-                <h2>Home</h2>
-            </header>
+            <PageHeader pageName={'Home'} classNames={'home-page__header'} />
             <MakeTwitterContainer classes={'home-page__twit-form'} />
         </div>
     )

@@ -1,6 +1,10 @@
+import PageHeader from "../../../shared/ui/page-header/page-header";
+
 const Notifications = () => {
     return (
-        <div>Notifications Page</div>
+        <div>
+            <PageHeader pageName={'Notifications Page'} />
+        </div>
     )
 }
 

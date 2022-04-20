@@ -1,6 +1,10 @@
+import PageHeader from "../../../shared/ui/page-header/page-header";
+
 const Explore = () => {
     return (
-        <div>Explore Page</div>
+        <div>
+            <PageHeader pageName={'Explore Page'} />
+        </div>
     )
 }
 

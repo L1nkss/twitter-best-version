@@ -1,6 +1,10 @@
+import PageHeader from "../../../shared/ui/page-header/page-header";
+
 const Profile = () => {
     return (
-        <div>Profile Page</div>
+        <div>
+            <PageHeader pageName={'Profile Page'} />
+        </div>
     )
 }
 

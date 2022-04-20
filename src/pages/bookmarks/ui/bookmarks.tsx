@@ -1,6 +1,10 @@
+import PageHeader from "../../../shared/ui/page-header/page-header";
+
 const Bookmarks = () => {
     return (
-        <div>Bookmarks Page</div>
+        <div>
+            <PageHeader pageName={'Bookmarks Page'} />
+        </div>
     )
 }
 
