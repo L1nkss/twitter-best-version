@@ -1,15 +1,16 @@
 import TwitterTextArea from "../../../shared/ui/twitter-textarea/twitter-textarea";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import CircleProgress from "../../../shared/ui/circle-progress/circle-progress";
 import {TweetLengthEnum} from "./models/TweetLength.enum";
 import Button from "../../../shared/ui/button/button";
+import cn from "classnames";
 
 const MakeTweet = () => {
     const SYMBOL_MAX_LENGTH = 50;
 
     const [value, setValue] = useState<number>(0);
     const [progressBarColor, setProgressBarColor] = useState<TweetLengthEnum>(TweetLengthEnum.GOOD);
-    const [isCirclesVisible, setIsCirclesVisible] = useState<boolean>(true);
+    const [hideCircles, setHideCircles] = useState<boolean>(true);
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
     const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
 
@@ -25,7 +26,7 @@ const MakeTweet = () => {
         }
 
         setIsButtonDisabled(symbolsLeft < 0 || !value);
-        setIsCirclesVisible(symbolsLeft > -50);
+        setHideCircles(symbolsLeft < -50);
 
     }, [value])
 
@@ -62,9 +63,10 @@ const MakeTweet = () => {
                     {
                         !!value && <CircleProgress
                             percentage={getPercentage()}
+                            textValue={getProgressLabel()}
+                            textColor={progressBarColor}
                             color={progressBarColor}
-                            label={getProgressLabel()}
-                            isCirclesVisible={isCirclesVisible}
+                            className={cn({'spinner--hide-circles': hideCircles})}
                         />
                     }
 

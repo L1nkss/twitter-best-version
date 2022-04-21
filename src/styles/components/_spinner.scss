@@ -1,0 +1,20 @@
+// ===============================================
+// SPINNER
+// ===============================================
+
+.spinner {
+ &__inner-circle {
+  stroke: #ccc;
+ }
+
+ &__outer-circle {
+  stroke: var(--cl-blue);
+ }
+
+ &--hide-circles {
+  .spinner__inner-circle,
+  .spinner__outer-circle {
+   stroke: transparent;
+  }
+ }
+}
