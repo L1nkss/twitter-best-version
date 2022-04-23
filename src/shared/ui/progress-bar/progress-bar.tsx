@@ -1,18 +1,18 @@
 import {FC, ReactElement} from "react";
 import Spinner, {SpinnerProps} from "../spinner/spinner";
 
-interface CircleProgressProps extends SpinnerProps {
+interface ProgressBarProps extends SpinnerProps {
     textColor?: string
     textValue?: number | string
 }
 
-const CircleProgress: FC<CircleProgressProps> = (
+const ProgressBar: FC<ProgressBarProps> = (
     {
         percentage = 25,
         textColor = '#1DA1F2',
         textValue,
         ...props
-    }: CircleProgressProps
+    }: ProgressBarProps
 ) => {
 
     const getTextValue = (): ReactElement | undefined => {
@@ -37,4 +37,4 @@ const CircleProgress: FC<CircleProgressProps> = (
     )
 }
 
-export default CircleProgress
+export default ProgressBar

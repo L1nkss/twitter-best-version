@@ -5,7 +5,6 @@ export interface SpinnerProps {
     children?: React.ReactElement | string;
     size?: number;
     strokeWidth?: number;
-    color?: string;
     percentage?: number;
     className?: string
 }
@@ -16,7 +15,7 @@ const Spinner: FC<SpinnerProps> = (
         size = 20,
         strokeWidth = 2,
         percentage = 25,
-        className = ''
+        className = '',
     }: SpinnerProps) => {
     const viewBox = `0 0 ${size} ${size}`;
     const radius = (size - strokeWidth) / 2;
@@ -34,7 +33,6 @@ const Spinner: FC<SpinnerProps> = (
                 strokeWidth={`${strokeWidth}px`}
             />
             <circle
-                className="spinner__outer-circle"
                 fill="none"
                 cx={size / 2}
                 cy={size / 2}

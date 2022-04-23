@@ -3,18 +3,15 @@
 // ===============================================
 
 .spinner {
+ stroke: var(--cl-blue);
+
  &__inner-circle {
   stroke: #ccc;
  }
 
- &__outer-circle {
-  stroke: var(--cl-blue);
- }
-
  &--hide-circles {
-  .spinner__inner-circle,
-  .spinner__outer-circle {
-   stroke: transparent;
+  circle {
+   stroke: transparent !important;
   }
  }
 }

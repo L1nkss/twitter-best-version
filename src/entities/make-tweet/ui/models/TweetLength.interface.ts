@@ -1,3 +1,3 @@
-import {TweetLengthEnum} from "./TweetLength.enum";
+import {TweetLength} from "./TweetLength.enum";
 
-export type TweetLengthType = keyof typeof TweetLengthEnum;
+export type TweetLengthTypes = keyof typeof TweetLength;

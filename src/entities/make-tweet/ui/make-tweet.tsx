@@ -1,16 +1,16 @@
 import TwitterTextArea from "../../../shared/ui/twitter-textarea/twitter-textarea";
 import React, {useEffect, useState} from "react";
-import CircleProgress from "../../../shared/ui/circle-progress/circle-progress";
-import {TweetLengthEnum} from "./models/TweetLength.enum";
+import {TweetLength} from "./models/TweetLength.enum";
 import Button from "../../../shared/ui/button/button";
 import cn from "classnames";
+import ProgressBar from "../../../shared/ui/progress-bar/progress-bar";
+import {ProgressBarState} from "./models/ProgressBar.interface";
 
 const MakeTweet = () => {
     const SYMBOL_MAX_LENGTH = 50;
 
     const [value, setValue] = useState<number>(0);
-    const [progressBarColor, setProgressBarColor] = useState<TweetLengthEnum>(TweetLengthEnum.GOOD);
-    const [hideCircles, setHideCircles] = useState<boolean>(true);
+    const [progressBar, setProgressBar] = useState<ProgressBarState>({hideCircles: false, lengthStatus: 'GOOD'})
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
     const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
 
@@ -18,15 +18,15 @@ const MakeTweet = () => {
         const symbolsLeft = SYMBOL_MAX_LENGTH - value;
 
         if (symbolsLeft > 20) {
-            setProgressBarColor(TweetLengthEnum.GOOD);
+            setProgressBar((state) => ({...state, lengthStatus: TweetLength.GOOD}));
         } else if (symbolsLeft <= 20 && symbolsLeft > 0) {
-            setProgressBarColor(TweetLengthEnum.WARNING)
+            setProgressBar((state) => ({...state, lengthStatus: TweetLength.WARNING}));
         } else {
-            setProgressBarColor(TweetLengthEnum.DANGER);
+            setProgressBar((state) => ({...state, lengthStatus: TweetLength.DANGER}));
         }
 
         setIsButtonDisabled(symbolsLeft < 0 || !value);
-        setHideCircles(symbolsLeft < -50);
+        setProgressBar((state) => ({...state, hideCircles: symbolsLeft < -50}));
 
     }, [value])
 
@@ -35,12 +35,20 @@ const MakeTweet = () => {
         getPercentage();
     }
 
-    const getProgressLabel = (): number | undefined => {
-        return progressBarColor === TweetLengthEnum.DANGER ? SYMBOL_MAX_LENGTH - value : undefined;
-    }
-
     const getPercentage = (): number => {
         return value * 100 / SYMBOL_MAX_LENGTH
+    }
+
+    const getProgressBarValue = (): number | undefined => {
+        return progressBar.lengthStatus === TweetLength.GOOD ? undefined : SYMBOL_MAX_LENGTH - value
+    }
+
+    const getProgressBarClasses = () => {
+        return {
+            'spinner--hide-circles': progressBar.hideCircles,
+            'progress-bar--warning': progressBar.lengthStatus === TweetLength.WARNING,
+            'progress-bar--error': progressBar.lengthStatus === TweetLength.DANGER,
+        }
     }
 
     const createTweet = async () => {
@@ -61,12 +69,12 @@ const MakeTweet = () => {
             <div>
                 <div className="flex items-center justify-end">
                     {
-                        !!value && <CircleProgress
+                        !!value && <ProgressBar
                             percentage={getPercentage()}
-                            textValue={getProgressLabel()}
-                            textColor={progressBarColor}
-                            color={progressBarColor}
-                            className={cn({'spinner--hide-circles': hideCircles})}
+                            textValue={getProgressBarValue()}
+                            size={30}
+                            strokeWidth={3}
+                            className={cn(getProgressBarClasses())}
                         />
                     }
 
