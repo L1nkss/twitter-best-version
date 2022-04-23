@@ -13,8 +13,8 @@ export interface SpinnerProps {
 const Spinner: FC<SpinnerProps> = (
     {
         children,
-        size = 30,
-        strokeWidth = 3,
+        size = 20,
+        strokeWidth = 2,
         percentage = 25,
         className = ''
     }: SpinnerProps) => {

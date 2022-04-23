@@ -20,7 +20,7 @@ const Button: FC<ButtonProps> = (
             className={cn("button button--primary", props.className)}
             disabled={props.disabled}>
             {!isLoading && <span>{props.children}</span>}
-            {isLoading && <Spinner size={17} strokeWidth={2} className="rotating" />}
+            {isLoading && <Spinner strokeWidth={2} className="rotating" />}
         </button>
     )
 }
