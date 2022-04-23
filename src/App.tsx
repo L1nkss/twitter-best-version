@@ -10,10 +10,14 @@ import Profile from "./pages/profile/ui/profile";
 import MobileVersion from "./pages/mobile-version/ui/mobile-version";
 import useCheckIsMobile from "./shared/hooks/useIsDeviceMobile";
 import Layout from "./widgets/layout/ui/layout";
+import AnimationPage from "./widgets/animation-page/ui/animation-page";
+import {AnimatePresence} from "framer-motion";
+import {useLocation} from "react-router";
 
 function App() {
     const isMobile = useCheckIsMobile();
     const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const route = isMobile ? '/mobile-version' : '/';
@@ -21,19 +25,21 @@ function App() {
     }, [isMobile])
 
     return (
-        <Routes>
-            <Route path="/" element={<Layout />}>
-                <Route path="home" element={<Home/>}/>
-                <Route path="explore" element={<Explore/>}/>
-                <Route path="notifications" element={<Notifications/>}/>
-                <Route path="messages" element={<Messages/>}/>
-                <Route path="lists" element={<Lists/>}/>
-                <Route path="bookmarks" element={<Bookmarks/>}/>
-                <Route path="profile" element={<Profile/>}/>
-                <Route path="/" element={<Navigate to="/home"/>}/>
-            </Route>
-            <Route path="mobile-version" element={<MobileVersion/>}/>
-        </Routes>
+        <AnimatePresence exitBeforeEnter>
+            <Routes key={location.pathname} location={location}>
+                <Route path="/" element={<Layout />}>
+                    <Route path="home" element={<AnimationPage><Home/></AnimationPage>}/>
+                    <Route path="explore" element={<AnimationPage><Explore/></AnimationPage>}/>
+                    <Route path="notifications" element={<AnimationPage><Notifications/></AnimationPage>}/>
+                    <Route path="messages" element={<AnimationPage><Messages/></AnimationPage>}/>
+                    <Route path="lists" element={<AnimationPage><Lists/></AnimationPage>}/>
+                    <Route path="bookmarks" element={<AnimationPage><Bookmarks/></AnimationPage>}/>
+                    <Route path="profile" element={<AnimationPage><Profile/></AnimationPage>}/>
+                    <Route path="/" element={<Navigate to="/home"/>}/>
+                </Route>
+                <Route path="mobile-version" element={<MobileVersion/>}/>
+            </Routes>
+        </AnimatePresence>
     );
 }
 
