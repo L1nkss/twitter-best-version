@@ -22,7 +22,7 @@
  text-align: center;
  white-space: nowrap;
  color: black;
- border: 0 none;
+ border: 1px solid transparent;
  border-radius: 36px;
  font-size: 13px;
  font-weight: 500;
@@ -36,6 +36,11 @@
  &--primary {
   color: #FFFFFF;
   background: #416dea;
+ }
+
+ &--outline {
+  color: #416dea;
+  border-color: #416dea;
  }
 
  &:disabled {

@@ -1,6 +1,5 @@
 import MakeTwitterContainer from "../../../widgets/make-tweet-container/ui/make-twitter-container";
 import PageHeader from "../../../shared/ui/page-header/page-header";
-import AnimationPage from "../../../widgets/animation-page/ui/animation-page";
 
 const Home = () => {
     return (

@@ -1,23 +1,23 @@
 import React, {FC} from "react";
 import cn from 'classnames';
 import Spinner from "../spinner/spinner";
-
-interface ButtonProps extends React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
-    buttonType?: 'primary' | 'outline';
-    isLoading?: boolean
-}
+import {ButtonProps} from "./models/Button.interface";
 
 const Button: FC<ButtonProps> = (
     {
         buttonType = 'primary',
         isLoading = false,
         ...props
-    }) => {
+    }: ButtonProps) => {
+
+    const getButtonTypeClass = (): string => {
+        return `button--${buttonType}`;
+    }
 
     return (
         <button
             {...props}
-            className={cn("button button--primary", props.className)}
+            className={cn("button", getButtonTypeClass() , props.className)}
             disabled={props.disabled}>
             {!isLoading && <span>{props.children}</span>}
             {isLoading && <Spinner strokeWidth={2} className="rotating" />}

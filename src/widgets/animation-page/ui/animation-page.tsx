@@ -1,4 +1,4 @@
-import {MotionProps, motion, Variants} from "framer-motion";
+import {motion, Variants} from "framer-motion";
 import React, {FC} from "react";
 import {Transition} from "framer-motion/types/types";
 
