@@ -1,0 +1,50 @@
+// ===============================================
+// BUTTON
+// ===============================================
+
+@keyframes rotating {
+ from {
+  transform: rotate(0deg);
+ }
+ to {
+  transform: rotate(360deg);
+ }
+}
+
+.button {
+ display: flex;
+ overflow: hidden;
+ margin: 10px;
+ padding: 12px 12px;
+ cursor: pointer;
+ user-select: none;
+ transition: all 150ms linear;
+ text-align: center;
+ white-space: nowrap;
+ color: black;
+ border: 1px solid transparent;
+ border-radius: 36px;
+ font-size: 13px;
+ font-weight: 500;
+ line-height: 1.3;
+ justify-content: center;
+ align-items: center;
+ flex: 0 0 160px;
+ box-shadow: 2px 5px 10px #e4e4e4;
+ min-height: 44px;
+
+ &--primary {
+  color: #FFFFFF;
+  background: #416dea;
+ }
+
+ &--outline {
+  color: #416dea;
+  border-color: #416dea;
+ }
+
+ &:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+ }
+}

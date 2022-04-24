@@ -1,0 +1,28 @@
+// ===============================================
+// MAIN NAVIGATION
+// ===============================================
+
+
+.main-navigation {
+ &__link {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 23px;
+  color: var(--cl-black-01);
+
+  &--active {
+   color: var(--cl-blue);
+
+   path {
+    fill: currentColor;
+   }
+  }
+
+  svg {
+   margin-right: 20px;
+  }
+ }
+}
