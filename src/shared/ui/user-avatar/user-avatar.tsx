@@ -3,7 +3,8 @@ import {FC} from "react";
 import cn from "classnames"
 
 interface UserAvatarProps {
-    classes?: string
+    classes?: string;
+    avatarUrl?: string;
 }
 
 // todo временный компонент -> переделать
