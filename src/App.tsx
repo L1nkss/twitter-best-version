@@ -13,6 +13,7 @@ import Layout from "./widgets/layout/ui/layout";
 import AnimationPage from "./widgets/animation-page/ui/animation-page";
 import {AnimatePresence} from "framer-motion";
 import {useLocation} from "react-router";
+import {getTimeSince} from "./shared/utils/date-activity";
 
 function App() {
     const isMobile = useCheckIsMobile();

@@ -6,7 +6,7 @@ const Layout = () => {
     return (
         <div className="container flex mx-auto">
             <Navigation/>
-            <main className="grow main-content">
+            <main className="main-content flex-1">
                 <Outlet />
             </main>
         </div>

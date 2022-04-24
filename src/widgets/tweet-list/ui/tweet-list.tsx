@@ -19,6 +19,13 @@ const TweetList = () => {
         return data.length !== 0;
     }
 
+    const sortTweetDate = (first: ITweet, second: ITweet): number => {
+        const firstDate = typeof first.createdAt === 'string' ? new Date(first.createdAt) : first.createdAt;
+        const secondDate = typeof second.createdAt === 'string' ? new Date(second.createdAt) : second.createdAt;
+
+        return new Date(secondDate).getTime() - new Date(firstDate).getTime();
+    }
+
     const createTweetList = () => {
         if (!getArrayHasItems()) {
             return (
@@ -30,16 +37,16 @@ const TweetList = () => {
 
         return (
             <div>
-                {data.map((tweet) => <Tweet key={tweet.id} {...tweet} />)}
+                {data.sort(sortTweetDate).map((tweet) => <Tweet key={tweet.id} {...tweet} />)}
             </div>
         )
     }
 
     return (
-        <div>
+        <>
             {isLoading && getLoadingComponent()}
             {!isLoading && createTweetList()}
-        </div>
+        </>
     )
 }
 

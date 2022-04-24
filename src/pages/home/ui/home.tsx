@@ -4,8 +4,7 @@ import {TweetList} from "../../../widgets/tweet-list/ui/tweet-list";
 
 const Home = () => {
     return (
-        // временный стиль для прокрутки
-        <div style={{height: '2000px'}} className="home-page">
+        <div className="home-page">
             <PageHeader pageName={'Home'} classNames={'home-page__header'} />
             <MakeTwitterContainer classes={'home-page__twit-form'} />
             <TweetList />

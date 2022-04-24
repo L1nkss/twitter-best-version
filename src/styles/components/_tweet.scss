@@ -1,0 +1,24 @@
+// ===============================================
+// TWEET
+// ===============================================
+
+.tweet {
+ border-color: rgb(239, 243, 244);
+ border-style: solid;
+ border-bottom-width: 1px;
+
+ &:hover {
+  background-color: rgba(#EBEEF0, .4);
+  cursor: pointer;
+ }
+
+ &__header-data {
+  color: #5B7083;
+  font-size: 15px;
+  font-weight: 500;
+ }
+
+ &__action {
+  max-width: 425px;
+ }
+}
