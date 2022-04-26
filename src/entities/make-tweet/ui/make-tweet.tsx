@@ -19,7 +19,8 @@ const MakeTweet:FC<MakeTweetProps> = ({addNewTweet}) => {
     const [value, setValue] = useState<string>('');
     const [progressBar, setProgressBar] = useState<ProgressBarState>({hideCircles: false, lengthStatus: 'GOOD'})
     const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
-    const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
+    const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false);
+    const userData = JSON.parse(localStorage.getItem('userTwitterData') || '');
 
     useEffect(() => {
         const symbolsLeft = SYMBOL_MAX_LENGTH - value.length;
@@ -66,9 +67,9 @@ const MakeTweet:FC<MakeTweetProps> = ({addNewTweet}) => {
                 createdAt: new Date(),
                 content: value,
                 userInfo: {
-                    userName: 'L1nksss',
+                    userName: userData.login,
                     isVerify: true,
-                    name: "Sergey Kharlov"
+                    name: userData.name
                 },
                 tweetInfo: {
                     comments: 0,
