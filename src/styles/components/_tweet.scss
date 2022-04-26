@@ -26,8 +26,64 @@
   max-width: 425px;
  }
 
+ &__action-item {
+  position: relative;
+  &:hover {
+   &.tweet__action-item--comment {
+    color: rgb(24, 155, 240);
+
+    .tweet__circle {
+     background-color: rgba(24, 155, 240, .1);
+    }
+   }
+
+   &.tweet__action-item--retweet {
+    color: rgb(0, 186, 124);
+
+    .tweet__circle {
+     background-color: rgba(0, 186, 124, .1);
+    }
+   }
+
+   &.tweet__action-item--likes {
+    color: rgb(249, 24, 128);
+
+    .tweet__circle {
+     background-color: rgba(249, 24, 128, .1);
+    }
+   }
+
+   &.tweet__action-item--share {
+    color: rgb(29, 155, 240);
+
+    .tweet__circle {
+     background-color: rgba(29, 155, 240, .1);
+    }
+   }
+  }
+ }
+
  &__button {
   display: none;
+ }
+
+ &__svg {
+  path {
+   fill: currentColor;
+  }
+ }
+
+ &__circle {
+  background-color: rgba(0, 0, 0, 0);
+  position: absolute;
+  top: 0;
+  font-size: 15px;
+  line-height: 20px;
+  border-radius: 9999px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: -8px; // хз как это работает
  }
 }
 

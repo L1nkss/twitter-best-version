@@ -32,7 +32,7 @@ const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
         <div className="flex tweet p-4">
             <UserAvatar avatarUrl={props.userInfo.avatarUrl} classes="mr-3"/>
             <div className="w-full">
-                <div className="flex items-end mb-2">
+                <div className="flex items-end">
                     <h2 className="font-bold mr-1">{props.userInfo.name}</h2>
                     {/* Иконка если Verify*/}
                     <p className="tweet__header-data mr-1">@{props.userInfo.userName}</p>
@@ -47,24 +47,36 @@ const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
                     <p>{props.content}</p>
                 </div>
 
-                <div className="flex justify-between tweet__action">
-                    <div className="flex items-center">
-                        <CommentSvg className="mr-2.5" />
+                <div className="flex justify-between tweet__action mt-3">
+                    <div className="flex items-center tweet__action-item tweet__action-item--comment">
+                        <div className="inline-flex relative mr-2.5">
+                            <div className="tweet__circle" />
+                            <CommentSvg className="tweet__svg" />
+                        </div>
                         {props.tweetInfo.comments !== 0 && <span className="text-xs">{props.tweetInfo.comments}</span>}
                     </div>
 
-                    <div className="flex items-center">
-                        <RetweetSvg className="mr-2.5" />
+                    <div className="flex items-center tweet__action-item tweet__action-item--retweet">
+                        <div className="inline-flex relative mr-2.5">
+                            <div className="tweet__circle" />
+                            <RetweetSvg className="tweet__svg" />
+                        </div>
                         {props.tweetInfo.retweets !== 0 && <span  className="text-xs">{props.tweetInfo.retweets}</span>}
                     </div>
 
-                    <div className="flex items-center">
-                        <LikeSvg className="mr-2.5" />
+                    <div className="flex items-center tweet__action-item tweet__action-item--likes">
+                        <div className="inline-flex relative mr-2.5">
+                            <div className="tweet__circle" />
+                            <LikeSvg className="tweet__svg" />
+                        </div>
                         {props.tweetInfo.likes !== 0 && <span  className="text-xs">{props.tweetInfo.likes}</span>}
                     </div>
 
-                    <div className="flex items-center">
-                        <ShareSvg className="mr-2.5" />
+                    <div className="flex items-center tweet__action-item  tweet__action-item--share">
+                        <div className="inline-flex relative mr-2.5">
+                            <div className="tweet__circle" />
+                            <ShareSvg className="tweet__svg" />
+                        </div>
                     </div>
                 </div>
             </div>
