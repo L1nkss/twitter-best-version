@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useContext} from "react";
 import {ITweet} from "../types/Tweet.interface";
 import UserAvatar from "../../../shared/ui/user-avatar/user-avatar";
 import {getTimeSince} from "../../../shared/utils/date-activity";
@@ -6,13 +6,22 @@ import axios from "axios";
 
 import {ReactComponent as CommentSvg} from "../assets/comment-svg.svg";
 import {ReactComponent as LikeSvg} from "../assets/like-svg.svg";
+import {ReactComponent as LikedSvg} from "../assets/liked-svg.svg";
 import {ReactComponent as RetweetSvg} from "../assets/retweet-svg.svg";
 import {ReactComponent as ShareSvg} from "../assets/share-svg.svg";
+import {Context} from "../../../widgets/context/ui/context";
 
 // Выглядит херово
 const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
+    const {likeTweet} = useContext(Context);
+    const userData = JSON.parse(localStorage.getItem('userTwitterData') || '');
+
     const hasAccessToDelete = (): boolean => {
         return props.userInfo.userName === 'L1nksss';
+    }
+
+    const isTweetLiked = (): boolean => {
+        return userData.likedTweets.includes(props.id);
     }
 
     // todo Переделать на Popup с удалением и передачей туда id
@@ -64,10 +73,10 @@ const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
                         {props.tweetInfo.retweets !== 0 && <span  className="text-xs">{props.tweetInfo.retweets}</span>}
                     </div>
 
-                    <div className="flex items-center tweet__action-item tweet__action-item--likes">
+                    <div className="flex items-center tweet__action-item tweet__action-item--likes" onClick={() => likeTweet(props.id, isTweetLiked())}>
                         <div className="inline-flex relative mr-2.5">
                             <div className="tweet__circle" />
-                            <LikeSvg className="tweet__svg" />
+                            { isTweetLiked() ? <LikedSvg /> : <LikeSvg className="tweet__svg" /> }
                         </div>
                         {props.tweetInfo.likes !== 0 && <span  className="text-xs">{props.tweetInfo.likes}</span>}
                     </div>
