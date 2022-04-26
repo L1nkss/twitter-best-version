@@ -44,15 +44,14 @@ const Home = () => {
         try {
             const response = await axios.put<ITweet>(`https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet/${id}`, updatedTweet, {withCredentials: false})
 
-            console.log('userData', userData);
             if (response.status === 200) {
 
                 // Нужно ли новый массив и объект?
                 if (isAlreadyLiked) {
-                    const userLikedTweetId = userData.likedTweets.findIndex((twId: string) => twId === id);
+                    const userLikedTweetId = userData.likedTweets.findIndex((tw: ITweet) => tw.id === id);
                     userData.likedTweets = [...userData.likedTweets.slice(0, userLikedTweetId), ...userData.likedTweets.slice(userLikedTweetId + 1)]
                 } else {
-                    userData.likedTweets.push(id);
+                    userData.likedTweets.push(updatedTweet);
                 }
                 localStorage.setItem('userTwitterData', JSON.stringify(userData))
                 setTweets((state) => [...state.slice(0, idx), updatedTweet, ...state.slice(idx + 1)])

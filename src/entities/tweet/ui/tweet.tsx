@@ -21,7 +21,8 @@ const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
     }
 
     const isTweetLiked = (): boolean => {
-        return userData.likedTweets.includes(props.id);
+        // return userData.likedTweets.includes(props.id);
+        return userData.likedTweets.findIndex((tw: ITweet) => tw.id === props.id) !== -1;
     }
 
     // todo Переделать на Popup с удалением и передачей туда id
