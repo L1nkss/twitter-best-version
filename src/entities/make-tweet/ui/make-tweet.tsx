@@ -1,5 +1,5 @@
 import TwitterTextArea from "../../../shared/ui/twitter-textarea/twitter-textarea";
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {TweetLength} from "./models/TweetLength.enum";
 import Button from "../../../shared/ui/button/button";
 import cn from "classnames";
@@ -8,7 +8,12 @@ import {ProgressBarState} from "./models/ProgressBar.interface";
 import axios from "axios";
 import {ITweet} from "../../tweet/types/Tweet.interface";
 
-const MakeTweet = () => {
+// Возможно неправильно
+interface MakeTweetProps {
+    addNewTweet?: (tweet: ITweet) => void
+}
+
+const MakeTweet:FC<MakeTweetProps> = ({addNewTweet}) => {
     const SYMBOL_MAX_LENGTH = 50;
 
     const [value, setValue] = useState<string>('');
@@ -55,7 +60,7 @@ const MakeTweet = () => {
 
     const createTweet = async () => {
         setIsTweetCreating(true);
-        // Какая то логика создания твита
+
         try {
             const response = await axios.post<ITweet>('https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet', {
                 createdAt: new Date(),
@@ -70,11 +75,11 @@ const MakeTweet = () => {
                     likes: 0,
                     retweets: 0,
                 }
-            })
-            console.log('RESPONSE', response)
-            // setTimeout(() => {
-            //     setIsTweetCreating(false);
-            // }, 3000)
+            });
+
+            if (response.status === 201 && addNewTweet) {
+                addNewTweet(response.data)
+            }
         } catch (err) {
             console.log('error', err)
         } finally {

@@ -22,3 +22,13 @@
   max-width: 425px;
  }
 }
+
+// Анимация
+.tweet-enter {
+ transform: translateY(-100%);
+}
+
+.tweet-enter-active {
+ transform: translateY(0);
+ transition: transform 500ms ease-out;
+}
