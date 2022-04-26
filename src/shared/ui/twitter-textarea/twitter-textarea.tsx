@@ -4,27 +4,30 @@ import cn from "classnames";
 interface TwitterTextAreaProps {
     placeholder?: string;
     onChangeHandler?: (...rest: any) => any;
-    classes?: string
+    classes?: string;
+    value: string
 }
 
 const TwitterTextArea: FC<TwitterTextAreaProps> = (
     {
         placeholder = 'What`s happening?',
         onChangeHandler = () => {},
-        classes = ''
+        classes = '',
+        value
     }: TwitterTextAreaProps) => {
-    const [value, setValue] = useState<string>('');
     const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true);
     const textareaRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        setShowPlaceholder(!Boolean(value))
+        setShowPlaceholder(!Boolean(value));
+
+        if (!value && textareaRef.current) {
+            textareaRef.current.innerText = "";
+        }
     }, [value])
 
     const changeHandler = () => {
         if (textareaRef.current) {
-            setValue(textareaRef.current.innerText);
-
             onChangeHandler(textareaRef.current.innerText);
         }
     }

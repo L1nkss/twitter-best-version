@@ -78,7 +78,8 @@ const MakeTweet:FC<MakeTweetProps> = ({addNewTweet}) => {
             });
 
             if (response.status === 201 && addNewTweet) {
-                addNewTweet(response.data)
+                addNewTweet(response.data);
+                setValue(() => "");
             }
         } catch (err) {
             console.log('error', err)
@@ -89,7 +90,7 @@ const MakeTweet:FC<MakeTweetProps> = ({addNewTweet}) => {
 
     return (
         <div className="w-full make-tweet">
-            <TwitterTextArea onChangeHandler={onChange} classes={'make-tweet__textarea'} />
+            <TwitterTextArea value={value} onChangeHandler={onChange} classes={'make-tweet__textarea'} />
             <div>
                 <div className="flex items-center justify-end">
                     {
