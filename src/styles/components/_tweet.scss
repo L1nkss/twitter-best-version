@@ -10,6 +10,10 @@
  &:hover {
   background-color: rgba(#EBEEF0, .4);
   cursor: pointer;
+
+  .tweet__button {
+   display: block;
+  }
  }
 
  &__header-data {
@@ -21,6 +25,10 @@
  &__action {
   max-width: 425px;
  }
+
+ &__button {
+  display: none;
+ }
 }
 
 // Анимация
@@ -30,5 +38,14 @@
 
 .tweet-enter-active {
  transform: translateY(0);
+ transition: transform 500ms ease-out;
+}
+
+.tweet-exit {
+ transform: translateY(0);
+}
+
+.tweet-exit-active {
+ transform: translateY(-100%);
  transition: transform 500ms ease-out;
 }

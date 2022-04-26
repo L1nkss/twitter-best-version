@@ -27,6 +27,11 @@ const Home = () => {
         setTweets((state) => [...state, tweet]);
     }
 
+    const deleteTweet = (id: string): void => {
+        const idx = tweets.findIndex((tweet) => tweet.id === id);
+        setTweets((state) => [...state.slice(0, idx), ...state.slice(idx + 1)]);
+    }
+
     return (
         <div className="home-page">
             <PageHeader pageName={'Home'} classNames={'home-page__header'} />
@@ -34,7 +39,7 @@ const Home = () => {
                 <UserAvatar classes="mr-3" />
                 <MakeTweet addNewTweet={addNewTweet} />
             </div>
-            { isLoading ? getLoadingComponent() : <TweetList tweets={tweets} />}
+            { isLoading ? getLoadingComponent() : <TweetList tweets={tweets} deleteTweet={deleteTweet} />}
         </div>
     )
 }
