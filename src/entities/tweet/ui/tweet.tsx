@@ -4,6 +4,11 @@ import UserAvatar from "../../../shared/ui/user-avatar/user-avatar";
 import {getTimeSince} from "../../../shared/utils/date-activity";
 import axios from "axios";
 
+import {ReactComponent as CommentSvg} from "../assets/comment-svg.svg";
+import {ReactComponent as LikeSvg} from "../assets/like-svg.svg";
+import {ReactComponent as RetweetSvg} from "../assets/retweet-svg.svg";
+import {ReactComponent as ShareSvg} from "../assets/share-svg.svg";
+
 // Выглядит херово
 const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
     const hasAccessToDelete = (): boolean => {
@@ -43,10 +48,24 @@ const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
                 </div>
 
                 <div className="flex justify-between tweet__action">
-                    <p>{props.tweetInfo.comments}</p>
-                    <p>{props.tweetInfo.likes}</p>
-                    <p>{props.tweetInfo.retweets}</p>
-                    {/*  Shared  */}
+                    <div className="flex items-center">
+                        <CommentSvg className="mr-2.5" />
+                        {props.tweetInfo.comments !== 0 && <span className="text-xs">{props.tweetInfo.comments}</span>}
+                    </div>
+
+                    <div className="flex items-center">
+                        <RetweetSvg className="mr-2.5" />
+                        {props.tweetInfo.retweets !== 0 && <span  className="text-xs">{props.tweetInfo.retweets}</span>}
+                    </div>
+
+                    <div className="flex items-center">
+                        <LikeSvg className="mr-2.5" />
+                        {props.tweetInfo.likes !== 0 && <span  className="text-xs">{props.tweetInfo.likes}</span>}
+                    </div>
+
+                    <div className="flex items-center">
+                        <ShareSvg className="mr-2.5" />
+                    </div>
                 </div>
             </div>
         </div>
