@@ -2,17 +2,33 @@ import {ChangeEvent, useRef, useState} from "react";
 import Button from "../../../shared/ui/button/button";
 import {Navigate} from "react-router";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {ITweet} from "../../../entities/tweet/types/Tweet.interface";
+import {IUser} from "../../../shared/models/interfaces/IUser";
 
 const Login = () => {
     const [name, setName] = useState<string>('');
-    const [login, setLogin] = useState<string>('');
+    const [userName, setUserName] = useState<string>('');
     const navigate = useNavigate();
 
 
-    const loginButtonClick = (): void => {
-        localStorage.setItem('userTwitterData', JSON.stringify({name, login}));
+    const loginButtonClick = async (): Promise<any> => {
+        try {
+            //
+            const response = await axios.post<IUser>('https://62657cf194374a2c5070d523.mockapi.io/api/v1/User', {
+                createdAt: new Date(),
+                name,
+                userName
+            })
 
-        navigate('/');
+            if (response.status === 201) {
+                localStorage.setItem('userTwitterData', JSON.stringify(response.data));
+            }
+
+            navigate('/');
+        } catch (e) {
+            console.log('e', e)
+        }
     }
 
     return (
@@ -23,7 +39,7 @@ const Login = () => {
             </div>
             <div>
                 <label htmlFor="login">Логин</label>
-                <input type="text" id="login" onChange={e => setLogin(e.target.value)} />
+                <input type="text" id="login" onChange={e => setUserName(e.target.value)} />
             </div>
 
             <Button onClick={loginButtonClick}>Логин</Button>
