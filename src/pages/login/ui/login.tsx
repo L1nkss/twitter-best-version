@@ -10,7 +10,7 @@ const Login = () => {
 
 
     const loginButtonClick = (): void => {
-        localStorage.setItem('userTwitterData', JSON.stringify({name, login}));
+        localStorage.setItem('userTwitterData', JSON.stringify({name, login, likedTweets: []}));
 
         navigate('/');
     }
