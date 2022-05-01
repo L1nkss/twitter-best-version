@@ -16,17 +16,19 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <div>
-                <label htmlFor="name">Name</label>
-                <input type="text" id="name" onChange={e => setName(e.target.value)}/>
-            </div>
-            <div>
-                <label htmlFor="login">Логин</label>
-                <input type="text" id="login" onChange={e => setLogin(e.target.value)} />
-            </div>
+        <div className="w-screen h-screen flex align-center justify-center items-center">
+            <form>
+                <div>
+                    <label htmlFor="name">Name</label>
+                    <input type="text" id="name" onChange={e => setName(e.target.value)}/>
+                </div>
+                <div>
+                    <label htmlFor="login">Логин</label>
+                    <input type="text" id="login" onChange={e => setLogin(e.target.value)} />
+                </div>
 
-            <Button onClick={loginButtonClick}>Логин</Button>
+                <Button onClick={loginButtonClick}>Логин</Button>
+            </form>
         </div>
     )
 }
