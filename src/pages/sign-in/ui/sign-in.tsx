@@ -1,6 +1,5 @@
-import {ChangeEvent, FormEvent, FormEventHandler, useRef, useState} from "react";
+import {FormEvent, useState} from "react";
 import Button from "../../../shared/ui/button/button";
-import {Navigate} from "react-router";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import {IUser} from "../../../shared/models/interfaces/User.interface";

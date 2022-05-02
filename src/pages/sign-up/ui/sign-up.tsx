@@ -1,7 +1,6 @@
 import Button from "../../../shared/ui/button/button";
-import {FormEvent, useId, useState} from "react";
+import {FormEvent, useState} from "react";
 import axios from "axios";
-import {ITweet} from "../../../entities/tweet/types/Tweet.interface";
 import {IUser} from "../../../shared/models/interfaces/User.interface";
 import {useNavigate} from "react-router-dom";
 
@@ -15,11 +14,6 @@ const SignUp = () => {
         evt.preventDefault();
 
         setIsSigningUp(true);
-        // createdAt: Date
-        // id: string
-        // likedTweets: Array<string>
-        // name: string
-        // userName: string
         try {
             const response = await axios.post<IUser>('https://62657cf194374a2c5070d523.mockapi.io/api/v1/User', {
                 createdAt: new Date(),

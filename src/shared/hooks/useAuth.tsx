@@ -5,8 +5,6 @@ const useAuth = () => {
     const userData = localStorage.getItem('userTwitterData');
 
     useEffect(() => {
-        console.log('userData', userData);
-
         if (userData) {
             setIsAuth(true);
         }

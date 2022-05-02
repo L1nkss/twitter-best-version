@@ -20,7 +20,6 @@ const Bookmarks = () => {
     return (
         <div>
             <PageHeader pageName={'Bookmarks Page'} />
-
             { isLoading ? getLoadingComponent() : <TweetList tweets={data} />}
         </div>
     )
