@@ -12,6 +12,7 @@ import axios from "axios";
 const Home = () => {
     const [isLoading, data] = useFetch<ITweet[]>("https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet", []);
     const [tweets, setTweets] = useState<ITweet[]>([]);
+    const userData = JSON.parse(localStorage.getItem('userTwitterData') || '');
 
     useEffect(() => {
         setTweets(data);
@@ -74,7 +75,7 @@ const Home = () => {
 
             <Context.Provider value={{likeTweet}}>
                 <div className="flex p-4 home-page__twit-form">
-                    <UserAvatar classes="mr-3" />
+                    <UserAvatar classes="mr-3" avatarUrl={userData.avatarUrl} />
                     <MakeTweet addNewTweet={addNewTweet} />
                 </div>
                 { isLoading ? getLoadingComponent() : <TweetList tweets={tweets} deleteTweet={deleteTweet} />}

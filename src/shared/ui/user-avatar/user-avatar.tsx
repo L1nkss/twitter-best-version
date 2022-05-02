@@ -8,10 +8,10 @@ interface UserAvatarProps {
 }
 
 // todo временный компонент -> переделать
-const UserAvatar: FC<UserAvatarProps> = ({classes = ''}: UserAvatarProps) => {
+const UserAvatar: FC<UserAvatarProps> = ({classes = '', avatarUrl}: UserAvatarProps) => {
     return (
         <div className={cn('user-avatar', classes)}>
-            <img src={avatar} alt=""/>
+            <img src={avatarUrl} alt=""/>
         </div>
     )
 }

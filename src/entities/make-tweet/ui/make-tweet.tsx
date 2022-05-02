@@ -69,7 +69,8 @@ const MakeTweet:FC<MakeTweetProps> = ({addNewTweet}) => {
                 userInfo: {
                     userName: userData.userName,
                     isVerify: true,
-                    name: userData.name
+                    name: userData.name,
+                    avatarUrl: userData.avatarUrl
                 },
                 tweetInfo: {
                     comments: 0,
