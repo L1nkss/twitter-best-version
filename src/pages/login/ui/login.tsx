@@ -1,33 +1,56 @@
-import {ChangeEvent, useRef, useState} from "react";
+import {ChangeEvent, FormEvent, FormEventHandler, useRef, useState} from "react";
 import Button from "../../../shared/ui/button/button";
 import {Navigate} from "react-router";
 import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import {IUser} from "../../../shared/models/interfaces/User.interface";
 
 const Login = () => {
-    const [name, setName] = useState<string>('');
+    // TODO добавить поле пароль, когда будет авторизация через firebase
     const [login, setLogin] = useState<string>('');
+    const [isLogging, setIsLogging] = useState<boolean>(false)
     const navigate = useNavigate();
 
 
-    const loginButtonClick = (): void => {
-        localStorage.setItem('userTwitterData', JSON.stringify({name, login, likedTweets: []}));
+    const handleLoginSubmit = async (event: FormEvent): Promise<any> => {
+        event.preventDefault();
+        setIsLogging(true);
 
-        navigate('/');
+        try {
+            const response = await axios.get<IUser[]>('https://62657cf194374a2c5070d523.mockapi.io/api/v1/User');
+
+            response.data.forEach((user) => {
+                if (user.userName === login) {
+                    localStorage.setItem('userTwitterData', JSON.stringify({login, likedTweets: []}));
+                    navigate('/');
+                }
+            })
+        } catch (err) {
+            console.log('err', err)
+        } finally {
+            setIsLogging(false)
+        }
     }
 
     return (
         <div className="w-screen h-screen flex align-center justify-center items-center">
-            <form>
-                <div>
-                    <label htmlFor="name">Name</label>
-                    <input type="text" id="name" onChange={e => setName(e.target.value)}/>
-                </div>
-                <div>
-                    <label htmlFor="login">Логин</label>
-                    <input type="text" id="login" onChange={e => setLogin(e.target.value)} />
-                </div>
+            <form onSubmit={handleLoginSubmit}>
+                <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
+                    <div className="space-y-4">
+                        <h1 className="text-center text-2xl font-semibold text-gray-600">Login</h1>
+                        <div>
+                            <label htmlFor="login" className="block mb-1 text-gray-600 font-semibold">Login</label>
+                            <input
+                                id="login"
+                                type="text"
+                                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                                onChange={e => setLogin(e.target.value)}
+                            />
+                        </div>
 
-                <Button onClick={loginButtonClick}>Логин</Button>
+                        <Button type="submit" className="w-full" buttonType="rounded" isLoading={isLogging}>Логин</Button>
+                    </div>
+                </div>
             </form>
         </div>
     )
