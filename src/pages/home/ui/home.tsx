@@ -2,7 +2,7 @@ import PageHeader from "../../../shared/ui/page-header/page-header";
 import {TweetList} from "../../../widgets/tweet-list/ui/tweet-list";
 import {useFetch} from "../../../shared/hooks/useFetch";
 import {ITweet} from "../../../entities/tweet/types/Tweet.interface";
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Spinner from "../../../shared/ui/spinner/spinner";
 import UserAvatar from "../../../shared/ui/user-avatar/user-avatar";
 import MakeTweet from "../../../entities/make-tweet/ui/make-tweet";

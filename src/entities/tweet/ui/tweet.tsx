@@ -17,7 +17,7 @@ const Tweet: FC<ITweet & {deleteTweet?: (id: string) => void}> = (props) => {
     const userData = JSON.parse(localStorage.getItem('userTwitterData') || '');
 
     const hasAccessToDelete = (): boolean => {
-        return props.userInfo.userName === 'L1nksss';
+        return props.userInfo.userName === userData.userName;
     }
 
     const isTweetLiked = (): boolean => {
