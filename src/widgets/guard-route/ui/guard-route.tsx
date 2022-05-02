@@ -8,7 +8,7 @@ interface GuardRouteProps {
     redirectUrl?: string,
 }
 
-const GuardRoute:FC<GuardRouteProps> = ({isAllowed, children, redirectUrl = '/login'}) => {
+const GuardRoute:FC<GuardRouteProps> = ({isAllowed, children, redirectUrl = '/sign-in'}) => {
     if (!isAllowed) {
         return <Navigate to={redirectUrl} replace />
     }

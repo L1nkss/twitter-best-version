@@ -13,9 +13,10 @@ import Layout from "./widgets/layout/ui/layout";
 import AnimationPage from "./widgets/animation-page/ui/animation-page";
 import {AnimatePresence} from "framer-motion";
 import {useLocation} from "react-router";
-import Login from "./pages/login/ui/login";
+import SignIn from "./pages/sign-in/ui/sign-in";
 import GuardRoute from "./widgets/guard-route/ui/guard-route";
 import useAuth from "./shared/hooks/useAuth";
+import SignUp from "./pages/sign-up/ui/sign-up";
 
 function App() {
     const isMobile = useCheckIsMobile();
@@ -42,7 +43,8 @@ function App() {
                     <Route path="profile" element={<AnimationPage><Profile/></AnimationPage>}/>
                     <Route path="/" element={<Navigate to="/home"/>}/>
                 </Route>
-                <Route path="login" element={<Login />}/>
+                <Route path="sign-in" element={<SignIn />}/>
+                <Route path="sign-up" element={<SignUp />}/>
                 <Route path="mobile-version" element={<MobileVersion/>}/>
             </Routes>
         </AnimatePresence>
