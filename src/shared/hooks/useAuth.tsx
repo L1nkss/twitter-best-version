@@ -2,14 +2,15 @@ import {useEffect, useState} from "react";
 
 const useAuth = () => {
     const [isAuth, setIsAuth] = useState<boolean>(false);
+    const userData = localStorage.getItem('userTwitterData');
 
     useEffect(() => {
-        const userData = localStorage.getItem('userTwitterData');
+        console.log('userData', userData);
 
         if (userData) {
             setIsAuth(true);
         }
-    }, [])
+    }, [userData])
 
     return [isAuth];
 }
