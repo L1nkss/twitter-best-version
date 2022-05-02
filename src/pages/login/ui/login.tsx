@@ -21,7 +21,7 @@ const Login = () => {
 
             response.data.forEach((user) => {
                 if (user.userName === login) {
-                    localStorage.setItem('userTwitterData', JSON.stringify({login, likedTweets: []}));
+                    localStorage.setItem('userTwitterData', JSON.stringify({...user}));
                     navigate('/');
                 }
             })

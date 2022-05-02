@@ -48,12 +48,17 @@ const Home = () => {
 
                 // Нужно ли новый массив и объект?
                 if (isAlreadyLiked) {
-                    const userLikedTweetId = userData.likedTweets.findIndex((tw: ITweet) => tw.id === id);
+                    const userLikedTweetId = userData.likedTweets.findIndex((twId: string) => twId === id);
                     userData.likedTweets = [...userData.likedTweets.slice(0, userLikedTweetId), ...userData.likedTweets.slice(userLikedTweetId + 1)]
                 } else {
-                    userData.likedTweets.push(updatedTweet);
+                    userData.likedTweets.push(updatedTweet.id);
                 }
-                localStorage.setItem('userTwitterData', JSON.stringify(userData))
+            }
+
+            const userResponse = await axios.put(`https://62657cf194374a2c5070d523.mockapi.io/api/v1/User/${userData.id}`, userData, {withCredentials: false})
+
+            if (userResponse.status === 200) {
+                localStorage.setItem('userTwitterData', JSON.stringify(userData));
                 setTweets((state) => [...state.slice(0, idx), updatedTweet, ...state.slice(idx + 1)])
             }
         } catch (e) {
