@@ -47,10 +47,13 @@ const SignIn = () => {
                             />
                         </div>
 
-                        <Button type="submit" className="w-full" buttonType="rounded" isLoading={isLogging}>Логин</Button>
+                        <div className="text-center">
+                            <Button type="submit" className="w-full flex-initial" buttonType="rounded" isLoading={isLogging}>Sign in</Button>
+                            <span className="inline-block my-1.5">or</span>
+                            <Button className="w-full flex-initial" buttonType="rounded" onClick={() => navigate('/sign-up')}>Sign up</Button>
+                        </div>
                     </div>
                 </div>
-                <Button onClick={() => navigate('/sign-up')}>регистрация</Button>
             </form>
         </div>
     )
