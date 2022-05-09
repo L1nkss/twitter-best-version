@@ -2,15 +2,14 @@
 // NAVIGATION
 // ===============================================
 
-
 .navigation {
- width: 280px;
+  width: 280px;
 
- &__wrapper {
-  position: fixed;
- }
+  &__wrapper {
+    position: fixed;
+  }
 
- &__header {
-  padding: 12px 10px;
- }
+  &__header {
+    padding: 12px 10px;
+  }
 }

@@ -2,31 +2,30 @@
 // TWITTER TEXTAREA
 // ===============================================
 
-
 .twitter-textarea {
- position: relative;
- padding-bottom: 32px;
- padding-top: 10px;
+  position: relative;
+  padding-bottom: 32px;
+  padding-top: 10px;
 
- &__placeholder {
-  position: absolute;
-  z-index: -1;
-  color: #5B7083;
-  font-weight: 500;
-  font-size: 20px;
- }
-
- &__text {
-  max-width: 900px;
-  max-height: 750px;
-  overflow-y: auto;
-  color: #5B7083;
-  font-weight: 500;
-  font-size: 20px;
-
-  &:focus,
-  &:focus-visible {
-   outline: none;
+  &__placeholder {
+    position: absolute;
+    z-index: -1;
+    color: #5b7083;
+    font-weight: 500;
+    font-size: 20px;
   }
- }
+
+  &__text {
+    max-width: 900px;
+    max-height: 750px;
+    overflow-y: auto;
+    color: #5b7083;
+    font-weight: 500;
+    font-size: 20px;
+
+    &:focus,
+    &:focus-visible {
+      outline: none;
+    }
+  }
 }

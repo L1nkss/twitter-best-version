@@ -1,25 +1,24 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-import {listenerOn, listenerOff} from "../utils/listeners";
-import {Breakpoints} from "../models/enums/breakpoint";
+import { listenerOn, listenerOff } from "../utils/listeners";
+import { Breakpoints } from "../models/enums/breakpoint";
 
 const useCheckIsMobile = () => {
-    const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth < Breakpoints.xlg);
-        }
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < Breakpoints.xlg);
+    };
 
-        listenerOn(window, "resize", handleResize);
+    listenerOn(window, "resize", handleResize);
 
-        handleResize();
+    handleResize();
 
-        return () => listenerOff(window, "resize", handleResize);
+    return () => listenerOff(window, "resize", handleResize);
+  }, []);
 
-    }, [])
-
-    return isMobile;
-}
+  return isMobile;
+};
 
 export default useCheckIsMobile;
