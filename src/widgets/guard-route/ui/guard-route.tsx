@@ -1,20 +1,23 @@
-import React, {FC} from "react";
-import {Navigate, Route} from "react-router";
-import {Outlet} from "react-router-dom";
+import React, { FC } from "react";
+import { Navigate } from "react-router";
+import { Outlet } from "react-router-dom";
 
 interface GuardRouteProps {
-    isAllowed: boolean,
-    children: React.ReactElement
-    redirectUrl?: string,
+  isAllowed: boolean;
+  children: React.ReactElement;
+  redirectUrl?: string;
 }
 
-const GuardRoute:FC<GuardRouteProps> = ({isAllowed, children, redirectUrl = '/login'}) => {
-    if (!isAllowed) {
-        return <Navigate to={redirectUrl} replace />
-    }
+const GuardRoute: FC<GuardRouteProps> = ({
+  isAllowed,
+  children,
+  redirectUrl = "/sign-in",
+}) => {
+  if (!isAllowed) {
+    return <Navigate to={redirectUrl} replace />;
+  }
 
-    return children ? children : <Outlet />
-}
+  return children ? children : <Outlet />;
+};
 
-
-export default GuardRoute
+export default GuardRoute;

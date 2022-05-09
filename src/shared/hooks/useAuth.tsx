@@ -1,17 +1,16 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
 const useAuth = () => {
-    const [isAuth, setIsAuth] = useState<boolean>(false);
+  const [isAuth, setIsAuth] = useState<boolean>(false);
+  const userData = localStorage.getItem("userTwitterData");
 
-    useEffect(() => {
-        const userData = localStorage.getItem('userTwitterData');
+  useEffect(() => {
+    if (userData) {
+      setIsAuth(true);
+    }
+  }, [userData]);
 
-        if (userData) {
-            setIsAuth(true);
-        }
-    }, [])
-
-    return [isAuth];
-}
+  return [isAuth];
+};
 
 export default useAuth;
