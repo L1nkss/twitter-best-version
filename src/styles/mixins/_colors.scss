@@ -1,9 +1,8 @@
 // ===============================================
 // COLOR MIXINS
 // ===============================================
-@use 'sass:string';
-@use 'sass:list';
-
+@use "sass:string";
+@use "sass:list";
 
 /*
 	Create CSS custom properties from color map.
@@ -18,20 +17,19 @@
 	INFO: One '@each' expression were split into two to achieve
 	more readability of custom properties in a dev tools.
 */
-@mixin get-colors($map, $prefix: 'cl') {
- @each $prop, $val in $map {
-  $val: red($val) + ', ' + green($val) + ', ' + blue($val);
+@mixin get-colors($map, $prefix: "cl") {
+  @each $prop, $val in $map {
+    $val: red($val) + ", " + green($val) + ", " + blue($val);
 
-  #{'--' + $prop}: string.unquote($val);
- }
+    #{'--' + $prop}: string.unquote($val);
+  }
 
- @each $prop in $map {
-  $prop: list.nth($prop, 1);
+  @each $prop in $map {
+    $prop: list.nth($prop, 1);
 
-  #{'--' + $prefix + '-' + $prop}: rgb(var(#{'--' + $prop}));
- }
+    #{'--' + $prefix + '-' + $prop}: rgb(var(#{"--" + $prop}));
+  }
 }
-
 
 /*
 	Create RGBA custom property from given color.
@@ -47,20 +45,26 @@
 	--ca-blue-10-20: rgba(var(--blue-10), .3)
 	--ca-blue-10-30: rgba(var(--blue-10), .1)
 */
-@mixin get-alpha($palette, $cl, $ca, $prefix: 'ca') {
- $i: 10;
+@mixin get-alpha($palette, $cl, $ca, $prefix: "ca") {
+  $i: 10;
 
- @if (type-of($ca) == list) {
-  @each $alpha in $ca {
-   #{'--' + $prefix + '-' + $cl + '-' + $i}: rgba(var(#{'--' + $cl}), $alpha);
+  @if (type-of($ca) == list) {
+    @each $alpha in $ca {
+      #{'--' + $prefix + '-' + $cl + '-' + $i}: rgba(
+        var(#{"--" + $cl}),
+        $alpha
+      );
 
-   $i: $i + 10;
+      $i: $i + 10;
+    }
   }
- }
 
- @if (type-of($ca) == map) {
-  @each $postfix, $alpha in $ca {
-   #{'--' + $prefix + '-' + $cl + '-' + $postfix}: rgba(var(#{'--' + $cl}), $alpha);
+  @if (type-of($ca) == map) {
+    @each $postfix, $alpha in $ca {
+      #{'--' + $prefix + '-' + $cl + '-' + $postfix}: rgba(
+        var(#{"--" + $cl}),
+        $alpha
+      );
+    }
   }
- }
 }

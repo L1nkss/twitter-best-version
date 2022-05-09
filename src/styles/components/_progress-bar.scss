@@ -3,12 +3,11 @@
 // ===============================================
 
 .progress-bar {
+  &--warning {
+    stroke: #ffd400;
+  }
 
- &--warning {
-  stroke: #FFD400;
- }
-
- &--error {
-  stroke: #F4212E;
- }
+  &--error {
+    stroke: #f4212e;
+  }
 }
