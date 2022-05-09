@@ -1,9 +1,7 @@
-import PageHeader from "../../../shared/ui/page-header/page-header";
-import { TweetList } from "../../../widgets/tweet-list/ui/tweet-list";
+import { TweetList } from "../../../widgets";
 import React from "react";
-import { useFetch } from "../../../shared/hooks/useFetch";
+import { PageHeader, Spinner, useFetch } from "../../../shared";
 import { ITweet } from "../../../entities/tweet/types/Tweet.interface";
-import Spinner from "../../../shared/ui/spinner/spinner";
 
 const Bookmarks = () => {
   const userData = JSON.parse(localStorage.getItem("userTwitterData") || "");
@@ -28,4 +26,4 @@ const Bookmarks = () => {
   );
 };
 
-export default Bookmarks;
+export { Bookmarks };

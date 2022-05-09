@@ -1,12 +1,10 @@
-import TwitterTextArea from "../../../shared/ui/twitter-textarea/twitter-textarea";
 import React, { FC, useEffect, useState } from "react";
 import { TweetLength } from "./models/TweetLength.enum";
-import Button from "../../../shared/ui/button/button";
 import cn from "classnames";
-import ProgressBar from "../../../shared/ui/progress-bar/progress-bar";
 import { ProgressBarState } from "./models/ProgressBar.interface";
 import axios from "axios";
 import { ITweet } from "../../tweet/types/Tweet.interface";
+import { Button, ProgressBar, TwitterTextArea } from "../../../shared";
 
 // Возможно неправильно
 interface MakeTweetProps {
@@ -135,4 +133,4 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   );
 };
 
-export default MakeTweet;
+export { MakeTweet };

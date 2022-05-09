@@ -36,4 +36,4 @@ const AnimationPage: FC<AnimationPageProps> = ({
   );
 };
 
-export default AnimationPage;
+export { AnimationPage };

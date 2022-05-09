@@ -13,4 +13,4 @@ const useAuth = () => {
   return [isAuth];
 };
 
-export default useAuth;
+export { useAuth };

@@ -1,4 +1,4 @@
-import PageHeader from "../../../shared/ui/page-header/page-header";
+import { PageHeader } from "../../../shared";
 
 const Lists = () => {
   return (
@@ -8,4 +8,4 @@ const Lists = () => {
   );
 };
 
-export default Lists;
+export { Lists };

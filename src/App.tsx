@@ -1,22 +1,21 @@
 import React, { useEffect } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
-import Home from "./pages/home/ui/home";
-import Bookmarks from "./pages/bookmarks/ui/bookmarks";
-import Explore from "./pages/explore/ui/explore";
-import Notifications from "./pages/notifications/ui/notifications";
-import Messages from "./pages/messages/ui/messages";
-import Lists from "./pages/lists/ui/lists";
-import Profile from "./pages/profile/ui/profile";
-import MobileVersion from "./pages/mobile-version/ui/mobile-version";
-import useCheckIsMobile from "./shared/hooks/useIsDeviceMobile";
-import Layout from "./widgets/layout/ui/layout";
-import AnimationPage from "./widgets/animation-page/ui/animation-page";
+import {
+  Bookmarks,
+  Explore,
+  Home,
+  Lists,
+  Messages,
+  MobileVersion,
+  Notifications,
+  Profile,
+  SignIn,
+  SignUp,
+} from "./pages";
 import { AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router";
-import SignIn from "./pages/sign-in/ui/sign-in";
-import GuardRoute from "./widgets/guard-route/ui/guard-route";
-import useAuth from "./shared/hooks/useAuth";
-import SignUp from "./pages/sign-up/ui/sign-up";
+import { AnimationPage, GuardRoute, Layout } from "./widgets";
+import { useAuth, useCheckIsMobile } from "./shared";
 
 function App() {
   const isMobile = useCheckIsMobile();

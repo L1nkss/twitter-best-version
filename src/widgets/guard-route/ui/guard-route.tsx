@@ -20,4 +20,4 @@ const GuardRoute: FC<GuardRouteProps> = ({
   return children ? children : <Outlet />;
 };
 
-export default GuardRoute;
+export { GuardRoute };

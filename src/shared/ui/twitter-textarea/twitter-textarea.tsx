@@ -46,4 +46,4 @@ const TwitterTextArea: FC<TwitterTextAreaProps> = ({
   );
 };
 
-export default TwitterTextArea;
+export { TwitterTextArea };

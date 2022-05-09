@@ -1,13 +1,10 @@
-import PageHeader from "../../../shared/ui/page-header/page-header";
-import { TweetList } from "../../../widgets/tweet-list/ui/tweet-list";
-import { useFetch } from "../../../shared/hooks/useFetch";
+import { TweetList } from "../../../widgets";
+import { PageHeader, Spinner, useFetch, UserAvatar } from "../../../shared";
 import { ITweet } from "../../../entities/tweet/types/Tweet.interface";
 import React, { useEffect, useState } from "react";
-import Spinner from "../../../shared/ui/spinner/spinner";
-import UserAvatar from "../../../shared/ui/user-avatar/user-avatar";
-import MakeTweet from "../../../entities/make-tweet/ui/make-tweet";
-import { Context } from "../../../widgets/context/ui/context";
+import { Context } from "../../../widgets";
 import axios from "axios";
+import { MakeTweet } from "../../../entities";
 
 const Home = () => {
   const [isLoading, data] = useFetch<ITweet[]>(
@@ -114,4 +111,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export { Home };

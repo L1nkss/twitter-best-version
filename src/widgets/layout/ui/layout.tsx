@@ -1,6 +1,6 @@
-import Navigation from "../../navigations/ui/navigation";
 import { Outlet } from "react-router-dom";
 import React from "react";
+import { Navigation } from "../../navigations";
 
 const Layout = () => {
   return (
@@ -13,4 +13,4 @@ const Layout = () => {
   );
 };
 
-export default Layout;
+export { Layout };

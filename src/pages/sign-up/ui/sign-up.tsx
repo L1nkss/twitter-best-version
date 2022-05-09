@@ -1,7 +1,6 @@
-import Button from "../../../shared/ui/button/button";
 import { FormEvent, useState } from "react";
 import axios from "axios";
-import { IUser } from "../../../shared/models/interfaces/User.interface";
+import { Button, IUser } from "../../../shared";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
@@ -87,4 +86,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export { SignUp };

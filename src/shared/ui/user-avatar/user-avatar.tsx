@@ -19,4 +19,4 @@ const UserAvatar: FC<UserAvatarProps> = ({
   );
 };
 
-export default UserAvatar;
+export { UserAvatar };

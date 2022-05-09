@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import cn from "classnames";
-import Spinner from "../spinner/spinner";
 import { ButtonProps } from "./models/Button.interface";
+import { Spinner } from "../spinner/spinner";
 
 const Button: FC<ButtonProps> = ({
   buttonType = "primary",
@@ -24,4 +24,4 @@ const Button: FC<ButtonProps> = ({
   );
 };
 
-export default Button;
+export { Button };
