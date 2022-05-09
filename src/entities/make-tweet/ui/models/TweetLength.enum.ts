@@ -1,5 +1,5 @@
 export enum TweetLength {
-    GOOD = 'GOOD',
-    WARNING = 'WARNING',
-    DANGER = 'DANGER'
+  GOOD = "GOOD",
+  WARNING = "WARNING",
+  DANGER = "DANGER",
 }
