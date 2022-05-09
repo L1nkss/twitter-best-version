@@ -34,7 +34,7 @@
     ]
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "./src/**": ["prettier --write"]
   },
   "husky": {
     "hooks": {
