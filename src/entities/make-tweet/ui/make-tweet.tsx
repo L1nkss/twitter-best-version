@@ -1,7 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
-import { TweetLength } from "./models/TweetLength.enum";
 import cn from "classnames";
-import { ProgressBarState } from "./models/ProgressBar.interface";
+import { ProgressBarState, TweetLength } from "../models";
 import axios from "axios";
 import { ITweet } from "../../tweet/types/Tweet.interface";
 import { Button, ProgressBar, TwitterTextArea } from "../../../shared";
