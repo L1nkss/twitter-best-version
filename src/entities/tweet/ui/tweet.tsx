@@ -1,30 +1,30 @@
-import { FC, useContext } from "react";
-import { ITweet } from "../types/Tweet.interface";
-import { getTimeSince, UserAvatar } from "../../../shared";
-import axios from "axios";
+import { FC, useContext } from 'react'
+import { ITweet } from '../types/Tweet.interface'
+import { getTimeSince, UserAvatar } from '../../../shared'
+import axios from 'axios'
 
-import { ReactComponent as CommentSvg } from "../assets/comment-svg.svg";
-import { ReactComponent as LikeSvg } from "../assets/like-svg.svg";
-import { ReactComponent as LikedSvg } from "../assets/liked-svg.svg";
-import { ReactComponent as RetweetSvg } from "../assets/retweet-svg.svg";
-import { ReactComponent as ShareSvg } from "../assets/share-svg.svg";
-import { Context } from "../../../widgets";
+import { ReactComponent as CommentSvg } from '../assets/comment-svg.svg'
+import { ReactComponent as LikeSvg } from '../assets/like-svg.svg'
+import { ReactComponent as LikedSvg } from '../assets/liked-svg.svg'
+import { ReactComponent as RetweetSvg } from '../assets/retweet-svg.svg'
+import { ReactComponent as ShareSvg } from '../assets/share-svg.svg'
+import { Context } from '../../../widgets'
 
 // Выглядит херово
 const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
-  const { likeTweet } = useContext(Context);
-  const userData = JSON.parse(localStorage.getItem("userTwitterData") || "");
+  const { likeTweet } = useContext(Context)
+  const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
 
   const hasAccessToDelete = (): boolean => {
-    return props.userInfo.userName === userData.userName;
-  };
+    return props.userInfo.userName === userData.userName
+  }
 
   const isTweetLiked = (): boolean => {
     // return userData.likedTweets.includes(props.id);
     return (
       userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
-    );
-  };
+    )
+  }
 
   // todo Переделать на Popup с удалением и передачей туда id
   const deleteTweet = async (id: string): Promise<any> => {
@@ -32,15 +32,15 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
       const response = await axios.delete<ITweet>(
         `https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet/${id}`,
         { withCredentials: false }
-      );
+      )
 
       if (response.status === 200) {
-        props.deleteTweet && props.deleteTweet(id);
+        props.deleteTweet && props.deleteTweet(id)
       }
     } catch (err) {
-      console.log("error", err);
+      console.log('error', err)
     }
-  };
+  }
 
   return (
     <div className="flex tweet p-4">
@@ -110,7 +110,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export { Tweet };
+export { Tweet }

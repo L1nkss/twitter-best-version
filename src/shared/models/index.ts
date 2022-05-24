@@ -1,2 +1,2 @@
-export * from "./enums/breakpoint";
-export * from "./interfaces";
+export * from './enums/breakpoint'
+export * from './interfaces'

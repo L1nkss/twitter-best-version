@@ -1,35 +1,35 @@
-import { FormEvent, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Button, IUser } from "../../../shared";
+import { FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { Button, IUser } from '../../../shared'
 
 const SignIn = () => {
   // TODO добавить поле пароль, когда будет авторизация через firebase
-  const [login, setLogin] = useState<string>("");
-  const [isLogging, setIsLogging] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const [login, setLogin] = useState<string>('')
+  const [isLogging, setIsLogging] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const handleLoginSubmit = async (event: FormEvent): Promise<any> => {
-    event.preventDefault();
-    setIsLogging(true);
+    event.preventDefault()
+    setIsLogging(true)
 
     try {
       const response = await axios.get<IUser[]>(
-        "https://62657cf194374a2c5070d523.mockapi.io/api/v1/User"
-      );
+        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/User'
+      )
 
       response.data.forEach((user) => {
         if (user.userName === login) {
-          localStorage.setItem("userTwitterData", JSON.stringify({ ...user }));
-          navigate("/");
+          localStorage.setItem('userTwitterData', JSON.stringify({ ...user }))
+          navigate('/')
         }
-      });
+      })
     } catch (err) {
-      console.log("err", err);
+      console.log('err', err)
     } finally {
-      setIsLogging(false);
+      setIsLogging(false)
     }
-  };
+  }
 
   return (
     <div className="w-screen h-screen flex align-center justify-center items-center">
@@ -67,7 +67,7 @@ const SignIn = () => {
               <Button
                 className="w-full flex-initial"
                 buttonType="rounded"
-                onClick={() => navigate("/sign-up")}
+                onClick={() => navigate('/sign-up')}
               >
                 Sign up
               </Button>
@@ -76,7 +76,7 @@ const SignIn = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export { SignIn };
+export { SignIn }

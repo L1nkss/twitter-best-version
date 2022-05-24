@@ -1,38 +1,38 @@
-import { FC, useEffect, useRef, useState } from "react";
-import cn from "classnames";
+import { FC, useEffect, useRef, useState } from 'react'
+import cn from 'classnames'
 
 interface TwitterTextAreaProps {
-  placeholder?: string;
-  onChangeHandler?: (...rest: any) => any;
-  classes?: string;
-  value: string;
+  placeholder?: string
+  onChangeHandler?: (...rest: any) => any
+  classes?: string
+  value: string
 }
 
 const TwitterTextArea: FC<TwitterTextAreaProps> = ({
-  placeholder = "What`s happening?",
+  placeholder = 'What`s happening?',
   onChangeHandler = () => {},
-  classes = "",
+  classes = '',
   value,
 }: TwitterTextAreaProps) => {
-  const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true);
-  const textareaRef = useRef<HTMLDivElement>(null);
+  const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true)
+  const textareaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    setShowPlaceholder(!Boolean(value));
+    setShowPlaceholder(!Boolean(value))
 
     if (!value && textareaRef.current) {
-      textareaRef.current.innerText = "";
+      textareaRef.current.innerText = ''
     }
-  }, [value]);
+  }, [value])
 
   const changeHandler = () => {
     if (textareaRef.current) {
-      onChangeHandler(textareaRef.current.innerText);
+      onChangeHandler(textareaRef.current.innerText)
     }
-  };
+  }
 
   return (
-    <div className={cn("twitter-textarea", classes)}>
+    <div className={cn('twitter-textarea', classes)}>
       {showPlaceholder && (
         <div className="twitter-textarea__placeholder">{placeholder}</div>
       )}
@@ -43,7 +43,7 @@ const TwitterTextArea: FC<TwitterTextAreaProps> = ({
         onInput={changeHandler}
       />
     </div>
-  );
-};
+  )
+}
 
-export { TwitterTextArea };
+export { TwitterTextArea }

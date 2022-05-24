@@ -4,7 +4,7 @@ export function listenerOn(
   listener: EventListenerOrEventListenerObject,
   ...rest: any[]
 ): any {
-  obj.addEventListener(type, listener, ...rest);
+  obj.addEventListener(type, listener, ...rest)
 }
 
 export function listenerOff(
@@ -13,5 +13,5 @@ export function listenerOff(
   listener: EventListenerOrEventListenerObject,
   ...rest: any[]
 ): any {
-  obj.removeEventListener(type, listener, ...rest);
+  obj.removeEventListener(type, listener, ...rest)
 }

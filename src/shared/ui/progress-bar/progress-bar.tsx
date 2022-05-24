@@ -1,19 +1,19 @@
-import { FC, ReactElement } from "react";
-import { Spinner, SpinnerProps } from "../spinner/spinner";
+import { FC, ReactElement } from 'react'
+import { Spinner, SpinnerProps } from '../spinner/spinner'
 
 interface ProgressBarProps extends SpinnerProps {
-  textColor?: string;
-  textValue?: number | string;
+  textColor?: string
+  textValue?: number | string
 }
 
 const ProgressBar: FC<ProgressBarProps> = ({
   percentage = 25,
-  textColor = "#1DA1F2",
+  textColor = '#1DA1F2',
   textValue,
   ...props
 }: ProgressBarProps) => {
   const getTextValue = (): ReactElement | undefined => {
-    if (!textValue) return undefined;
+    if (!textValue) return undefined
 
     return (
       <text
@@ -26,14 +26,14 @@ const ProgressBar: FC<ProgressBarProps> = ({
       >
         {`${textValue}`}
       </text>
-    );
-  };
+    )
+  }
 
   return (
     <Spinner {...props} percentage={percentage}>
       {getTextValue()}
     </Spinner>
-  );
-};
+  )
+}
 
-export { ProgressBar };
+export { ProgressBar }

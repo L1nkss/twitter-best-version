@@ -1,37 +1,37 @@
-import { FormEvent, useState } from "react";
-import axios from "axios";
-import { Button, IUser } from "../../../shared";
-import { useNavigate } from "react-router-dom";
+import { FormEvent, useState } from 'react'
+import axios from 'axios'
+import { Button, IUser } from '../../../shared'
+import { useNavigate } from 'react-router-dom'
 
 const SignUp = () => {
-  const [login, setLogin] = useState<string>("");
-  const [name, setName] = useState<string>("");
-  const [isSigningUp, setIsSigningUp] = useState<boolean>(false);
-  const navigate = useNavigate();
+  const [login, setLogin] = useState<string>('')
+  const [name, setName] = useState<string>('')
+  const [isSigningUp, setIsSigningUp] = useState<boolean>(false)
+  const navigate = useNavigate()
 
   const handleLoginSubmit = async (evt: FormEvent): Promise<any> => {
-    evt.preventDefault();
+    evt.preventDefault()
 
-    setIsSigningUp(true);
+    setIsSigningUp(true)
     try {
       const response = await axios.post<IUser>(
-        "https://62657cf194374a2c5070d523.mockapi.io/api/v1/User",
+        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/User',
         {
           createdAt: new Date(),
           name: name,
           userName: login,
         }
-      );
+      )
 
       if (response.status === 200) {
-        navigate("/sign-in");
+        navigate('/sign-in')
       }
     } catch (err) {
-      console.log("err", err);
+      console.log('err', err)
     } finally {
-      setIsSigningUp(false);
+      setIsSigningUp(false)
     }
-  };
+  }
   return (
     <div className="w-screen h-screen flex align-center justify-center items-center">
       <form onSubmit={handleLoginSubmit}>
@@ -83,7 +83,7 @@ const SignUp = () => {
         </div>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export { SignUp };
+export { SignUp }

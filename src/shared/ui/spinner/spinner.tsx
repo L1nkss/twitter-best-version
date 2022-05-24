@@ -1,12 +1,12 @@
-import cn from "classnames";
-import React, { FC } from "react";
+import cn from 'classnames'
+import React, { FC } from 'react'
 
 export interface SpinnerProps {
-  children?: React.ReactElement | string;
-  size?: number;
-  strokeWidth?: number;
-  percentage?: number;
-  className?: string;
+  children?: React.ReactElement | string
+  size?: number
+  strokeWidth?: number
+  percentage?: number
+  className?: string
 }
 
 const Spinner: FC<SpinnerProps> = ({
@@ -14,19 +14,19 @@ const Spinner: FC<SpinnerProps> = ({
   size = 20,
   strokeWidth = 2,
   percentage = 25,
-  className = "",
+  className = '',
 }: SpinnerProps) => {
-  const viewBox = `0 0 ${size} ${size}`;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = radius * Math.PI * 2; // длина окружности
-  const dash = (percentage * circumference) / 100;
+  const viewBox = `0 0 ${size} ${size}`
+  const radius = (size - strokeWidth) / 2
+  const circumference = radius * Math.PI * 2 // длина окружности
+  const dash = (percentage * circumference) / 100
 
   return (
     <svg
       width={size}
       height={size}
       viewBox={viewBox}
-      className={cn("spinner", className)}
+      className={cn('spinner', className)}
     >
       <circle
         className="spinner__inner-circle"
@@ -48,7 +48,7 @@ const Spinner: FC<SpinnerProps> = ({
       />
       {children}
     </svg>
-  );
-};
+  )
+}
 
-export { Spinner };
+export { Spinner }

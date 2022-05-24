@@ -1,1 +1,1 @@
-export { Tweet } from "./ui/tweet";
+export { Tweet } from './ui/tweet'

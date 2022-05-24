@@ -1,11 +1,11 @@
-import { PageHeader } from "../../../shared";
+import { PageHeader } from '../../../shared'
 
 const Explore = () => {
   return (
     <div>
-      <PageHeader pageName={"Explore Page"} />
+      <PageHeader pageName={'Explore Page'} />
     </div>
-  );
-};
+  )
+}
 
-export { Explore };
+export { Explore }

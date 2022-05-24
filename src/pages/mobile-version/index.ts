@@ -1,1 +1,1 @@
-export { MobileVersion } from "./ui/mobile-version";
+export { MobileVersion } from './ui/mobile-version'
