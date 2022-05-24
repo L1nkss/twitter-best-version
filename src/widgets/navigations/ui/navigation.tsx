@@ -1,13 +1,14 @@
-import { NavLink } from 'react-router-dom'
 import React from 'react'
 
+import { NavLink } from 'react-router-dom'
+
 // Выглядит херово, наверно переделать todo
-import { ReactComponent as HomeSvg } from '../assets/home-svg.svg'
-import { ReactComponent as ExploreSvg } from '../assets/explore-svg.svg'
-import { ReactComponent as NotificationsSvg } from '../assets/notifications-svg.svg'
-import { ReactComponent as MessagesSvg } from '../assets/messages-svg.svg'
 import { ReactComponent as BookmarksSvg } from '../assets/bookmarks-svg.svg'
+import { ReactComponent as ExploreSvg } from '../assets/explore-svg.svg'
+import { ReactComponent as HomeSvg } from '../assets/home-svg.svg'
 import { ReactComponent as ListsSvg } from '../assets/lists-svg.svg'
+import { ReactComponent as MessagesSvg } from '../assets/messages-svg.svg'
+import { ReactComponent as NotificationsSvg } from '../assets/notifications-svg.svg'
 import { ReactComponent as ProfileSvg } from '../assets/profile-svg.svg'
 
 const Navigation = () => {

@@ -1,4 +1,5 @@
 import React, { FC } from 'react'
+
 import { Navigate } from 'react-router'
 import { Outlet } from 'react-router-dom'
 

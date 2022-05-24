@@ -1,5 +1,9 @@
 import React, { ReactNode, useEffect } from 'react'
+
+import { AnimatePresence } from 'framer-motion'
+import { useLocation } from 'react-router'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+
 import {
   Bookmarks,
   Explore,
@@ -12,10 +16,9 @@ import {
   SignIn,
   SignUp,
 } from './pages'
-import { AnimatePresence } from 'framer-motion'
-import { useLocation } from 'react-router'
-import { AnimationPage, GuardRoute, Layout } from './widgets'
+
 import { useAuth, useCheckIsMobile } from './shared'
+import { AnimationPage, GuardRoute, Layout } from './widgets'
 
 interface TwitterRoute {
   path: string
