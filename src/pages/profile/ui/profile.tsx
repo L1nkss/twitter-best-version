@@ -1,11 +1,11 @@
-import { PageHeader } from "../../../shared";
+import { PageHeader } from '../../../shared'
 
 const Profile = () => {
   return (
     <div>
-      <PageHeader pageName={"Profile Page"} />
+      <PageHeader pageName={'Profile Page'} />
     </div>
-  );
-};
+  )
+}
 
-export { Profile };
+export { Profile }

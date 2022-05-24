@@ -1,1 +1,1 @@
-export * from "./animation-page.interface";
+export * from './animation-page.interface'

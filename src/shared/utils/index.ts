@@ -1,2 +1,2 @@
-export { getTimeSince } from "./date-activity";
-export * from "./listeners";
+export { getTimeSince } from './date-activity'
+export * from './listeners'

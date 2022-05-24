@@ -1,7 +1,7 @@
 export interface IUser {
-  createdAt: Date;
-  id: string;
-  likedTweets: Array<string>;
-  name: string;
-  userName: string;
+  createdAt: Date
+  id: string
+  likedTweets: Array<string>
+  name: string
+  userName: string
 }

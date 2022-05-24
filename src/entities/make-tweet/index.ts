@@ -1,2 +1,2 @@
-export * from "./models";
-export { MakeTweet } from "./ui/make-tweet";
+export * from './models'
+export { MakeTweet } from './ui/make-tweet'

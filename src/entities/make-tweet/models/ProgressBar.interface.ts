@@ -1,6 +1,6 @@
-import { TweetLengthTypes } from "./TweetLength.interface";
+import { TweetLengthTypes } from './TweetLength.interface'
 
 export interface ProgressBarState {
-  hideCircles: boolean;
-  lengthStatus: TweetLengthTypes;
+  hideCircles: boolean
+  lengthStatus: TweetLengthTypes
 }

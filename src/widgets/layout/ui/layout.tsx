@@ -1,6 +1,6 @@
-import { Outlet } from "react-router-dom";
-import React from "react";
-import { Navigation } from "../../navigations";
+import { Outlet } from 'react-router-dom'
+import React from 'react'
+import { Navigation } from '../../navigations'
 
 const Layout = () => {
   return (
@@ -10,7 +10,7 @@ const Layout = () => {
         <Outlet />
       </main>
     </div>
-  );
-};
+  )
+}
 
-export { Layout };
+export { Layout }
