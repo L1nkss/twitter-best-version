@@ -35,7 +35,9 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
       )
 
       if (response.status === 200) {
-        props.deleteTweet && props.deleteTweet(id)
+        if (props.deleteTweet) {
+          props.deleteTweet(id)
+        }
       }
     } catch (err) {
       console.log('error', err)

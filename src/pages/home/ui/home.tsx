@@ -1,8 +1,7 @@
-import { TweetList } from '../../../widgets'
 import { PageHeader, Spinner, useFetch, UserAvatar } from '../../../shared'
 import { ITweet } from '../../../entities/tweet/types/Tweet.interface'
 import React, { useEffect, useState } from 'react'
-import { Context } from '../../../widgets'
+import { Context, TweetList } from '../../../widgets'
 import axios from 'axios'
 import { MakeTweet } from '../../../entities'
 
@@ -48,7 +47,9 @@ const Home = () => {
       ...tweetByIdx,
       tweetInfo: { ...tweetByIdx.tweetInfo, likes: likeCount },
     }
-    const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
+    const userLocalstorage = JSON.parse(
+      localStorage.getItem('userTwitterData') || ''
+    )
 
     try {
       const response = await axios.put<ITweet>(
@@ -60,26 +61,29 @@ const Home = () => {
       if (response.status === 200) {
         // Нужно ли новый массив и объект?
         if (isAlreadyLiked) {
-          const userLikedTweetId = userData.likedTweets.findIndex(
+          const userLikedTweetId = userLocalstorage.likedTweets.findIndex(
             (twId: string) => twId === id
           )
-          userData.likedTweets = [
-            ...userData.likedTweets.slice(0, userLikedTweetId),
-            ...userData.likedTweets.slice(userLikedTweetId + 1),
+          userLocalstorage.likedTweets = [
+            ...userLocalstorage.likedTweets.slice(0, userLikedTweetId),
+            ...userLocalstorage.likedTweets.slice(userLikedTweetId + 1),
           ]
         } else {
-          userData.likedTweets.push(updatedTweet.id)
+          userLocalstorage.likedTweets.push(updatedTweet.id)
         }
       }
 
       const userResponse = await axios.put(
-        `https://62657cf194374a2c5070d523.mockapi.io/api/v1/User/${userData.id}`,
-        userData,
+        `https://62657cf194374a2c5070d523.mockapi.io/api/v1/User/${userLocalstorage.id}`,
+        userLocalstorage,
         { withCredentials: false }
       )
 
       if (userResponse.status === 200) {
-        localStorage.setItem('userTwitterData', JSON.stringify(userData))
+        localStorage.setItem(
+          'userTwitterData',
+          JSON.stringify(userLocalstorage)
+        )
         setTweets((state) => [
           ...state.slice(0, idx),
           updatedTweet,

@@ -43,13 +43,13 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
     setProgressBar((state) => ({ ...state, hideCircles: symbolsLeft < -50 }))
   }, [value])
 
-  const onChange = (value: string): void => {
-    setValue(value)
-    getPercentage()
-  }
-
   const getPercentage = (): number => {
     return (value.length * 100) / SYMBOL_MAX_LENGTH
+  }
+
+  const onChange = (twValue: string): void => {
+    setValue(twValue)
+    getPercentage()
   }
 
   const getProgressBarValue = (): number | undefined => {
