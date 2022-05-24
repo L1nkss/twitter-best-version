@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from 'react'
-import cn from 'classnames'
-import { ProgressBarState, TweetLength } from '../models'
+
 import axios from 'axios'
-import { ITweet } from '../../tweet/types/Tweet.interface'
+import cn from 'classnames'
+
 import { Button, ProgressBar, TwitterTextArea } from '../../../shared'
+import { ITweet } from '../../tweet/types/Tweet.interface'
+import { ProgressBarState, TweetLength } from '../models'
 
 // Возможно неправильно
 interface MakeTweetProps {

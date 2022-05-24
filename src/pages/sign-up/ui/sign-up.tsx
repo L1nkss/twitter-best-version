@@ -1,7 +1,10 @@
 import { FormEvent, useState } from 'react'
+
 import axios from 'axios'
-import { Button, IUser } from '../../../shared'
+
 import { useNavigate } from 'react-router-dom'
+
+import { Button, IUser } from '../../../shared'
 
 const SignUp = () => {
   const [login, setLogin] = useState<string>('')

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { listenerOn, listenerOff } from '../utils/listeners'
 import { Breakpoints } from '../models/enums/breakpoint'
+import { listenerOn, listenerOff } from '../utils/listeners'
 
 const useCheckIsMobile = () => {
   const [isMobile, setIsMobile] = useState(false)

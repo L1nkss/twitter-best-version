@@ -1,6 +1,8 @@
-import { motion, Variants } from 'framer-motion'
 import React, { FC } from 'react'
+
+import { motion, Variants } from 'framer-motion'
 import { Transition } from 'framer-motion/types/types'
+
 import { AnimationPageProps } from '../models'
 
 const defaultAnimation: Variants = {

@@ -1,4 +1,5 @@
 import { FC, ReactElement } from 'react'
+
 import { Spinner, SpinnerProps } from '../spinner/spinner'
 
 interface ProgressBarProps extends SpinnerProps {

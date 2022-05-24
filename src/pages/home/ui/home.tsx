@@ -1,9 +1,11 @@
-import { PageHeader, Spinner, useFetch, UserAvatar } from '../../../shared'
-import { ITweet } from '../../../entities/tweet/types/Tweet.interface'
 import React, { useEffect, useState } from 'react'
-import { Context, TweetList } from '../../../widgets'
+
 import axios from 'axios'
+
 import { MakeTweet } from '../../../entities'
+import { ITweet } from '../../../entities/tweet/types/Tweet.interface'
+import { PageHeader, Spinner, useFetch, UserAvatar } from '../../../shared'
+import { Context, TweetList } from '../../../widgets'
 
 const Home = () => {
   const [isLoading, data] = useFetch<ITweet[]>(

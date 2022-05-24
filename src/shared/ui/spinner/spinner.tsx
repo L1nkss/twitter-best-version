@@ -1,5 +1,6 @@
-import cn from 'classnames'
 import React, { FC } from 'react'
+
+import cn from 'classnames'
 
 export interface SpinnerProps {
   children?: React.ReactElement | string

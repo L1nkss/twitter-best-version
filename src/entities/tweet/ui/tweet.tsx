@@ -1,14 +1,16 @@
 import { FC, useContext } from 'react'
-import { ITweet } from '../types/Tweet.interface'
-import { getTimeSince, UserAvatar } from '../../../shared'
+
 import axios from 'axios'
 
+import { getTimeSince, UserAvatar } from '../../../shared'
+
+import { Context } from '../../../widgets'
 import { ReactComponent as CommentSvg } from '../assets/comment-svg.svg'
 import { ReactComponent as LikeSvg } from '../assets/like-svg.svg'
 import { ReactComponent as LikedSvg } from '../assets/liked-svg.svg'
 import { ReactComponent as RetweetSvg } from '../assets/retweet-svg.svg'
 import { ReactComponent as ShareSvg } from '../assets/share-svg.svg'
-import { Context } from '../../../widgets'
+import { ITweet } from '../types/Tweet.interface'
 
 // Выглядит херово
 const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
