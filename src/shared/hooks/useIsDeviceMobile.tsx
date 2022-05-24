@@ -21,4 +21,4 @@ const useCheckIsMobile = () => {
   return isMobile;
 };
 
-export default useCheckIsMobile;
+export { useCheckIsMobile };

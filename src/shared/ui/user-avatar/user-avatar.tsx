@@ -4,15 +4,19 @@ import cn from "classnames";
 
 interface UserAvatarProps {
   classes?: string;
+  avatarUrl?: string;
 }
 
 // todo временный компонент -> переделать
-const UserAvatar: FC<UserAvatarProps> = ({ classes = "" }: UserAvatarProps) => {
+const UserAvatar: FC<UserAvatarProps> = ({
+  classes = "",
+  avatarUrl,
+}: UserAvatarProps) => {
   return (
     <div className={cn("user-avatar", classes)}>
-      <img src={avatar} alt="" />
+      <img src={avatarUrl} alt="" />
     </div>
   );
 };
 
-export default UserAvatar;
+export { UserAvatar };

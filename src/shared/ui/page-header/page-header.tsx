@@ -16,4 +16,4 @@ const PageHeader: FC<PageHeaderProps> = ({
   );
 };
 
-export default PageHeader;
+export { PageHeader };

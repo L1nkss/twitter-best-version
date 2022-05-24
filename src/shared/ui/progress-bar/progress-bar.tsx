@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react";
-import Spinner, { SpinnerProps } from "../spinner/spinner";
+import { Spinner, SpinnerProps } from "../spinner/spinner";
 
 interface ProgressBarProps extends SpinnerProps {
   textColor?: string;
@@ -36,4 +36,4 @@ const ProgressBar: FC<ProgressBarProps> = ({
   );
 };
 
-export default ProgressBar;
+export { ProgressBar };

@@ -5,25 +5,28 @@ interface TwitterTextAreaProps {
   placeholder?: string;
   onChangeHandler?: (...rest: any) => any;
   classes?: string;
+  value: string;
 }
 
 const TwitterTextArea: FC<TwitterTextAreaProps> = ({
   placeholder = "What`s happening?",
   onChangeHandler = () => {},
   classes = "",
+  value,
 }: TwitterTextAreaProps) => {
-  const [value, setValue] = useState<string>("");
   const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true);
   const textareaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setShowPlaceholder(!Boolean(value));
+
+    if (!value && textareaRef.current) {
+      textareaRef.current.innerText = "";
+    }
   }, [value]);
 
   const changeHandler = () => {
     if (textareaRef.current) {
-      setValue(textareaRef.current.innerText);
-
       onChangeHandler(textareaRef.current.innerText);
     }
   };
@@ -43,4 +46,4 @@ const TwitterTextArea: FC<TwitterTextAreaProps> = ({
   );
 };
 
-export default TwitterTextArea;
+export { TwitterTextArea };

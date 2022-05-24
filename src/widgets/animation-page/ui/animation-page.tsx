@@ -1,12 +1,7 @@
 import { motion, Variants } from "framer-motion";
 import React, { FC } from "react";
 import { Transition } from "framer-motion/types/types";
-
-interface AnimationPageProps {
-  children: React.ReactElement;
-  animation?: Variants;
-  transition?: Transition;
-}
+import { AnimationPageProps } from "../models";
 
 const defaultAnimation: Variants = {
   initial: { opacity: 0 },
@@ -36,4 +31,4 @@ const AnimationPage: FC<AnimationPageProps> = ({
   );
 };
 
-export default AnimationPage;
+export { AnimationPage };

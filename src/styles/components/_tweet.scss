@@ -1,0 +1,107 @@
+// ===============================================
+// TWEET
+// ===============================================
+
+.tweet {
+  border-color: rgb(239, 243, 244);
+  border-style: solid;
+  border-bottom-width: 1px;
+
+  &:hover {
+    background-color: rgba(#ebeef0, 0.4);
+    cursor: pointer;
+
+    .tweet__button {
+      display: block;
+    }
+  }
+
+  &__header-data {
+    color: #5b7083;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  &__action {
+    max-width: 425px;
+  }
+
+  &__action-item {
+    position: relative;
+    &:hover {
+      &.tweet__action-item--comment {
+        color: rgb(24, 155, 240);
+
+        .tweet__circle {
+          background-color: rgba(24, 155, 240, 0.1);
+        }
+      }
+
+      &.tweet__action-item--retweet {
+        color: rgb(0, 186, 124);
+
+        .tweet__circle {
+          background-color: rgba(0, 186, 124, 0.1);
+        }
+      }
+
+      &.tweet__action-item--likes {
+        color: rgb(249, 24, 128);
+
+        .tweet__circle {
+          background-color: rgba(249, 24, 128, 0.1);
+        }
+      }
+
+      &.tweet__action-item--share {
+        color: rgb(29, 155, 240);
+
+        .tweet__circle {
+          background-color: rgba(29, 155, 240, 0.1);
+        }
+      }
+    }
+  }
+
+  &__button {
+    display: none;
+  }
+
+  &__svg {
+    path {
+      fill: currentColor;
+    }
+  }
+
+  &__circle {
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 0;
+    font-size: 15px;
+    line-height: 20px;
+    border-radius: 9999px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: -8px;
+  }
+}
+
+// Анимация
+.tweet-enter {
+  transform: translateY(-100%);
+}
+
+.tweet-enter-active {
+  transform: translateY(0);
+  transition: transform 500ms ease-out;
+}
+
+.tweet-exit {
+  transform: translateY(0);
+}
+
+.tweet-exit-active {
+  transform: translateY(-100%);
+  transition: transform 500ms ease-out;
+}

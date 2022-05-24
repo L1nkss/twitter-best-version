@@ -6,4 +6,4 @@ const MobileVersion = () => {
   );
 };
 
-export default MobileVersion;
+export { MobileVersion };
