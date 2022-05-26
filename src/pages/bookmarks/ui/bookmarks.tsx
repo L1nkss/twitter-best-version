@@ -1,8 +1,10 @@
 import React from 'react'
 
-import { ITweet } from '../../../entities/tweet/types/Tweet.interface'
-import { PageHeader, Spinner, useFetch } from '../../../shared'
-import { TweetList } from '../../../widgets'
+import { ITweet } from '@entities/tweet/types/Tweet.interface'
+import { useFetch } from '@shared/hooks/useFetch'
+import { PageHeader } from '@shared/ui/page-header/page-header'
+import { Spinner } from '@shared/ui/spinner/spinner'
+import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 const Bookmarks = () => {
   const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')

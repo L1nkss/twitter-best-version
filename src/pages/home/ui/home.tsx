@@ -2,10 +2,15 @@ import React, { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-import { MakeTweet } from '../../../entities'
-import { ITweet } from '../../../entities/tweet/types/Tweet.interface'
-import { PageHeader, Spinner, useFetch, UserAvatar } from '../../../shared'
-import { Context, TweetList } from '../../../widgets'
+import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
+import { ITweet } from '@entities/tweet/types/Tweet.interface'
+import { useFetch } from '@shared/hooks/useFetch'
+
+import { PageHeader } from '@shared/ui/page-header/page-header'
+import { Spinner } from '@shared/ui/spinner/spinner'
+import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { Context } from '@widgets/context/ui/context'
+import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 const Home = () => {
   const [isLoading, data] = useFetch<ITweet[]>(

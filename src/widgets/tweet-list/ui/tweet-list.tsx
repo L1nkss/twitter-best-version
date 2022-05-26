@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { ITweet } from '../../../entities/tweet/types/Tweet.interface'
-import { Tweet } from '../../../entities/tweet/ui/tweet'
+import { ITweet } from '@entities/tweet/types/Tweet.interface'
+import { Tweet } from '@entities/tweet/ui/tweet'
 
 interface TweetListProps {
   tweets: ITweet[]

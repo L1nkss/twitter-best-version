@@ -4,7 +4,8 @@ import axios from 'axios'
 
 import { useNavigate } from 'react-router-dom'
 
-import { Button, IUser } from '../../../shared'
+import { IUser } from '@shared/models/interfaces/User.interface'
+import { Button } from '@shared/ui/button/button'
 
 const SignUp = () => {
   const [login, setLogin] = useState<string>('')

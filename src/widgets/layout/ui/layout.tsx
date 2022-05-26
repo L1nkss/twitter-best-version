@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Outlet } from 'react-router-dom'
 
-import { Navigation } from '../../navigations'
+import { Navigation } from '@widgets/navigations/ui/navigation'
 
 const Layout = () => {
   return (

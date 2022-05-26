@@ -2,8 +2,6 @@ import { FC } from 'react'
 
 import cn from 'classnames'
 
-import avatar from './mock-avatar/avatar.jpg'
-
 interface UserAvatarProps {
   classes?: string
   avatarUrl?: string

@@ -1,4 +1,4 @@
-import { PageHeader } from '../../../shared'
+import { PageHeader } from '@shared/ui/page-header/page-header'
 
 const Notifications = () => {
   return (

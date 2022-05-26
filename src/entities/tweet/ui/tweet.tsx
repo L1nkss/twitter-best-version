@@ -2,9 +2,10 @@ import { FC, useContext } from 'react'
 
 import axios from 'axios'
 
-import { getTimeSince, UserAvatar } from '../../../shared'
+import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { getTimeSince } from '@shared/utils/date-activity'
+import { Context } from '@widgets/context/ui/context'
 
-import { Context } from '../../../widgets'
 import { ReactComponent as CommentSvg } from '../assets/comment-svg.svg'
 import { ReactComponent as LikeSvg } from '../assets/like-svg.svg'
 import { ReactComponent as LikedSvg } from '../assets/liked-svg.svg'

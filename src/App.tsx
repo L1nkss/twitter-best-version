@@ -4,21 +4,22 @@ import { AnimatePresence } from 'framer-motion'
 import { useLocation } from 'react-router'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
-import {
-  Bookmarks,
-  Explore,
-  Home,
-  Lists,
-  Messages,
-  MobileVersion,
-  Notifications,
-  Profile,
-  SignIn,
-  SignUp,
-} from './pages'
+import { Bookmarks } from '@pages/bookmarks/ui/bookmarks'
+import { Explore } from '@pages/explore/ui/explore'
+import { Home } from '@pages/home/ui/home'
+import { Lists } from '@pages/lists/ui/lists'
+import { Messages } from '@pages/messages/ui/messages'
+import { MobileVersion } from '@pages/mobile-version/ui/mobile-version'
+import { Notifications } from '@pages/notifications/ui/notifications'
+import { Profile } from '@pages/profile/ui/profile'
+import { SignIn } from '@pages/sign-in/ui/sign-in'
+import { SignUp } from '@pages/sign-up/ui/sign-up'
+import { useAuth } from '@shared/hooks/useAuth'
+import { useCheckIsMobile } from '@shared/hooks/useIsDeviceMobile'
 
-import { useAuth, useCheckIsMobile } from './shared'
-import { AnimationPage, GuardRoute, Layout } from './widgets'
+import { AnimationPage } from '@widgets/animation-page/ui/animation-page'
+import { GuardRoute } from '@widgets/guard-route/ui/guard-route'
+import { Layout } from '@widgets/layout/ui/layout'
 
 interface TwitterRoute {
   path: string

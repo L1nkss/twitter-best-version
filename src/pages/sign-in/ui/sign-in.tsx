@@ -3,7 +3,8 @@ import { FormEvent, useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
-import { Button, IUser } from '../../../shared'
+import { IUser } from '@shared/models/interfaces/User.interface'
+import { Button } from '@shared/ui/button/button'
 
 const SignIn = () => {
   // TODO добавить поле пароль, когда будет авторизация через firebase

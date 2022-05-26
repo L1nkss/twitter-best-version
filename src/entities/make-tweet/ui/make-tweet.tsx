@@ -3,9 +3,14 @@ import React, { FC, useEffect, useState } from 'react'
 import axios from 'axios'
 import cn from 'classnames'
 
-import { Button, ProgressBar, TwitterTextArea } from '../../../shared'
+import { ProgressBarState } from '@entities/make-tweet/models/ProgressBar.interface'
+
+import { TweetLength } from '@entities/make-tweet/models/TweetLength.enum'
+import { Button } from '@shared/ui/button/button'
+import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
+import { TwitterTextArea } from '@shared/ui/twitter-textarea/twitter-textarea'
+
 import { ITweet } from '../../tweet/types/Tweet.interface'
-import { ProgressBarState, TweetLength } from '../models'
 
 // Возможно неправильно
 interface MakeTweetProps {
