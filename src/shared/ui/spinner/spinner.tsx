@@ -2,13 +2,7 @@ import React, { FC } from 'react'
 
 import cn from 'classnames'
 
-export interface SpinnerProps {
-  children?: React.ReactElement | string
-  size?: number
-  strokeWidth?: number
-  percentage?: number
-  className?: string
-}
+import { SpinnerProps } from '@shared/ui/spinner/models/interfaces/Spinner.interface'
 
 const Spinner: FC<SpinnerProps> = ({
   children,

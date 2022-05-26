@@ -2,12 +2,8 @@ import { FC } from 'react'
 
 import cn from 'classnames'
 
-interface UserAvatarProps {
-  classes?: string
-  avatarUrl?: string
-}
+import { UserAvatarProps } from '@shared/ui/user-avatar/models/interfaces/UserAvatar.interface'
 
-// todo временный компонент -> переделать
 const UserAvatar: FC<UserAvatarProps> = ({
   classes = '',
   avatarUrl,

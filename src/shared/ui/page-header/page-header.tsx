@@ -1,9 +1,6 @@
 import { FC } from 'react'
 
-interface PageHeaderProps {
-  classNames?: string
-  pageName: string
-}
+import { PageHeaderProps } from '@shared/ui/page-header/models/interfaces/PageHeader.interface'
 
 const PageHeader: FC<PageHeaderProps> = ({
   classNames = '',

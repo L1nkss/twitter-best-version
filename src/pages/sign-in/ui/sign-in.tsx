@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FC, FormEvent, useState } from 'react'
 
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import { IUser } from '@shared/models/interfaces/User.interface'
 import { Button } from '@shared/ui/button/button'
 
-const SignIn = () => {
+const SignIn: FC = () => {
   // TODO добавить поле пароль, когда будет авторизация через firebase
   const [login, setLogin] = useState<string>('')
   const [isLogging, setIsLogging] = useState<boolean>(false)

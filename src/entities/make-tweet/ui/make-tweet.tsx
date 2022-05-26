@@ -3,19 +3,15 @@ import React, { FC, useEffect, useState } from 'react'
 import axios from 'axios'
 import cn from 'classnames'
 
-import { ProgressBarState } from '@entities/make-tweet/models/ProgressBar.interface'
+import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
+import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
+import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
 
-import { TweetLength } from '@entities/make-tweet/models/TweetLength.enum'
 import { Button } from '@shared/ui/button/button'
 import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
-import { TwitterTextArea } from '@shared/ui/twitter-textarea/twitter-textarea'
+import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
 
-import { ITweet } from '../../tweet/types/Tweet.interface'
-
-// Возможно неправильно
-interface MakeTweetProps {
-  addNewTweet?: (tweet: ITweet) => void
-}
+import { ITweet } from '../../tweet/models/interfaces/Tweet.interface'
 
 const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   const SYMBOL_MAX_LENGTH = 50
@@ -109,7 +105,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
 
   return (
     <div className="w-full make-tweet">
-      <TwitterTextArea
+      <TwitterTextarea
         value={value}
         onChangeHandler={onChange}
         classes={'make-tweet__textarea'}

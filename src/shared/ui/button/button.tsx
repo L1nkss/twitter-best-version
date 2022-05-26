@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import cn from 'classnames'
 
 import { Spinner } from '../spinner/spinner'
-import { ButtonProps } from './models/Button.interface'
+import { ButtonProps } from './models/interfaces/Button.interface'
 
 const Button: FC<ButtonProps> = ({
   buttonType = 'primary',

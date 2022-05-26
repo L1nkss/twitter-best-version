@@ -1,11 +1,8 @@
 import { FC, ReactElement } from 'react'
 
-import { Spinner, SpinnerProps } from '../spinner/spinner'
+import { ProgressBarProps } from '@shared/ui/progress-bar/models/interfaces/ProgressBar.interface'
 
-interface ProgressBarProps extends SpinnerProps {
-  textColor?: string
-  textValue?: number | string
-}
+import { Spinner } from '../spinner/spinner'
 
 const ProgressBar: FC<ProgressBarProps> = ({
   percentage = 25,

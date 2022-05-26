@@ -11,7 +11,7 @@ import { ReactComponent as LikeSvg } from '../assets/like-svg.svg'
 import { ReactComponent as LikedSvg } from '../assets/liked-svg.svg'
 import { ReactComponent as RetweetSvg } from '../assets/retweet-svg.svg'
 import { ReactComponent as ShareSvg } from '../assets/share-svg.svg'
-import { ITweet } from '../types/Tweet.interface'
+import { ITweet } from '../models/interfaces/Tweet.interface'
 
 // Выглядит херово
 const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {

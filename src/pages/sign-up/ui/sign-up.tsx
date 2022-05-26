@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FC, FormEvent, useState } from 'react'
 
 import axios from 'axios'
 
@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { IUser } from '@shared/models/interfaces/User.interface'
 import { Button } from '@shared/ui/button/button'
 
-const SignUp = () => {
+const SignUp: FC = () => {
   const [login, setLogin] = useState<string>('')
   const [name, setName] = useState<string>('')
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false)

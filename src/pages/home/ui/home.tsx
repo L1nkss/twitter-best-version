@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
 import axios from 'axios'
 
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
-import { ITweet } from '@entities/tweet/types/Tweet.interface'
+import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
 import { useFetch } from '@shared/hooks/useFetch'
 
 import { PageHeader } from '@shared/ui/page-header/page-header'
@@ -12,7 +12,7 @@ import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { Context } from '@widgets/context/ui/context'
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
-const Home = () => {
+const Home: FC = () => {
   const [isLoading, data] = useFetch<ITweet[]>(
     'https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet',
     []

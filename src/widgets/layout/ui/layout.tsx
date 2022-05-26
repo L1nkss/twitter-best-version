@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { Outlet } from 'react-router-dom'
 
 import { Navigation } from '@widgets/navigations/ui/navigation'
 
-const Layout = () => {
+const Layout: FC = () => {
   return (
     <div className="container flex mx-auto">
       <Navigation />

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { FC } from 'react'
 
 import { NavLink } from 'react-router-dom'
 
-// Выглядит херово, наверно переделать todo
+import { NavigationRoute } from '@widgets/navigations/models/interfaces/NavigationRoute.interface'
+
 import { ReactComponent as BookmarksSvg } from '../assets/bookmarks-svg.svg'
 import { ReactComponent as ExploreSvg } from '../assets/explore-svg.svg'
 import { ReactComponent as HomeSvg } from '../assets/home-svg.svg'
@@ -11,8 +12,8 @@ import { ReactComponent as MessagesSvg } from '../assets/messages-svg.svg'
 import { ReactComponent as NotificationsSvg } from '../assets/notifications-svg.svg'
 import { ReactComponent as ProfileSvg } from '../assets/profile-svg.svg'
 
-const Navigation = () => {
-  const routes = [
+const Navigation: FC = () => {
+  const routes: NavigationRoute[] = [
     { id: 'home', label: 'Home', icon: HomeSvg },
     { id: 'explore', label: 'Explore', icon: ExploreSvg },
     { id: 'notifications', label: 'Notifications', icon: NotificationsSvg },
@@ -36,7 +37,6 @@ const Navigation = () => {
             }
             to={`/${route.id}`}
           >
-            {/* Выглядит херово, наверно переделать todo */}
             <route.icon />
             {route.label}
           </NavLink>
