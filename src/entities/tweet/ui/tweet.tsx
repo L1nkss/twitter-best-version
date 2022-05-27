@@ -2,15 +2,11 @@ import { FC, useContext } from 'react'
 
 import axios from 'axios'
 
+import { Icon } from '@shared/ui/icon/icon'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { getTimeSince } from '@shared/utils/date-activity'
 import { Context } from '@widgets/context/ui/context'
 
-import { ReactComponent as CommentSvg } from '../assets/comment-svg.svg'
-import { ReactComponent as LikeSvg } from '../assets/like-svg.svg'
-import { ReactComponent as LikedSvg } from '../assets/liked-svg.svg'
-import { ReactComponent as RetweetSvg } from '../assets/retweet-svg.svg'
-import { ReactComponent as ShareSvg } from '../assets/share-svg.svg'
 import { ITweet } from '../models/interfaces/Tweet.interface'
 
 // Выглядит херово
@@ -23,7 +19,6 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   }
 
   const isTweetLiked = (): boolean => {
-    // return userData.likedTweets.includes(props.id);
     return (
       userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
     )
@@ -50,6 +45,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   return (
     <div className="flex tweet p-4">
       <UserAvatar avatarUrl={props.userInfo.avatarUrl} classes="mr-3" />
+
       <div className="w-full">
         <div className="flex items-end">
           <h2 className="font-bold mr-1">{props.userInfo.name}</h2>
@@ -72,7 +68,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
           <div className="flex items-center tweet__action-item tweet__action-item--comment">
             <div className="inline-flex relative mr-2.5">
               <div className="tweet__circle" />
-              <CommentSvg className="tweet__svg" />
+              <Icon name="comment-svg" classNames="tweet__svg" />
             </div>
             {props.tweetInfo.comments !== 0 && (
               <span className="text-xs">{props.tweetInfo.comments}</span>
@@ -82,7 +78,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
           <div className="flex items-center tweet__action-item tweet__action-item--retweet">
             <div className="inline-flex relative mr-2.5">
               <div className="tweet__circle" />
-              <RetweetSvg className="tweet__svg" />
+              <Icon name="retweet-svg" classNames="tweet__svg" />
             </div>
             {props.tweetInfo.retweets !== 0 && (
               <span className="text-xs">{props.tweetInfo.retweets}</span>
@@ -96,9 +92,9 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
             <div className="inline-flex relative mr-2.5">
               <div className="tweet__circle" />
               {isTweetLiked() ? (
-                <LikedSvg />
+                <Icon name="liked-svg" />
               ) : (
-                <LikeSvg className="tweet__svg" />
+                <Icon name="like-svg" classNames="tweet__svg" />
               )}
             </div>
             {props.tweetInfo.likes !== 0 && (
@@ -109,7 +105,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
           <div className="flex items-center tweet__action-item  tweet__action-item--share">
             <div className="inline-flex relative mr-2.5">
               <div className="tweet__circle" />
-              <ShareSvg className="tweet__svg" />
+              <Icon name="share-svg" classNames="tweet__svg" />
             </div>
           </div>
         </div>

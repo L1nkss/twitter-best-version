@@ -2,25 +2,18 @@ import React, { FC } from 'react'
 
 import { NavLink } from 'react-router-dom'
 
+import { Icon } from '@shared/ui/icon/icon'
 import { NavigationRoute } from '@widgets/navigations/models/interfaces/NavigationRoute.interface'
-
-import { ReactComponent as BookmarksSvg } from '../assets/bookmarks-svg.svg'
-import { ReactComponent as ExploreSvg } from '../assets/explore-svg.svg'
-import { ReactComponent as HomeSvg } from '../assets/home-svg.svg'
-import { ReactComponent as ListsSvg } from '../assets/lists-svg.svg'
-import { ReactComponent as MessagesSvg } from '../assets/messages-svg.svg'
-import { ReactComponent as NotificationsSvg } from '../assets/notifications-svg.svg'
-import { ReactComponent as ProfileSvg } from '../assets/profile-svg.svg'
 
 const Navigation: FC = () => {
   const routes: NavigationRoute[] = [
-    { id: 'home', label: 'Home', icon: HomeSvg },
-    { id: 'explore', label: 'Explore', icon: ExploreSvg },
-    { id: 'notifications', label: 'Notifications', icon: NotificationsSvg },
-    { id: 'messages', label: 'Messages', icon: MessagesSvg },
-    { id: 'lists', label: 'Lists', icon: ListsSvg },
-    { id: 'bookmarks', label: 'Bookmarks', icon: BookmarksSvg },
-    { id: 'profile', label: 'Profile', icon: ProfileSvg },
+    { id: 'home', label: 'Home', icon: 'home-svg' },
+    { id: 'explore', label: 'Explore', icon: 'explore-svg' },
+    { id: 'notifications', label: 'Notifications', icon: 'notifications-svg' },
+    { id: 'messages', label: 'Messages', icon: 'messages-svg' },
+    { id: 'lists', label: 'Lists', icon: 'lists-svg' },
+    { id: 'bookmarks', label: 'Bookmarks', icon: 'bookmarks-svg' },
+    { id: 'profile', label: 'Profile', icon: 'profile-svg' },
   ]
 
   const getRoutes = (): Array<React.ReactElement> => {
@@ -37,7 +30,7 @@ const Navigation: FC = () => {
             }
             to={`/${route.id}`}
           >
-            <route.icon />
+            <Icon name={route.icon} />
             {route.label}
           </NavLink>
         </li>

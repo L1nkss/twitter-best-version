@@ -12,5 +12,5 @@ export type NavigationName =
 export interface NavigationRoute {
   id: string
   label: NavigationName
-  icon: FunctionComponent
+  icon: string
 }
