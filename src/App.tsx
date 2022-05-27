@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect } from 'react'
+import React, { FunctionComponent, ReactNode, useEffect } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
 import { useLocation } from 'react-router'
@@ -21,11 +21,7 @@ import { AnimationPage } from '@widgets/animation-page/ui/animation-page'
 import { GuardRoute } from '@widgets/guard-route/ui/guard-route'
 import { Layout } from '@widgets/layout/ui/layout'
 
-interface TwitterRoute {
-  path: string
-  element: ReactNode
-  hocWrapper?: any
-}
+import { TwitterRoute } from './models/interfaces/TwitterRoute.interface'
 
 function App() {
   const isMobile = useCheckIsMobile()
