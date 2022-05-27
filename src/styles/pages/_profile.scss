@@ -1,0 +1,28 @@
+// ===============================================
+// PROFILE-PAGE
+// ===============================================
+
+.profile {
+  &__header {
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__user-background {
+    background: rgb(207, 217, 222);
+    flex: 1 1 0;
+  }
+
+  &__user-data {
+    flex: 1 1 0;
+    position: relative;
+  }
+
+  &__user-avatar {
+    position: absolute;
+    top: -70px;
+    left: 20px;
+    border: 5px solid white;
+  }
+}

@@ -7,9 +7,18 @@ import { UserAvatarProps } from '@shared/ui/user-avatar/models/interfaces/UserAv
 const UserAvatar: FC<UserAvatarProps> = ({
   classes = '',
   avatarUrl,
+  onClick,
+  size,
 }: UserAvatarProps) => {
   return (
-    <div className={cn('user-avatar', classes)}>
+    <div
+      className={cn(
+        'user-avatar',
+        `${size && `user-avatar--${size}`}`,
+        classes
+      )}
+      onClick={onClick}
+    >
       <img src={avatarUrl} alt="" />
     </div>
   )

@@ -50,7 +50,7 @@ function App() {
     { path: 'messages', element: <Messages />, hocWrapper: AnimationPage },
     { path: 'lists', element: <Lists />, hocWrapper: AnimationPage },
     { path: 'bookmarks', element: <Bookmarks />, hocWrapper: AnimationPage },
-    { path: 'profile', element: <Profile />, hocWrapper: AnimationPage },
+    { path: '/:id', element: <Profile />, hocWrapper: AnimationPage },
     { path: '/', element: <Navigate to="/home" /> },
   ]
 

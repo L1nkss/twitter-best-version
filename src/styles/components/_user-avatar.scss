@@ -4,7 +4,12 @@
 
 .user-avatar {
   width: 50px;
-  height: 50%;
+  height: 50px;
   border-radius: 50%;
   overflow: hidden;
+
+  &--xl {
+    width: 140px;
+    height: 140px;
+  }
 }

@@ -2,6 +2,8 @@ import { FC, useContext } from 'react'
 
 import axios from 'axios'
 
+import { useNavigate } from 'react-router-dom'
+
 import { Icon } from '@shared/ui/icon/icon'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { getTimeSince } from '@shared/utils/date-activity'
@@ -12,6 +14,7 @@ import { ITweet } from '../models/interfaces/Tweet.interface'
 // Выглядит херово
 const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   const { likeTweet } = useContext(Context)
+  const navigate = useNavigate()
   const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
 
   const hasAccessToDelete = (): boolean => {
@@ -22,6 +25,10 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
     return (
       userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
     )
+  }
+
+  const linkToProfile = (): void => {
+    navigate(`../${userData.userName}`)
   }
 
   // todo Переделать на Popup с удалением и передачей туда id
@@ -44,7 +51,11 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
 
   return (
     <div className="flex tweet p-4">
-      <UserAvatar avatarUrl={props.userInfo.avatarUrl} classes="mr-3" />
+      <UserAvatar
+        avatarUrl={props.userInfo.avatarUrl}
+        classes="mr-3"
+        onClick={linkToProfile}
+      />
 
       <div className="w-full">
         <div className="flex items-center">

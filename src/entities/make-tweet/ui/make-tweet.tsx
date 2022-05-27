@@ -108,28 +108,26 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
       <TwitterTextarea
         value={value}
         onChangeHandler={onChange}
-        classes={'make-tweet__textarea'}
+        classes={'make-tweet__textarea mb-3'}
       />
-      <div>
-        <div className="flex items-center justify-end">
-          {!!value && (
-            <ProgressBar
-              percentage={getPercentage()}
-              textValue={getProgressBarValue()}
-              size={30}
-              strokeWidth={3}
-              className={cn(getProgressBarClasses())}
-            />
-          )}
+      <div className="flex items-center justify-end">
+        {!!value && (
+          <ProgressBar
+            percentage={getPercentage()}
+            textValue={getProgressBarValue()}
+            size={30}
+            strokeWidth={3}
+            className={cn('mr-3', getProgressBarClasses())}
+          />
+        )}
 
-          <Button
-            onClick={createTweet}
-            disabled={isButtonDisabled}
-            isLoading={isTweetCreating}
-          >
-            Tweet
-          </Button>
-        </div>
+        <Button
+          onClick={createTweet}
+          disabled={isButtonDisabled}
+          isLoading={isTweetCreating}
+        >
+          Tweet
+        </Button>
       </div>
     </div>
   )
