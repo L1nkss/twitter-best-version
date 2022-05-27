@@ -47,9 +47,11 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
       <UserAvatar avatarUrl={props.userInfo.avatarUrl} classes="mr-3" />
 
       <div className="w-full">
-        <div className="flex items-end">
+        <div className="flex items-center">
           <h2 className="font-bold mr-1">{props.userInfo.name}</h2>
-          {/* Иконка если Verify*/}
+          {props.userInfo.isVerify && (
+            <Icon name="verify-svg" classNames="mr-1" />
+          )}
           <p className="tweet__header-data mr-1">@{props.userInfo.userName}</p>
           <p className="tweet__header-data">
             <time>{getTimeSince(props.createdAt)}</time>
@@ -60,6 +62,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
             </div>
           )}
         </div>
+
         <div className="mb-2">
           <p>{props.content}</p>
         </div>
