@@ -2,8 +2,11 @@ import { FC, useContext } from 'react'
 
 import axios from 'axios'
 
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { RootState } from '@app/store'
+import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Icon } from '@shared/ui/icon/icon'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { getTimeSince } from '@shared/utils/date-activity'
@@ -16,10 +19,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   const { likeTweet } = useContext(Context)
   const navigate = useNavigate()
   const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
-
-  const hasAccessToDelete = (): boolean => {
-    return props.userInfo.userName === userData.userName
-  }
+  const hasAccess = useHasUserAccess(props.userInfo.id)
 
   const isTweetLiked = (): boolean => {
     return (
@@ -67,7 +67,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
           <p className="tweet__header-data">
             <time>{getTimeSince(props.createdAt)}</time>
           </p>
-          {hasAccessToDelete() && (
+          {hasAccess && (
             <div className="ml-auto tweet__button">
               <button onClick={() => deleteTweet(props.id)}>Удалить</button>
             </div>

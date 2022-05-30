@@ -1,9 +1,12 @@
 import React, { FunctionComponent, ReactNode, useEffect } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
+import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
+import { User } from '@features/user/models/User.interface'
+import { setUser } from '@features/user/userSlice'
 import { Bookmarks } from '@pages/bookmarks/ui/bookmarks'
 import { Explore } from '@pages/explore/ui/explore'
 import { Home } from '@pages/home/ui/home'
@@ -21,14 +24,24 @@ import { AnimationPage } from '@widgets/animation-page/ui/animation-page'
 import { GuardRoute } from '@widgets/guard-route/ui/guard-route'
 import { Layout } from '@widgets/layout/ui/layout'
 
-import { TwitterRoute } from './models/interfaces/TwitterRoute.interface'
+import { TwitterRoute } from '../models/interfaces/TwitterRoute.interface'
 
 function App() {
+  const dispatch = useDispatch()
   const isMobile = useCheckIsMobile()
   const navigate = useNavigate()
   const location = useLocation()
-  // Вынести в хук
   const [isAuth] = useAuth()
+
+  useEffect(() => {
+    const userData: User = JSON.parse(
+      localStorage.getItem('userTwitterData') || ''
+    )
+
+    if (userData) {
+      dispatch(setUser(userData))
+    }
+  }, [])
 
   const createRoute = (route: TwitterRoute) => {
     let routeElement = route.element

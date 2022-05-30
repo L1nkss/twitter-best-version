@@ -1,9 +1,4 @@
-export interface UserInfo {
-  userName: string
-  avatarUrl: string
-  isVerify: boolean
-  name: string
-}
+import { User } from '@features/user/models/User.interface'
 
 export interface TweetInfo {
   comments: number
@@ -15,6 +10,6 @@ export interface ITweet {
   id: string
   createdAt: Date | string
   content: string
-  userInfo: UserInfo
+  userInfo: User
   tweetInfo: TweetInfo
 }

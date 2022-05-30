@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react'
 
+import { useSelector } from 'react-redux'
+
+import { RootState } from '@app/store'
+
 const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean>(false)
-  const userData = localStorage.getItem('userTwitterData')
+  const user = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
-    if (userData) {
+    if (user.id) {
       setIsAuth(true)
     }
-  }, [userData])
+  }, [user])
 
   return [isAuth]
 }
