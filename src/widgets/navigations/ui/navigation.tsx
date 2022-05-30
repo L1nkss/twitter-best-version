@@ -39,8 +39,11 @@ const Navigation: FC = () => {
   }
   return (
     <div className="navigation">
-      <header className="navigation__header">{/*  Logo  */}</header>
       <div className="navigation__wrapper">
+        <header className="navigation__header">
+          <Icon name="logo-svg" />
+        </header>
+
         <ul className="main-navigation">{getRoutes()}</ul>
       </div>
     </div>
