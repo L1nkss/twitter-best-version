@@ -1,10 +1,10 @@
 import { FC, FormEvent, useState } from 'react'
 
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
 import { IUser } from '@shared/models/interfaces/User.interface'
 import { Button } from '@shared/ui/button/button'
+import { apiClient } from '@shared/utils/api-client'
 
 const SignIn: FC = () => {
   // TODO добавить поле пароль, когда будет авторизация через firebase
@@ -17,9 +17,7 @@ const SignIn: FC = () => {
     setIsLogging(true)
 
     try {
-      const response = await axios.get<IUser[]>(
-        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/User'
-      )
+      const response = await apiClient.get<IUser[]>('/User')
 
       response.data.forEach((user) => {
         if (user.userName === login) {

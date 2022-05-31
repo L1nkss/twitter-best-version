@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import axios from 'axios'
 import cn from 'classnames'
 
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
@@ -10,6 +9,8 @@ import { ProgressBarState } from '@entities/make-tweet/models/interfaces/Progres
 import { Button } from '@shared/ui/button/button'
 import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
 import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
+
+import { apiClient } from '@shared/utils/api-client'
 
 import { ITweet } from '../../tweet/models/interfaces/Tweet.interface'
 
@@ -73,25 +74,22 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
     setIsTweetCreating(true)
 
     try {
-      const response = await axios.post<ITweet>(
-        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet',
-        {
-          createdAt: new Date(),
-          content: value,
-          userInfo: {
-            id: userData.id,
-            userName: userData.userName,
-            isVerify: true,
-            name: userData.name,
-            avatarUrl: userData.avatarUrl,
-          },
-          tweetInfo: {
-            comments: 0,
-            likes: 0,
-            retweets: 0,
-          },
-        }
-      )
+      const response = await apiClient.post<ITweet>('/Tweet', {
+        createdAt: new Date(),
+        content: value,
+        userInfo: {
+          id: userData.id,
+          userName: userData.userName,
+          isVerify: true,
+          name: userData.name,
+          avatarUrl: userData.avatarUrl,
+        },
+        tweetInfo: {
+          comments: 0,
+          likes: 0,
+          retweets: 0,
+        },
+      })
 
       if (response.status === 201 && addNewTweet) {
         addNewTweet(response.data)

@@ -1,30 +1,38 @@
-import { FC, useContext } from 'react'
+import { FC, useEffect, useState } from 'react'
 
-import axios from 'axios'
-
-import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { RootState } from '@app/store'
 import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Icon } from '@shared/ui/icon/icon'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { apiClient } from '@shared/utils/api-client'
 import { getTimeSince } from '@shared/utils/date-activity'
-import { Context } from '@widgets/context/ui/context'
 
 import { ITweet } from '../models/interfaces/Tweet.interface'
 
 // Выглядит херово
 const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
-  const { likeTweet } = useContext(Context)
+  const [isTweetLiked, setIsTweetLiked] = useState<boolean>(false)
+  // const { likeTweet } = useContext(Context)
   const navigate = useNavigate()
   const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
   const hasAccess = useHasUserAccess(props.userInfo.id)
 
-  const isTweetLiked = (): boolean => {
-    return (
+  // const isTweetLiked = (): boolean => {
+  //   return (
+  //     userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
+  //   )
+  // }
+
+  useEffect(() => {
+    const isUserLikesTweet =
       userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
-    )
+
+    setIsTweetLiked(isUserLikesTweet)
+  }, [])
+
+  const likeTweetClickHandler = () => {
+    setIsTweetLiked((currentValue) => !currentValue)
   }
 
   const linkToProfile = (): void => {
@@ -34,10 +42,9 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   // todo Переделать на Popup с удалением и передачей туда id
   const deleteTweet = async (id: string): Promise<any> => {
     try {
-      const response = await axios.delete<ITweet>(
-        `https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet/${id}`,
-        { withCredentials: false }
-      )
+      const response = await apiClient.delete<ITweet>(`/Tweet/${id}`, {
+        withCredentials: false,
+      })
 
       if (response.status === 200) {
         if (props.deleteTweet) {
@@ -101,11 +108,11 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
 
           <div
             className="flex items-center tweet__action-item tweet__action-item--likes"
-            onClick={() => likeTweet(props.id, isTweetLiked())}
+            onClick={() => likeTweetClickHandler()}
           >
             <div className="inline-flex relative mr-2.5">
               <div className="tweet__circle" />
-              {isTweetLiked() ? (
+              {isTweetLiked ? (
                 <Icon name="liked-svg" />
               ) : (
                 <Icon name="like-svg" classNames="tweet__svg" />

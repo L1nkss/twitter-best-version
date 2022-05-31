@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { IUser } from '@shared/models/interfaces/User.interface'
 import { Button } from '@shared/ui/button/button'
+import { apiClient } from '@shared/utils/api-client'
 
 const SignUp: FC = () => {
   const [login, setLogin] = useState<string>('')
@@ -18,14 +19,11 @@ const SignUp: FC = () => {
 
     setIsSigningUp(true)
     try {
-      const response = await axios.post<IUser>(
-        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/User',
-        {
-          createdAt: new Date(),
-          name: name,
-          userName: login,
-        }
-      )
+      const response = await apiClient.post<IUser>('/User', {
+        createdAt: new Date(),
+        name: name,
+        userName: login,
+      })
 
       if (response.status === 200) {
         navigate('/sign-in')

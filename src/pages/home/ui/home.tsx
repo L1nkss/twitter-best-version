@@ -1,20 +1,20 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import axios from 'axios'
-
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
 import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
+import { BASE_API_URL } from '@shared/constants/api'
 import { useFetch } from '@shared/hooks/useFetch'
 
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { Spinner } from '@shared/ui/spinner/spinner'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { apiClient } from '@shared/utils/api-client'
 import { Context } from '@widgets/context/ui/context'
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 const Home: FC = () => {
   const [isLoading, data] = useFetch<ITweet[]>(
-    'https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet',
+    `${BASE_API_URL}/api/v1/Tweet`,
     []
   )
   const [tweets, setTweets] = useState<ITweet[]>([])
@@ -59,8 +59,8 @@ const Home: FC = () => {
     )
 
     try {
-      const response = await axios.put<ITweet>(
-        `https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet/${id}`,
+      const response = await apiClient.put<ITweet>(
+        `/Tweet/${id}`,
         updatedTweet,
         { withCredentials: false }
       )
@@ -80,8 +80,8 @@ const Home: FC = () => {
         }
       }
 
-      const userResponse = await axios.put(
-        `https://62657cf194374a2c5070d523.mockapi.io/api/v1/User/${userLocalstorage.id}`,
+      const userResponse = await apiClient.put(
+        `/User/${userLocalstorage.id}`,
         userLocalstorage,
         { withCredentials: false }
       )
