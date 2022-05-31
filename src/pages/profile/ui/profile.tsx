@@ -1,7 +1,9 @@
 import React, { FC } from 'react'
 
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import { RootState } from '@app/store'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
 import { PageHeader } from '@shared/ui/page-header/page-header'
@@ -9,11 +11,11 @@ import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 
 const Profile: FC = () => {
   const navigate = useNavigate()
-  // Изменить после добавлекния redux'a
-  const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
+  const user = useSelector((state: RootState) => state.user)
+
   return (
     <div className="profile">
-      <PageHeader pageName={userData.name}>
+      <PageHeader pageName={user.name}>
         <Button
           className="mr-3"
           onClick={() => navigate(-1)}
@@ -29,7 +31,7 @@ const Profile: FC = () => {
           <UserAvatar
             size="xl"
             classes="profile__user-avatar"
-            avatarUrl={userData.avatarUrl}
+            avatarUrl={user.avatarUrl}
           />
         </div>
       </div>

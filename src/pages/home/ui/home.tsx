@@ -1,5 +1,8 @@
 import React, { FC, useEffect, useState } from 'react'
 
+import { useSelector } from 'react-redux'
+
+import { RootState } from '@app/store'
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
 import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
 import { BASE_API_URL } from '@shared/constants/api'
@@ -18,7 +21,7 @@ const Home: FC = () => {
     []
   )
   const [tweets, setTweets] = useState<ITweet[]>([])
-  const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
+  const user = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     setTweets(data)
@@ -109,7 +112,7 @@ const Home: FC = () => {
 
       <Context.Provider value={{ likeTweet }}>
         <div className="flex p-4 home-page__twit-form">
-          <UserAvatar classes="mr-3" avatarUrl={userData.avatarUrl} />
+          <UserAvatar classes="mr-3" avatarUrl={user.avatarUrl} />
           <MakeTweet addNewTweet={addNewTweet} />
         </div>
         {isLoading ? (

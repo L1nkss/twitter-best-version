@@ -2,6 +2,9 @@ import React, { FC, useEffect, useState } from 'react'
 
 import cn from 'classnames'
 
+import { useSelector } from 'react-redux'
+
+import { RootState } from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
@@ -24,7 +27,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   })
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
-  const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
+  const user = useSelector((state: RootState) => state.user)
 
   useEffect(() => {
     const symbolsLeft = SYMBOL_MAX_LENGTH - value.length
@@ -78,11 +81,11 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
         createdAt: new Date(),
         content: value,
         userInfo: {
-          id: userData.id,
-          userName: userData.userName,
-          isVerify: true,
-          name: userData.name,
-          avatarUrl: userData.avatarUrl,
+          id: user.id,
+          userName: user.userName,
+          isVerify: user.isVerify,
+          name: user.name,
+          avatarUrl: user.avatarUrl,
         },
         tweetInfo: {
           comments: 0,
