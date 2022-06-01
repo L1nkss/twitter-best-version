@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@app/store'
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
 import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
+import {userSelector} from '@features/user/userSlice';
 import { BASE_API_URL } from '@shared/constants/api'
 import { useFetch } from '@shared/hooks/useFetch'
 
@@ -21,7 +21,7 @@ const Home: FC = () => {
     []
   )
   const [tweets, setTweets] = useState<ITweet[]>([])
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector(userSelector)
 
   useEffect(() => {
     setTweets(data)
@@ -47,7 +47,7 @@ const Home: FC = () => {
   const likeTweet = async (
     id: string,
     isAlreadyLiked: boolean
-  ): Promise<any> => {
+  ): Promise<void> => {
     const idx = tweets.findIndex((tweet) => tweet.id === id)
     const tweetByIdx = tweets[idx]
     const likeCount = isAlreadyLiked

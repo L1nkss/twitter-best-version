@@ -12,7 +12,7 @@ const SignIn: FC = () => {
   const [isLogging, setIsLogging] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const handleLoginSubmit = async (event: FormEvent): Promise<any> => {
+  const handleLoginSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault()
     setIsLogging(true)
 

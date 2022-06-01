@@ -36,11 +36,11 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   }
 
   const linkToProfile = (): void => {
-    navigate(`../${userData.userName}`)
+    navigate(`../${props.userInfo.userName}`)
   }
 
   // todo Переделать на Popup с удалением и передачей туда id
-  const deleteTweet = async (id: string): Promise<any> => {
+  const deleteTweet = async (id: string): Promise<void> => {
     try {
       const response = await apiClient.delete<ITweet>(`/Tweet/${id}`, {
         withCredentials: false,

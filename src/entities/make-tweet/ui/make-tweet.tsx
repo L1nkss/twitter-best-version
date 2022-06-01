@@ -4,7 +4,6 @@ import cn from 'classnames'
 
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
@@ -16,6 +15,7 @@ import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
 import { apiClient } from '@shared/utils/api-client'
 
 import { ITweet } from '../../tweet/models/interfaces/Tweet.interface'
+import {userSelector} from "@features/user/userSlice";
 
 const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   const SYMBOL_MAX_LENGTH = 50
@@ -27,7 +27,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   })
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector(userSelector)
 
   useEffect(() => {
     const symbolsLeft = SYMBOL_MAX_LENGTH - value.length

@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactNode, useEffect } from 'react'
+import React, { useEffect } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
 import { useDispatch } from 'react-redux'

@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react'
 
 import { useSelector } from 'react-redux'
 
-import { RootState } from '@app/store'
+import {userSelector} from '@features/user/userSlice';
 
 const useAuth = () => {
   const [isAuth, setIsAuth] = useState<boolean>(false)
-  const user = useSelector((state: RootState) => state.user)
+  const user = useSelector(userSelector)
 
   useEffect(() => {
     if (user.id) {

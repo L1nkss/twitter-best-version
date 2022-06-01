@@ -12,7 +12,7 @@ const SignUp: FC = () => {
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const handleLoginSubmit = async (evt: FormEvent): Promise<any> => {
+  const handleLoginSubmit = async (evt: FormEvent): Promise<void> => {
     evt.preventDefault()
 
     setIsSigningUp(true)
