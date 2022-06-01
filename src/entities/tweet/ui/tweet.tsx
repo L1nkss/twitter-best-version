@@ -32,11 +32,13 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
   }, [])
 
   const likeTweetClickHandler = () => {
+    // Подсчитать новое значение твита + или -
+    // Изменить статус like/not like
     setIsTweetLiked((currentValue) => !currentValue)
   }
 
   const linkToProfile = (): void => {
-    navigate(`../${props.userInfo.userName}`)
+    navigate(`../${props.userInfo.id}`)
   }
 
   // todo Переделать на Popup с удалением и передачей туда id

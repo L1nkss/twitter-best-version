@@ -4,4 +4,5 @@ export interface IUser {
   likedTweets: Array<string>
   name: string
   userName: string
+  avatarUrl: string
 }

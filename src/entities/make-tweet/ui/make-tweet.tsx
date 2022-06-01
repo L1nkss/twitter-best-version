@@ -8,6 +8,7 @@ import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
 
+import { userSelector } from '@features/user/userSlice'
 import { Button } from '@shared/ui/button/button'
 import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
 import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
@@ -15,7 +16,6 @@ import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
 import { apiClient } from '@shared/utils/api-client'
 
 import { ITweet } from '../../tweet/models/interfaces/Tweet.interface'
-import {userSelector} from "@features/user/userSlice";
 
 const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   const SYMBOL_MAX_LENGTH = 50
