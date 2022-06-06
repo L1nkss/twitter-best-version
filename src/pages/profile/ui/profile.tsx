@@ -3,6 +3,7 @@ import React, { FC, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 import { User } from '@features/user/models/User.interface'
+import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
 import { Loader } from '@shared/ui/loader/loader'
@@ -15,6 +16,7 @@ const Profile: FC = () => {
   const [user, setUser] = useState<User>()
   const { id } = useParams()
   const navigate = useNavigate()
+  const hasAccess = useHasUserAccess(user?.uid)
 
   // Получение не по ID, а по нику ?
   const getUserProfile = async (
@@ -60,11 +62,15 @@ const Profile: FC = () => {
       <div className="profile__header">
         <div className="profile__user-background" />
         <div className="profile__user-data">
-          <UserAvatar
-            size="xl"
-            classes="profile__user-avatar"
-            avatarUrl={user.avatarUrl}
-          />
+          <div>
+            <UserAvatar
+              size="xl"
+              classes="profile__user-avatar"
+              avatarUrl={user.avatarUrl}
+            />
+
+            {hasAccess && <Button>Edit profile</Button>}
+          </div>
         </div>
       </div>
     </div>
