@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { AnimatePresence } from 'framer-motion'
 import { useDispatch } from 'react-redux'
@@ -20,6 +20,9 @@ import { SignUp } from '@pages/sign-up/ui/sign-up'
 import { useAuth } from '@shared/hooks/useAuth'
 import { useCheckIsMobile } from '@shared/hooks/useIsDeviceMobile'
 
+import { Loader } from '@shared/ui/loader/loader'
+import { Popup } from '@shared/ui/popup/popup'
+import { isEmptyObject } from '@shared/utils/utils'
 import { AnimationPage } from '@widgets/animation-page/ui/animation-page'
 import { GuardRoute } from '@widgets/guard-route/ui/guard-route'
 import { Layout } from '@widgets/layout/ui/layout'
@@ -27,20 +30,19 @@ import { Layout } from '@widgets/layout/ui/layout'
 import { TwitterRoute } from '../models/interfaces/TwitterRoute.interface'
 
 function App() {
+  const [showPopup, setShowPopup] = useState<boolean>(true)
   const dispatch = useDispatch()
   const isMobile = useCheckIsMobile()
   const navigate = useNavigate()
   const location = useLocation()
-  const [isAuth] = useAuth()
+  const [isAuth, isLoading] = useAuth()
 
   useEffect(() => {
-    const userData: User = JSON.parse(
-      localStorage.getItem('userTwitterData') || ''
-    )
-
-    if (userData) {
-      dispatch(setUser(userData))
-    }
+    // const userData: User = JSON.parse(localStorage.getItem('userTwitterData') || '{}');
+    //
+    // if (!isEmptyObject(userData)) {
+    //   dispatch(setUser(userData))
+    // }
   }, [])
 
   const createRoute = (route: TwitterRoute) => {
@@ -49,6 +51,7 @@ function App() {
     if (route.hocWrapper) {
       routeElement = <route.hocWrapper>{route.element}</route.hocWrapper>
     }
+
     return <Route key={route.path} path={route.path} element={routeElement} />
   }
 
@@ -71,6 +74,14 @@ function App() {
     const route = isMobile ? '/mobile-version' : '/'
     navigate(route)
   }, [isMobile])
+
+  if (isLoading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <Loader />
+      </div>
+    )
+  }
 
   return (
     <AnimatePresence exitBeforeEnter>

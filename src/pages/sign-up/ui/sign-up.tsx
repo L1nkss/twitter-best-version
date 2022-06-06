@@ -2,7 +2,7 @@ import { FC, FormEvent, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { IUser } from '@shared/models/interfaces/User.interface'
+import { User } from '@features/user/models/User.interface'
 import { Button } from '@shared/ui/button/button'
 import { apiClient } from '@shared/utils/api-client'
 
@@ -17,7 +17,7 @@ const SignUp: FC = () => {
 
     setIsSigningUp(true)
     try {
-      const response = await apiClient.post<IUser>('/User', {
+      const response = await apiClient.post<User>('/User', {
         createdAt: new Date(),
         name: name,
         userName: login,

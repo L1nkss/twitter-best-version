@@ -1,8 +1,8 @@
 export interface User {
-  userName: string
+  nickName: string
   avatarUrl: string
   isVerify: boolean
   name: string
-  createdAt: Date | null
-  id: string
+  createdAt: Date | undefined | string
+  uid: string
 }

@@ -81,7 +81,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
         createdAt: new Date(),
         content: value,
         userInfo: {
-          id: user.id,
+          uid: user.uid,
           nickName: user.nickName,
           isVerify: user.isVerify,
           name: user.name,

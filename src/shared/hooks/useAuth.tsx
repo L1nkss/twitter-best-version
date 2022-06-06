@@ -1,20 +1,27 @@
 import { useEffect, useState } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-import {userSelector} from '@features/user/userSlice';
+import { User } from '@features/user/models/User.interface'
+import { setUser } from '@features/user/userSlice'
+import { getCookie } from '@shared/utils/cookies'
 
-const useAuth = () => {
+const useAuth = (): [boolean, boolean] => {
   const [isAuth, setIsAuth] = useState<boolean>(false)
-  const user = useSelector(userSelector)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const dispatch = useDispatch()
+  const user: User | undefined = getCookie('userAuth')
 
   useEffect(() => {
-    if (user.id) {
+    if (user) {
+      dispatch(setUser(user))
       setIsAuth(true)
     }
+
+    setIsLoading(false)
   }, [user])
 
-  return [isAuth]
+  return [isAuth, isLoading]
 }
 
 export { useAuth }
