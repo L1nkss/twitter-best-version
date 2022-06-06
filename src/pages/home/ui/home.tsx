@@ -4,12 +4,12 @@ import { useSelector } from 'react-redux'
 
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
 import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
-import {userSelector} from '@features/user/userSlice';
+import { userSelector } from '@features/user/userSlice'
 import { BASE_API_URL } from '@shared/constants/api'
 import { useFetch } from '@shared/hooks/useFetch'
 
+import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
-import { Spinner } from '@shared/ui/spinner/spinner'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { apiClient } from '@shared/utils/api-client'
 import { Context } from '@widgets/context/ui/context'
@@ -26,14 +26,6 @@ const Home: FC = () => {
   useEffect(() => {
     setTweets(data)
   }, [data])
-
-  const getLoadingComponent = (): React.ReactElement => {
-    return (
-      <div className="flex justify-center pt-5">
-        <Spinner size={40} strokeWidth={4} className="rotating" />
-      </div>
-    )
-  }
 
   const addNewTweet = (tweet: ITweet): void => {
     setTweets((state) => [...state, tweet])
@@ -116,7 +108,7 @@ const Home: FC = () => {
           <MakeTweet addNewTweet={addNewTweet} />
         </div>
         {isLoading ? (
-          getLoadingComponent()
+          <Loader />
         ) : (
           <TweetList tweets={tweets} deleteTweet={deleteTweet} />
         )}

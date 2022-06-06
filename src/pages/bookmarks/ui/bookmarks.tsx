@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 
 import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
 import { useFetch } from '@shared/hooks/useFetch'
+import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
-import { Spinner } from '@shared/ui/spinner/spinner'
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 const Bookmarks: FC = () => {
@@ -13,18 +13,10 @@ const Bookmarks: FC = () => {
     []
   )
 
-  const getLoadingComponent = (): React.ReactElement => {
-    return (
-      <div className="flex justify-center pt-5">
-        <Spinner size={40} strokeWidth={4} className="rotating" />
-      </div>
-    )
-  }
-
   return (
     <div>
       <PageHeader pageName={'Bookmarks Page'} />
-      {isLoading ? getLoadingComponent() : <TweetList tweets={data} />}
+      {isLoading ? <Loader /> : <TweetList tweets={data} />}
     </div>
   )
 }

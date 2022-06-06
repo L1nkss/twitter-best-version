@@ -2,41 +2,47 @@ import React, { FC, useEffect, useState } from 'react'
 
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { IUser } from '@shared/models/interfaces/User.interface'
+import { User } from '@features/user/models/User.interface'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
+import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
-import { Spinner } from '@shared/ui/spinner/spinner'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
-import { apiClient } from '@shared/utils/api-client'
+
+import { getFromDataFromFirestore } from '../../../firebase'
 
 const Profile: FC = () => {
-  const [user, setUser] = useState<IUser>()
+  const [user, setUser] = useState<User>()
   const { id } = useParams()
   const navigate = useNavigate()
 
+  // Получение не по ID, а по нику ?
+  const getUserProfile = async (
+    userNick: string
+  ): Promise<User | undefined> => {
+    try {
+      const userData = await getFromDataFromFirestore<User>(
+        'users',
+        userNick,
+        'nickName'
+      )
+
+      return userData
+    } catch (e) {}
+  }
+
   useEffect(() => {
-    const getUserProfile = async (): Promise<IUser> => {
-      try {
-        const profile = await apiClient.get(`/User/${id}`)
-
-        return profile.data
-      } catch (e) {
-        throw e
-      }
+    if (id) {
+      getUserProfile(id).then((response) => {
+        if (response) {
+          setUser(response)
+        }
+      })
     }
-
-    getUserProfile().then((response) => {
-      setUser(response)
-    })
   }, [id])
 
   if (!user) {
-    return (
-      <div className="flex justify-center pt-5">
-        <Spinner size={40} strokeWidth={4} className="rotating" />
-      </div>
-    )
+    return <Loader />
   }
 
   return (
