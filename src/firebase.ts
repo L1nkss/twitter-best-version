@@ -4,6 +4,8 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   signOut,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from 'firebase/auth'
 import {
   getFirestore,
@@ -61,11 +63,44 @@ export const signInWithGoogle = async (): Promise<void> => {
   }
 }
 
+export const registerWithEmailAndPassword = async (
+  name: string,
+  email: string,
+  password: string
+) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password)
+    const user = res.user
+    await addDoc(collection(firebaseDB, 'users'), {
+      uid: user.uid,
+      name,
+      nickName: makeRandomString(10),
+      isVerify: false,
+      createdAt: new Date(),
+      authProvider: 'local',
+      email,
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const logout = async () => {
   try {
     await signOut(auth)
     deleteCookie('userAuth')
   } catch (e) {}
+}
+
+export const logInWithEmailAndPassword = async (
+  email: string,
+  password: string
+) => {
+  try {
+    await signInWithEmailAndPassword(auth, email, password)
+  } catch (err) {
+    console.error(err)
+  }
 }
 
 export const getFromDataFromFirestore = async <T>(

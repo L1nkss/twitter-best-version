@@ -8,18 +8,18 @@ import { useNavigate } from 'react-router-dom'
 import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
 import { Button } from '@shared/ui/button/button'
-import { apiClient } from '@shared/utils/api-client'
 
 import {
   auth,
   getFromDataFromFirestore,
+  logInWithEmailAndPassword,
   signInWithGoogle,
 } from '../../../firebase'
 
 const SignIn: FC = () => {
-  const [user, loading, error] = useAuthState(auth)
+  const [user, loading] = useAuthState(auth)
   // TODO добавить поле пароль, когда будет авторизация через firebase
-  const [login, setLogin] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isLogging, setIsLogging] = useState<boolean>(false)
   const navigate = useNavigate()
@@ -42,14 +42,7 @@ const SignIn: FC = () => {
     setIsLogging(true)
 
     try {
-      const response = await apiClient.get<User[]>('/User')
-
-      // response.data.forEach((user) => {
-      //   if (user.userName === login) {
-      //     localStorage.setItem('userTwitterData', JSON.stringify({ ...user }))
-      //     navigate('/')
-      //   }
-      // })
+      await logInWithEmailAndPassword(email, password)
     } catch (err) {
       console.log('err', err)
     } finally {
@@ -70,13 +63,13 @@ const SignIn: FC = () => {
                 htmlFor="login"
                 className="block mb-1 text-gray-600 font-semibold"
               >
-                Login
+                Email
               </label>
               <input
                 id="login"
                 type="text"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
 
@@ -117,7 +110,7 @@ const SignIn: FC = () => {
                 type="submit"
                 className="w-full flex-initial mt-2"
                 buttonType="rounded"
-                isLoading={isLogging}
+                isLoading={loading}
                 onClick={signInWithGoogle}
                 iconName="google-svg"
               >
