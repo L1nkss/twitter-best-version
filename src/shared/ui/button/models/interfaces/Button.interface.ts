@@ -9,4 +9,5 @@ export interface ButtonProps
   > {
   buttonType?: ButtonType
   isLoading?: boolean
+  iconName?: string
 }

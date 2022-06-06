@@ -20,6 +20,7 @@ const SignIn: FC = () => {
   const [user, loading, error] = useAuthState(auth)
   // TODO добавить поле пароль, когда будет авторизация через firebase
   const [login, setLogin] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [isLogging, setIsLogging] = useState<boolean>(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -79,6 +80,21 @@ const SignIn: FC = () => {
               />
             </div>
 
+            <div>
+              <label
+                htmlFor="password"
+                className="block mb-1 text-gray-600 font-semibold"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="text"
+                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+
             <div className="text-center">
               <Button
                 type="submit"
@@ -89,23 +105,36 @@ const SignIn: FC = () => {
                 Sign in
               </Button>
 
+              <div className="w-full flex items-center justify-between py-5">
+                <hr className="w-full bg-gray-400" />
+                <p className="text-base font-medium leading-4 px-2.5 text-gray-400">
+                  OR
+                </p>
+                <hr className="w-full bg-gray-400" />
+              </div>
+
               <Button
                 type="submit"
                 className="w-full flex-initial mt-2"
                 buttonType="rounded"
                 isLoading={isLogging}
                 onClick={signInWithGoogle}
+                iconName="google-svg"
               >
-                Google
+                Continue with Google
               </Button>
-              <span className="inline-block my-1.5">or</span>
-              <Button
-                className="w-full flex-initial"
-                buttonType="rounded"
-                onClick={() => navigate('/sign-up')}
-              >
-                Sign up
-              </Button>
+
+              <p className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500">
+                Dont have account?
+                <a
+                  className="hover:text-gray-500 focus:text-gray-500
+                      focus:outline-none focus:underline hover:underline text-sm
+                    font-medium leading-none  text-gray-800 cursor-pointer ml-1"
+                  onClick={() => navigate('/sign-up')}
+                >
+                  Sign up here
+                </a>
+              </p>
             </div>
           </div>
         </div>
