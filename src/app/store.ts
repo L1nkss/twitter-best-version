@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit'
 
+import tweetReducer from '@features/tweets/tweetsSlice'
 import userReducer from '@features/user/userSlice'
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    tweets: tweetReducer,
   },
 })
 

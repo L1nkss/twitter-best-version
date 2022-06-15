@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { useSelector } from 'react-redux'
 import { NavLink, useNavigate } from 'react-router-dom'
 
-import { userSelector } from '@features/user/userSlice'
+import { userSelector } from '@features/user/userSelector'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
 import { NavigationRoute } from '@widgets/navigations/models/interfaces/NavigationRoute.interface'

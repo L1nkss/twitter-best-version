@@ -2,22 +2,21 @@ import React, { FC, useEffect, useState } from 'react'
 
 import cn from 'classnames'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
+import { AppDispatch } from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
 
-import { userSelector } from '@features/user/userSlice'
+import { Tweet } from '@features/tweets/models/Tweets.interface'
+import { addTweet } from '@features/tweets/thunks/add-tweet'
+import { userSelector } from '@features/user/userSelector'
 import { Button } from '@shared/ui/button/button'
 import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
 import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
 
-import { apiClient } from '@shared/utils/api-client'
-
-import { ITweet } from '../../tweet/models/interfaces/Tweet.interface'
-
-const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
+const MakeTweet: FC<MakeTweetProps> = () => {
   const SYMBOL_MAX_LENGTH = 50
 
   const [value, setValue] = useState<string>('')
@@ -28,6 +27,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
   const user = useSelector(userSelector)
+  const dispatch = useDispatch<AppDispatch>()
 
   useEffect(() => {
     const symbolsLeft = SYMBOL_MAX_LENGTH - value.length
@@ -77,7 +77,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
     setIsTweetCreating(true)
 
     try {
-      const response = await apiClient.post<ITweet>('/Tweet', {
+      const data: Omit<Tweet, 'id'> = {
         createdAt: new Date(),
         content: value,
         userInfo: {
@@ -92,12 +92,10 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
           likes: 0,
           retweets: 0,
         },
-      })
-
-      if (response.status === 201 && addNewTweet) {
-        addNewTweet(response.data)
-        setValue(() => '')
       }
+
+      await dispatch(addTweet(data))
+      setValue('')
     } catch (err) {
       console.log('error', err)
     } finally {

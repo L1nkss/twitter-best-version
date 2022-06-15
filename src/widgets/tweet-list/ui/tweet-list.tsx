@@ -2,8 +2,8 @@ import React, { FC } from 'react'
 
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
-import { ITweet } from '@entities/tweet/models/interfaces/Tweet.interface'
 import { Tweet } from '@entities/tweet/ui/tweet'
+import { Tweet as ITweet } from '@features//tweets/models/Tweets.interface'
 import { getDate } from '@shared/utils/date'
 import { TweetListProps } from '@widgets/tweet-list/models/interfaces/TweetList.interface'
 
@@ -25,11 +25,14 @@ const TweetList: FC<TweetListProps> = ({ tweets, deleteTweet }) => {
 
   return (
     <TransitionGroup component="div" className="overflow-hidden">
-      {tweets.sort(sortTweetDate).map((tweet) => (
-        <CSSTransition key={tweet.id} timeout={700} classNames="tweet">
-          <Tweet key={tweet.id} {...tweet} deleteTweet={deleteTweet} />
-        </CSSTransition>
-      ))}
+      {tweets
+        .slice()
+        .sort(sortTweetDate)
+        .map((tweet) => (
+          <CSSTransition key={tweet.id} timeout={700} classNames="tweet">
+            <Tweet key={tweet.id} {...tweet} deleteTweet={deleteTweet} />
+          </CSSTransition>
+        ))}
     </TransitionGroup>
   )
 }

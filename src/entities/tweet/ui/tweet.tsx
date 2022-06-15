@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import { Tweet as ITweet } from '@features/tweets/models/Tweets.interface'
 import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
@@ -10,7 +11,7 @@ import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { apiClient } from '@shared/utils/api-client'
 import { getTimeSince } from '@shared/utils/date-activity'
 
-import { ITweet } from '../models/interfaces/Tweet.interface'
+// import { ITweet } from '../models/interfaces/Tweet.interface'
 
 // Выглядит херово
 const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
