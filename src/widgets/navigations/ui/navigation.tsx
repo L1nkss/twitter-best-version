@@ -1,26 +1,35 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-import { NavLink } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { NavLink, useNavigate } from 'react-router-dom'
 
-// Выглядит херово, наверно переделать todo
-import { ReactComponent as BookmarksSvg } from '../assets/bookmarks-svg.svg'
-import { ReactComponent as ExploreSvg } from '../assets/explore-svg.svg'
-import { ReactComponent as HomeSvg } from '../assets/home-svg.svg'
-import { ReactComponent as ListsSvg } from '../assets/lists-svg.svg'
-import { ReactComponent as MessagesSvg } from '../assets/messages-svg.svg'
-import { ReactComponent as NotificationsSvg } from '../assets/notifications-svg.svg'
-import { ReactComponent as ProfileSvg } from '../assets/profile-svg.svg'
+import { userSelector } from '@features/user/userSlice'
+import { Button } from '@shared/ui/button/button'
+import { Icon } from '@shared/ui/icon/icon'
+import { NavigationRoute } from '@widgets/navigations/models/interfaces/NavigationRoute.interface'
 
-const Navigation = () => {
-  const routes = [
-    { id: 'home', label: 'Home', icon: HomeSvg },
-    { id: 'explore', label: 'Explore', icon: ExploreSvg },
-    { id: 'notifications', label: 'Notifications', icon: NotificationsSvg },
-    { id: 'messages', label: 'Messages', icon: MessagesSvg },
-    { id: 'lists', label: 'Lists', icon: ListsSvg },
-    { id: 'bookmarks', label: 'Bookmarks', icon: BookmarksSvg },
-    { id: 'profile', label: 'Profile', icon: ProfileSvg },
+import { logout } from '../../../firebase'
+
+const Navigation: FC = () => {
+  const user = useSelector(userSelector)
+  const navigate = useNavigate()
+
+  const routes: NavigationRoute[] = [
+    { id: 'home', label: 'Home', icon: 'home-svg' },
+    { id: 'explore', label: 'Explore', icon: 'explore-svg' },
+    { id: 'notifications', label: 'Notifications', icon: 'notifications-svg' },
+    { id: 'messages', label: 'Messages', icon: 'messages-svg' },
+    { id: 'lists', label: 'Lists', icon: 'lists-svg' },
+    { id: 'bookmarks', label: 'Bookmarks', icon: 'bookmarks-svg' },
+    { id: user.nickName, label: 'Profile', icon: 'profile-svg' },
   ]
+
+  const signOut = async () => {
+    try {
+      await logout()
+      navigate('/sign-in')
+    } catch (e) {}
+  }
 
   const getRoutes = (): Array<React.ReactElement> => {
     const linkClassName = 'main-navigation__link'
@@ -36,8 +45,7 @@ const Navigation = () => {
             }
             to={`/${route.id}`}
           >
-            {/* Выглядит херово, наверно переделать todo */}
-            <route.icon />
+            <Icon name={route.icon} />
             {route.label}
           </NavLink>
         </li>
@@ -46,9 +54,14 @@ const Navigation = () => {
   }
   return (
     <div className="navigation">
-      <header className="navigation__header">{/*  Logo  */}</header>
       <div className="navigation__wrapper">
+        <header className="navigation__header">
+          <Icon name="logo-svg" />
+        </header>
+
         <ul className="main-navigation">{getRoutes()}</ul>
+
+        <Button onClick={signOut}>logout</Button>
       </div>
     </div>
   )

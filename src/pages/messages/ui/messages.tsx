@@ -1,6 +1,8 @@
-import { PageHeader } from '../../../shared'
+import { FC } from 'react'
 
-const Messages = () => {
+import { PageHeader } from '@shared/ui/page-header/page-header'
+
+const Messages: FC = () => {
   return (
     <div>
       <PageHeader pageName={'Messages Page'} />

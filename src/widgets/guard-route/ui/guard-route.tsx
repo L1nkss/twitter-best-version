@@ -3,11 +3,7 @@ import React, { FC } from 'react'
 import { Navigate } from 'react-router'
 import { Outlet } from 'react-router-dom'
 
-interface GuardRouteProps {
-  isAllowed: boolean
-  children: React.ReactElement
-  redirectUrl?: string
-}
+import { GuardRouteProps } from '@widgets/guard-route/models/interfaces/GuardRoute.interface'
 
 const GuardRoute: FC<GuardRouteProps> = ({
   isAllowed,

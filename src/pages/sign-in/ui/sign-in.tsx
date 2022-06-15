@@ -1,31 +1,48 @@
-import { FormEvent, useState } from 'react'
+import { FC, FormEvent, useEffect, useState } from 'react'
 
-import axios from 'axios'
+import Cookies from 'js-cookie'
+import { useAuthState } from 'react-firebase-hooks/auth'
+import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { Button, IUser } from '../../../shared'
+import { User } from '@features/user/models/User.interface'
+import { setUser } from '@features/user/userSlice'
+import { Button } from '@shared/ui/button/button'
 
-const SignIn = () => {
+import {
+  auth,
+  getFromDataFromFirestore,
+  logInWithEmailAndPassword,
+  signInWithGoogle,
+} from '../../../firebase'
+
+const SignIn: FC = () => {
+  const [user, loading] = useAuthState(auth)
   // TODO добавить поле пароль, когда будет авторизация через firebase
-  const [login, setLogin] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [isLogging, setIsLogging] = useState<boolean>(false)
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
-  const handleLoginSubmit = async (event: FormEvent): Promise<any> => {
+  useEffect(() => {
+    if (user) {
+      getFromDataFromFirestore<User>('users', user.uid).then((response) => {
+        if (response) {
+          Cookies.set('userAuth', JSON.stringify(response))
+          dispatch(setUser(response))
+          navigate('/')
+        }
+      })
+    }
+  }, [user])
+
+  const handleLoginSubmit = async (event: FormEvent): Promise<void> => {
     event.preventDefault()
     setIsLogging(true)
 
     try {
-      const response = await axios.get<IUser[]>(
-        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/User'
-      )
-
-      response.data.forEach((user) => {
-        if (user.userName === login) {
-          localStorage.setItem('userTwitterData', JSON.stringify({ ...user }))
-          navigate('/')
-        }
-      })
+      await logInWithEmailAndPassword(email, password)
     } catch (err) {
       console.log('err', err)
     } finally {
@@ -46,13 +63,28 @@ const SignIn = () => {
                 htmlFor="login"
                 className="block mb-1 text-gray-600 font-semibold"
               >
-                Login
+                Email
               </label>
               <input
                 id="login"
                 type="text"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setLogin(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block mb-1 text-gray-600 font-semibold"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="text"
+                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
@@ -65,14 +97,37 @@ const SignIn = () => {
               >
                 Sign in
               </Button>
-              <span className="inline-block my-1.5">or</span>
+
+              <div className="w-full flex items-center justify-between py-5">
+                <hr className="w-full bg-gray-400" />
+                <p className="text-base font-medium leading-4 px-2.5 text-gray-400">
+                  OR
+                </p>
+                <hr className="w-full bg-gray-400" />
+              </div>
+
               <Button
-                className="w-full flex-initial"
+                type="submit"
+                className="w-full flex-initial mt-2"
                 buttonType="rounded"
-                onClick={() => navigate('/sign-up')}
+                isLoading={loading}
+                onClick={signInWithGoogle}
+                iconName="google-svg"
               >
-                Sign up
+                Continue with Google
               </Button>
+
+              <p className="focus:outline-none text-sm mt-4 font-medium leading-none text-gray-500">
+                Dont have account?
+                <a
+                  className="hover:text-gray-500 focus:text-gray-500
+                      focus:outline-none focus:underline hover:underline text-sm
+                    font-medium leading-none  text-gray-800 cursor-pointer ml-1"
+                  onClick={() => navigate('/sign-up')}
+                >
+                  Sign up here
+                </a>
+              </p>
             </div>
           </div>
         </div>

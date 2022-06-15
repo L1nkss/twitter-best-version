@@ -2,20 +2,23 @@ import { FC } from 'react'
 
 import cn from 'classnames'
 
-import avatar from './mock-avatar/avatar.jpg'
+import { UserAvatarProps } from '@shared/ui/user-avatar/models/interfaces/UserAvatar.interface'
 
-interface UserAvatarProps {
-  classes?: string
-  avatarUrl?: string
-}
-
-// todo временный компонент -> переделать
 const UserAvatar: FC<UserAvatarProps> = ({
   classes = '',
   avatarUrl,
+  onClick,
+  size,
 }: UserAvatarProps) => {
   return (
-    <div className={cn('user-avatar', classes)}>
+    <div
+      className={cn(
+        'user-avatar',
+        `${size && `user-avatar--${size}`}`,
+        classes
+      )}
+      onClick={onClick}
+    >
       <img src={avatarUrl} alt="" />
     </div>
   )

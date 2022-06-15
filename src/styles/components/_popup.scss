@@ -1,0 +1,60 @@
+// ===============================================
+// POPUP
+// ===============================================
+
+$overlay-bg: var(--cl-black);
+
+.overlay {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(#000, 0.7);
+  transition: opacity 500ms;
+  z-index: 10;
+  cursor: default;
+
+  &--show {
+    visibility: visible;
+    opacity: 1;
+  }
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: var(--cl-white);
+  border-radius: 5px;
+  width: 30%;
+  position: relative;
+  transition: all 5s ease-in-out;
+  z-index: 20;
+
+  &__title {
+    color: #333;
+  }
+
+  &__close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+
+    &:hover {
+      color: var(--cl-black);
+      cursor: pointer;
+    }
+  }
+
+  &__content {
+    max-height: 30%;
+    overflow: hidden;
+  }
+}

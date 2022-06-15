@@ -1,6 +1,8 @@
-import { PageHeader } from '../../../shared'
+import { FC } from 'react'
 
-const Lists = () => {
+import { PageHeader } from '@shared/ui/page-header/page-header'
+
+const Lists: FC = () => {
   return (
     <div>
       <PageHeader pageName={'Lists Page'} />

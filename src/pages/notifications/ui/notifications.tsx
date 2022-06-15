@@ -1,6 +1,8 @@
-import { PageHeader } from '../../../shared'
+import { FC } from 'react'
 
-const Notifications = () => {
+import { PageHeader } from '@shared/ui/page-header/page-header'
+
+const Notifications: FC = () => {
   return (
     <div>
       <PageHeader pageName={'Notifications Page'} />

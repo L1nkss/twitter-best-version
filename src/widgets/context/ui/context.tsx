@@ -4,4 +4,6 @@ interface IContext {
   likeTweet: (id: string, isLiked: boolean) => void
 }
 
-export const Context = React.createContext<IContext>({ likeTweet: () => {} })
+export const Context: React.Context<IContext> = React.createContext<IContext>({
+  likeTweet: () => {},
+})

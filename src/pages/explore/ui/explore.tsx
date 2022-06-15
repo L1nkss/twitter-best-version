@@ -1,6 +1,8 @@
-import { PageHeader } from '../../../shared'
+import { FC } from 'react'
 
-const Explore = () => {
+import { PageHeader } from '@shared/ui/page-header/page-header'
+
+const Explore: FC = () => {
   return (
     <div>
       <PageHeader pageName={'Explore Page'} />

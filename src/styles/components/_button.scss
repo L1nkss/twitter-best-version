@@ -23,6 +23,11 @@
   box-shadow: 2px 5px 10px #e4e4e4;
   min-height: 44px;
 
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+
   &--primary {
     color: #ffffff;
     background: #416dea;

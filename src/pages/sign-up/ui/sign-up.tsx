@@ -1,34 +1,35 @@
-import { FormEvent, useState } from 'react'
-
-import axios from 'axios'
+import { FC, FormEvent, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { Button, IUser } from '../../../shared'
+import { User } from '@features/user/models/User.interface'
+import { Button } from '@shared/ui/button/button'
+import { apiClient } from '@shared/utils/api-client'
 
-const SignUp = () => {
-  const [login, setLogin] = useState<string>('')
+import { registerWithEmailAndPassword } from '../../../firebase'
+
+const SignUp: FC = () => {
+  const [email, setEmail] = useState<string>('')
   const [name, setName] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
   const [isSigningUp, setIsSigningUp] = useState<boolean>(false)
   const navigate = useNavigate()
 
-  const handleLoginSubmit = async (evt: FormEvent): Promise<any> => {
+  const handleLoginSubmit = async (evt: FormEvent): Promise<void> => {
     evt.preventDefault()
 
     setIsSigningUp(true)
     try {
-      const response = await axios.post<IUser>(
-        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/User',
-        {
-          createdAt: new Date(),
-          name: name,
-          userName: login,
-        }
-      )
+      const response = await registerWithEmailAndPassword(name, email, password)
+      // const response = await apiClient.post<User>('/User', {
+      //   createdAt: new Date(),
+      //   name: name,
+      //   userName: login,
+      // })
 
-      if (response.status === 200) {
-        navigate('/sign-in')
-      }
+      // if (response.status === 200) {
+      //   navigate('/sign-in')
+      // }
     } catch (err) {
       console.log('err', err)
     } finally {
@@ -46,21 +47,6 @@ const SignUp = () => {
 
             <div>
               <label
-                htmlFor="login"
-                className="block mb-1 text-gray-600 font-semibold"
-              >
-                Login
-              </label>
-              <input
-                id="login"
-                type="text"
-                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setLogin(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label
                 htmlFor="name"
                 className="block mb-1 text-gray-600 font-semibold"
               >
@@ -71,6 +57,36 @@ const SignUp = () => {
                 type="text"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
                 onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="email"
+                className="block mb-1 text-gray-600 font-semibold"
+              >
+                Email
+              </label>
+              <input
+                id="email"
+                type="text"
+                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block mb-1 text-gray-600 font-semibold"
+              >
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 

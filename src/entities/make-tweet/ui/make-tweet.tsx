@@ -1,16 +1,21 @@
 import React, { FC, useEffect, useState } from 'react'
 
-import axios from 'axios'
 import cn from 'classnames'
 
-import { Button, ProgressBar, TwitterTextArea } from '../../../shared'
-import { ITweet } from '../../tweet/types/Tweet.interface'
-import { ProgressBarState, TweetLength } from '../models'
+import { useSelector } from 'react-redux'
 
-// Возможно неправильно
-interface MakeTweetProps {
-  addNewTweet?: (tweet: ITweet) => void
-}
+import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
+import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
+import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
+
+import { userSelector } from '@features/user/userSlice'
+import { Button } from '@shared/ui/button/button'
+import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
+import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
+
+import { apiClient } from '@shared/utils/api-client'
+
+import { ITweet } from '../../tweet/models/interfaces/Tweet.interface'
 
 const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   const SYMBOL_MAX_LENGTH = 50
@@ -22,7 +27,7 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
   })
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
-  const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
+  const user = useSelector(userSelector)
 
   useEffect(() => {
     const symbolsLeft = SYMBOL_MAX_LENGTH - value.length
@@ -72,24 +77,22 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
     setIsTweetCreating(true)
 
     try {
-      const response = await axios.post<ITweet>(
-        'https://62657cf194374a2c5070d523.mockapi.io/api/v1/Tweet',
-        {
-          createdAt: new Date(),
-          content: value,
-          userInfo: {
-            userName: userData.userName,
-            isVerify: true,
-            name: userData.name,
-            avatarUrl: userData.avatarUrl,
-          },
-          tweetInfo: {
-            comments: 0,
-            likes: 0,
-            retweets: 0,
-          },
-        }
-      )
+      const response = await apiClient.post<ITweet>('/Tweet', {
+        createdAt: new Date(),
+        content: value,
+        userInfo: {
+          uid: user.uid,
+          nickName: user.nickName,
+          isVerify: user.isVerify,
+          name: user.name,
+          avatarUrl: user.avatarUrl,
+        },
+        tweetInfo: {
+          comments: 0,
+          likes: 0,
+          retweets: 0,
+        },
+      })
 
       if (response.status === 201 && addNewTweet) {
         addNewTweet(response.data)
@@ -104,31 +107,29 @@ const MakeTweet: FC<MakeTweetProps> = ({ addNewTweet }) => {
 
   return (
     <div className="w-full make-tweet">
-      <TwitterTextArea
+      <TwitterTextarea
         value={value}
         onChangeHandler={onChange}
-        classes={'make-tweet__textarea'}
+        classes={'make-tweet__textarea mb-3'}
       />
-      <div>
-        <div className="flex items-center justify-end">
-          {!!value && (
-            <ProgressBar
-              percentage={getPercentage()}
-              textValue={getProgressBarValue()}
-              size={30}
-              strokeWidth={3}
-              className={cn(getProgressBarClasses())}
-            />
-          )}
+      <div className="flex items-center justify-end">
+        {!!value && (
+          <ProgressBar
+            percentage={getPercentage()}
+            textValue={getProgressBarValue()}
+            size={30}
+            strokeWidth={3}
+            className={cn('mr-3', getProgressBarClasses())}
+          />
+        )}
 
-          <Button
-            onClick={createTweet}
-            disabled={isButtonDisabled}
-            isLoading={isTweetCreating}
-          >
-            Tweet
-          </Button>
-        </div>
+        <Button
+          onClick={createTweet}
+          disabled={isButtonDisabled}
+          isLoading={isTweetCreating}
+        >
+          Tweet
+        </Button>
       </div>
     </div>
   )

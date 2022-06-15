@@ -14,7 +14,6 @@ const months = [
 ]
 
 const getTimeSince = (date: string | Date): string => {
-  // timeSince
   const currentTime = new Date()
   const propDate = typeof date === 'string' ? new Date(date) : date
 

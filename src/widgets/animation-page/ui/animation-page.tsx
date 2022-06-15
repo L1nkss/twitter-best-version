@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 import { motion, Variants } from 'framer-motion'
 import { Transition } from 'framer-motion/types/types'
 
-import { AnimationPageProps } from '../models'
+import { AnimationPageProps } from '@widgets/animation-page/models/animation-page.interface'
 
 const defaultAnimation: Variants = {
   initial: { opacity: 0 },
