@@ -1,5 +1,4 @@
 import { RootState } from '@app/store'
 
-// export const tweetsLoading = (state: RootState) => state.tweets.allTweets.loading;
-// export const allTweets = (state: RootState) => state.tweets.allTweets.list;
 export const allTweets = (state: RootState) => state.tweets.allTweets
+export const likedTweets = (state: RootState) => state.tweets.likedTweets;

@@ -1,50 +1,49 @@
 import { FC, useEffect, useState } from 'react'
 
+import {useSelector} from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 
 import {useAppDispatch} from '@app/store';
-import { Tweet as ITweet } from '@features/tweets/models/Tweets.interface'
+import {Tweet as ITweet} from '@features/tweets/models/Tweets.interface'
 import {deleteTweet} from '@features/tweets/thunks/delete-tweet';
+import {likeStatus} from '@features/tweets/thunks/like-status';
+import {likedTweets} from '@features/tweets/tweetsSelectors';
+import {userIdSelector} from '@features/user/userSelector';
 import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
 import { Popup } from '@shared/ui/popup/popup'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
-import { apiClient } from '@shared/utils/api-client'
 import { getTimeSince } from '@shared/utils/date-activity'
 
-// import { ITweet } from '../models/interfaces/Tweet.interface'
 
 const Tweet: FC<ITweet> = (props) => {
   const [isTweetLiked, setIsTweetLiked] = useState<boolean>(false)
   const [popupVisible, setPopupVisible] = useState<boolean>(false)
-  // const { likeTweet } = useContext(Context)
   const navigate = useNavigate()
-  // const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
   const hasAccess = useHasUserAccess(props.userInfo.uid)
   const dispatch = useAppDispatch();
-
-  // const isTweetLiked = (): boolean => {
-  //   return (
-  //     userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
-  //   )
-  // }
+  const userLikedTweets = useSelector(likedTweets);
+  const currentUserId = useSelector(userIdSelector);
 
   useEffect(() => {
-    // const isUserLikesTweet =
-    //   userData.likedTweets.findIndex((twId: string) => twId === props.id) !== -1
-    //
-    // setIsTweetLiked(isUserLikesTweet)
-  }, [])
+    const idx = userLikedTweets.findIndex((tw) => tw.id === props.id);
+
+    setIsTweetLiked(idx !== -1);
+  }, [userLikedTweets])
 
   const likeTweetClickHandler = async () => {
     try {
-      setIsTweetLiked((currentValue) => !currentValue);
+      const updatedLikeCounter = isTweetLiked ? props.tweetInfo.likes - 1 : props.tweetInfo.likes + 1;
+      const updatedTweet = {...props, tweetInfo: {...props.tweetInfo, likes: updatedLikeCounter}};
+      await dispatch(likeStatus({
+        tweet: updatedTweet,
+        status: isTweetLiked ? 'delete' : 'add',
+        currentUserId
+      }));
     } catch (e) {
 
     }
-    // Подсчитать новое значение твита + или -
-    // Изменить статус like/not like
   }
 
   const linkToProfile = (): void => {

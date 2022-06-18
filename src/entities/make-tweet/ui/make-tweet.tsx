@@ -2,9 +2,9 @@ import React, { FC, useEffect, useState } from 'react'
 
 import cn from 'classnames'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import {AppDispatch, useAppDispatch} from '@app/store'
+import {useAppDispatch} from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
