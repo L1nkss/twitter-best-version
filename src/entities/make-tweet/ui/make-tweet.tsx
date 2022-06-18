@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { AppDispatch } from '@app/store'
+import {AppDispatch, useAppDispatch} from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
@@ -27,7 +27,7 @@ const MakeTweet: FC<MakeTweetProps> = () => {
   const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
   const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
   const user = useSelector(userSelector)
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const symbolsLeft = SYMBOL_MAX_LENGTH - value.length

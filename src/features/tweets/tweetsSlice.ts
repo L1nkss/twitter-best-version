@@ -28,10 +28,8 @@ export const tweetsSlice = createSlice({
       state.allTweets.loading = false
     })
     builder.addCase(loadTweets.rejected, (state, { payload }) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       if (payload) {
-        // @ts-ignore
-        state.allTweets.error = payload.message
+        // state.allTweets.error = payload.message
       }
 
       state.allTweets.loading = false

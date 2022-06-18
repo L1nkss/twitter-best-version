@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { useLocation } from 'react-router'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 
+import {useAppDispatch} from '@app/store';
 import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
 import { Bookmarks } from '@pages/bookmarks/ui/bookmarks'
@@ -31,7 +32,7 @@ import { TwitterRoute } from '../models/interfaces/TwitterRoute.interface'
 
 function App() {
   const [showPopup, setShowPopup] = useState<boolean>(true)
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch();
   const isMobile = useCheckIsMobile()
   const navigate = useNavigate()
   const location = useLocation()

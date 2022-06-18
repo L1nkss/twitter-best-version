@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import {useAppDispatch} from '@app/store';
 import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
 import { Button } from '@shared/ui/button/button'
@@ -23,7 +24,7 @@ const SignIn: FC = () => {
   const [password, setPassword] = useState<string>('')
   const [isLogging, setIsLogging] = useState<boolean>(false)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (user) {

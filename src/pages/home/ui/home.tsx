@@ -1,8 +1,8 @@
 import React, { FC, useEffect } from 'react'
 
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 
-import { AppDispatch } from '@app/store'
+import {useAppDispatch} from '@app/store'
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
 import { loadTweets } from '@features/tweets/thunks/load-tweets'
 import { allTweets } from '@features/tweets/tweetsSelectors'
@@ -16,7 +16,7 @@ import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 const Home: FC = () => {
   const user = useSelector(userSelector)
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch();
   const { loading, list } = useSelector(allTweets)
 
   const getTweets = async () => {
