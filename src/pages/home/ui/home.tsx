@@ -1,5 +1,6 @@
-import React, {FC, useEffect} from 'react'
+import React, {FC, useEffect, useState} from 'react'
 
+import {collection, doc, onSnapshot} from 'firebase/firestore'
 import {useSelector} from 'react-redux'
 
 import {useAppDispatch} from '@app/store'
@@ -14,7 +15,10 @@ import {PageHeader} from '@shared/ui/page-header/page-header'
 import {UserAvatar} from '@shared/ui/user-avatar/user-avatar'
 import {TweetList} from '@widgets/tweet-list/ui/tweet-list'
 
+import {firebaseDB} from '../../../firebase';
+
 const Home: FC = () => {
+    const [newTweetsCount, setNewTweetsCount] = useState<number>(0);
     const user = useSelector(userSelector)
     const dispatch = useAppDispatch();
     const {loading, list} = useSelector(allTweets)
@@ -26,6 +30,16 @@ const Home: FC = () => {
     const loadLikedTweets = async (id: string) => {
         await dispatch(loadLikesTweets(id));
     }
+
+    useEffect(() => {
+        onSnapshot(collection(firebaseDB, 'tweets'), (updatedDocs) => {
+            if (updatedDocs.size > list.length) {
+                setNewTweetsCount(updatedDocs.size - list.length);
+            } else {
+                setNewTweetsCount(0);
+            }
+        })
+    }, [list])
 
     useEffect(() => {
         getTweets();
@@ -40,6 +54,7 @@ const Home: FC = () => {
                 <UserAvatar classes="mr-3" avatarUrl={user.avatarUrl}/>
                 <MakeTweet/>
             </div>
+            {Boolean(newTweetsCount) && <div onClick={() => getTweets()}>{newTweetsCount} new tweets.</div>}
             {loading ? (
                 <Loader/>
             ) : (

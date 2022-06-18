@@ -78,7 +78,7 @@ const MakeTweet: FC<MakeTweetProps> = () => {
 
     try {
       const data: Omit<Tweet, 'id'> = {
-        createdAt: new Date(),
+        createdAt: new Date().toString(),
         content: value,
         userInfo: {
           uid: user.uid,
