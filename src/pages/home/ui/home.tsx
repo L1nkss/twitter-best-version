@@ -24,7 +24,7 @@ const Home: FC = () => {
   }
 
   useEffect(() => {
-    // setTweets(data)
+    if (list.length) return;
 
     getTweets()
   }, [])
@@ -107,7 +107,7 @@ const Home: FC = () => {
         {loading ? (
           <Loader />
         ) : (
-          <TweetList tweets={list} deleteTweet={deleteTweet} />
+          <TweetList tweets={list} />
         )}
       </Context.Provider>
     </div>

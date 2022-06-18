@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 import { Tweets } from '@features/tweets/models/Tweets.interface'
 import { addTweet } from '@features/tweets/thunks/add-tweet'
+import {deleteTweet} from '@features/tweets/thunks/delete-tweet';
 import { loadTweets } from '@features/tweets/thunks/load-tweets'
 
 const initialState: Tweets = {
@@ -37,6 +38,10 @@ export const tweetsSlice = createSlice({
     // Добавление твита
     builder.addCase(addTweet.fulfilled, (state, { payload }) => {
       state.allTweets.list.push(payload)
+    })
+    // Удаление твита
+    builder.addCase(deleteTweet.fulfilled, (state, {payload}) => {
+      state.allTweets.list = state.allTweets.list.filter((tweet) => tweet.id !== payload);
     })
   },
 })

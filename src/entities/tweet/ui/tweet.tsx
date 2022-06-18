@@ -2,7 +2,9 @@ import { FC, useEffect, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
+import {useAppDispatch} from '@app/store';
 import { Tweet as ITweet } from '@features/tweets/models/Tweets.interface'
+import {deleteTweet} from '@features/tweets/thunks/delete-tweet';
 import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Button } from '@shared/ui/button/button'
 import { Icon } from '@shared/ui/icon/icon'
@@ -13,14 +15,14 @@ import { getTimeSince } from '@shared/utils/date-activity'
 
 // import { ITweet } from '../models/interfaces/Tweet.interface'
 
-// Выглядит херово
-const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
+const Tweet: FC<ITweet> = (props) => {
   const [isTweetLiked, setIsTweetLiked] = useState<boolean>(false)
   const [popupVisible, setPopupVisible] = useState<boolean>(false)
   // const { likeTweet } = useContext(Context)
   const navigate = useNavigate()
   // const userData = JSON.parse(localStorage.getItem('userTwitterData') || '')
   const hasAccess = useHasUserAccess(props.userInfo.uid)
+  const dispatch = useAppDispatch();
 
   // const isTweetLiked = (): boolean => {
   //   return (
@@ -45,20 +47,11 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
     navigate(`../${props.userInfo.nickName}`)
   }
 
-  // todo Переделать на Popup с удалением и передачей туда id
-  const deleteTweet = async (id: string): Promise<void> => {
+  const deleteCurrentTweet = async (id: string): Promise<void> => {
     setPopupVisible(false)
 
     try {
-      const response = await apiClient.delete<ITweet>(`/Tweet/${id}`, {
-        withCredentials: false,
-      })
-
-      if (response.status === 200) {
-        if (props.deleteTweet) {
-          props.deleteTweet(id)
-        }
-      }
+      await dispatch(deleteTweet(id))
     } catch (err) {
       console.log('error', err)
     }
@@ -151,7 +144,7 @@ const Tweet: FC<ITweet & { deleteTweet?: (id: string) => void }> = (props) => {
         <Button
           className="w-full mb-3"
           buttonType="outline"
-          onClick={() => deleteTweet(props.id)}
+          onClick={() => deleteCurrentTweet(props.id)}
         >
           Delete
         </Button>

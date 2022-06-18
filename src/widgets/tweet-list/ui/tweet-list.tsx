@@ -7,7 +7,7 @@ import { Tweet as ITweet } from '@features//tweets/models/Tweets.interface'
 import { getDate } from '@shared/utils/date'
 import { TweetListProps } from '@widgets/tweet-list/models/interfaces/TweetList.interface'
 
-const TweetList: FC<TweetListProps> = ({ tweets, deleteTweet }) => {
+const TweetList: FC<TweetListProps> = ({ tweets }) => {
   const sortTweetDate = (first: ITweet, second: ITweet): number => {
     const firstDate = getDate(first.createdAt)
     const secondDate = getDate(second.createdAt)
@@ -30,7 +30,7 @@ const TweetList: FC<TweetListProps> = ({ tweets, deleteTweet }) => {
         .sort(sortTweetDate)
         .map((tweet) => (
           <CSSTransition key={tweet.id} timeout={700} classNames="tweet">
-            <Tweet key={tweet.id} {...tweet} deleteTweet={deleteTweet} />
+            <Tweet key={tweet.id} {...tweet} />
           </CSSTransition>
         ))}
     </TransitionGroup>
