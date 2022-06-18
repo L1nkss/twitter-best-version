@@ -37,10 +37,14 @@ const Tweet: FC<ITweet> = (props) => {
     // setIsTweetLiked(isUserLikesTweet)
   }, [])
 
-  const likeTweetClickHandler = () => {
+  const likeTweetClickHandler = async () => {
+    try {
+      setIsTweetLiked((currentValue) => !currentValue);
+    } catch (e) {
+
+    }
     // Подсчитать новое значение твита + или -
     // Изменить статус like/not like
-    setIsTweetLiked((currentValue) => !currentValue)
   }
 
   const linkToProfile = (): void => {

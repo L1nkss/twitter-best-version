@@ -1,14 +1,15 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
-import {apiClient} from '@shared/utils/api-client';
+import { doc, deleteDoc } from 'firebase/firestore';
+
+import {firebaseDB} from '../../../firebase';
+
 
 export const deleteTweet = createAsyncThunk<string, string>(
     '@tweets/delete',
     async (id: string) => {
-        const response = await apiClient.delete(`/Tweet/${id}`,{
-            withCredentials: false,
-        })
+        await deleteDoc(doc(firebaseDB, 'tweets', id));
 
-        return response.data.id;
+        return id;
     }
 )

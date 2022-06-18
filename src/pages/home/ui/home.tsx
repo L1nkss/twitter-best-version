@@ -29,11 +29,6 @@ const Home: FC = () => {
     getTweets()
   }, [])
 
-  const deleteTweet = (id: string): void => {
-    // const idx = tweets.findIndex((tweet) => tweet.id === id)
-    // setTweets((state) => [...state.slice(0, idx), ...state.slice(idx + 1)])
-  }
-
   const likeTweet = async (
     id: string,
     isAlreadyLiked: boolean
