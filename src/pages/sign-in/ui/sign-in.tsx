@@ -81,7 +81,7 @@ const SignIn: FC = () => {
               </label>
               <input
                 id="password"
-                type="text"
+                type="password"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
                 onChange={(e) => setPassword(e.target.value)}
               />
