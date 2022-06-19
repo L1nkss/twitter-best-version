@@ -1,6 +1,6 @@
 import React, {FC, useEffect, useState} from 'react'
 
-import {collection, doc, onSnapshot} from 'firebase/firestore'
+import {collection, onSnapshot} from 'firebase/firestore'
 import {useSelector} from 'react-redux'
 
 import {useAppDispatch} from '@app/store'

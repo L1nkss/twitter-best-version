@@ -23,13 +23,11 @@ const Profile: FC = () => {
     userNick: string
   ): Promise<User | undefined> => {
     try {
-      const userData = await getFromDataFromFirestore<User>(
-        'users',
-        userNick,
-        'nickName'
+      return await getFromDataFromFirestore<User>(
+          'users',
+          userNick,
+          'nickName'
       )
-
-      return userData
     } catch (e) {}
   }
 
