@@ -54,7 +54,7 @@ const Home: FC = () => {
                 <UserAvatar classes="mr-3" avatarUrl={user.avatarUrl}/>
                 <MakeTweet/>
             </div>
-            {Boolean(newTweetsCount) && <div onClick={() => getTweets()}>{newTweetsCount} new tweets.</div>}
+            {Boolean(newTweetsCount) && <div className="home-page__extra-tweets" onClick={() => getTweets()}>Show {newTweetsCount} tweets.</div>}
             {loading ? (
                 <Loader/>
             ) : (
