@@ -13,7 +13,7 @@ import {
   getDocs,
   collection,
   where,
-  addDoc,
+  setDoc, doc,
 } from 'firebase/firestore'
 
 import { deleteCookie } from '@shared/utils/cookies'
@@ -47,7 +47,7 @@ export const signInWithGoogle = async (): Promise<void> => {
     const documents = await getDocs(q)
 
     if (documents.empty) {
-      await addDoc(collection(firebaseDB, 'users'), {
+      await setDoc(doc(firebaseDB, 'users', user.uid), {
         uid: user.uid,
         name: user.displayName,
         authProvider: 'google',
@@ -71,7 +71,7 @@ export const registerWithEmailAndPassword = async (
   try {
     const res = await createUserWithEmailAndPassword(auth, email, password)
     const user = res.user
-    await addDoc(collection(firebaseDB, 'users'), {
+    await setDoc(doc(firebaseDB, 'users', user.uid), {
       uid: user.uid,
       name,
       nickName: makeRandomString(10),

@@ -2,9 +2,7 @@ import { FC, FormEvent, useState } from 'react'
 
 import { useNavigate } from 'react-router-dom'
 
-import { User } from '@features/user/models/User.interface'
 import { Button } from '@shared/ui/button/button'
-import { apiClient } from '@shared/utils/api-client'
 
 import { registerWithEmailAndPassword } from '../../../firebase'
 
@@ -20,16 +18,8 @@ const SignUp: FC = () => {
 
     setIsSigningUp(true)
     try {
-      const response = await registerWithEmailAndPassword(name, email, password)
-      // const response = await apiClient.post<User>('/User', {
-      //   createdAt: new Date(),
-      //   name: name,
-      //   userName: login,
-      // })
-
-      // if (response.status === 200) {
-      //   navigate('/sign-in')
-      // }
+      await registerWithEmailAndPassword(name, email, password)
+      navigate('/sign-in')
     } catch (err) {
       console.log('err', err)
     } finally {

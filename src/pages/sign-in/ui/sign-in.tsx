@@ -2,9 +2,9 @@ import { FC, FormEvent, useEffect, useState } from 'react'
 
 import Cookies from 'js-cookie'
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
+import {useAppDispatch} from '@app/store';
 import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
 import { Button } from '@shared/ui/button/button'
@@ -18,19 +18,18 @@ import {
 
 const SignIn: FC = () => {
   const [user, loading] = useAuthState(auth)
-  // TODO добавить поле пароль, когда будет авторизация через firebase
   const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [isLogging, setIsLogging] = useState<boolean>(false)
   const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   useEffect(() => {
     if (user) {
       getFromDataFromFirestore<User>('users', user.uid).then((response) => {
         if (response) {
           Cookies.set('userAuth', JSON.stringify(response))
-          dispatch(setUser(response))
+          dispatch(setUser(response));
           navigate('/')
         }
       })
@@ -82,7 +81,7 @@ const SignIn: FC = () => {
               </label>
               <input
                 id="password"
-                type="text"
+                type="password"
                 className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
                 onChange={(e) => setPassword(e.target.value)}
               />
