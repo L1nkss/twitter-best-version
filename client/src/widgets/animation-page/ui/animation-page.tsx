@@ -1,7 +1,6 @@
 import React, { FC } from 'react'
 
-import { motion, Variants } from 'framer-motion'
-import { Transition } from 'framer-motion/types/types'
+import { motion, Variants,Transition } from 'framer-motion'
 
 import { AnimationPageProps } from '@widgets/animation-page/models/animation-page.interface'
 

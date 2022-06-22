@@ -1,7 +1,6 @@
 import React from 'react'
 
-import { Variants } from 'framer-motion'
-import { Transition } from 'framer-motion/types/types'
+import { Variants, Transition } from 'framer-motion'
 
 export interface AnimationPageProps {
   children: React.ReactElement

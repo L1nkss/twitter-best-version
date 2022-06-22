@@ -15,14 +15,14 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "..",
+    "baseUrl": ".",
     "paths": {
-      "@entities/*": [".client/src/entities/*"],
-      "@pages/*": [".client/src/pages/*"],
-      "@shared/*": [".client/src/shared/*"],
-      "@widgets/*": [".client/src/widgets/*"],
-      "@app/*": [".client/src/app/*"],
-      "@features/*": [".client/src/features/*"]
+      "@entities/*": ["./src/entities/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@widgets/*": ["./src/widgets/*"],
+      "@app/*": ["./src/app/*"],
+      "@features/*": ["./src/features/*"]
     }
   },
   "include": [
