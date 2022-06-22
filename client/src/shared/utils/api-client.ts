@@ -1,9 +1,9 @@
 import axios from 'axios'
 
-import { BASE_API_URL } from '@shared/constants/api'
+import {BASE_API_URL_V1} from '@shared/constants/api';
 
-const apiClient = axios.create({
-  baseURL: `${BASE_API_URL}/api/v1`,
+const apiClientV1 = axios.create({
+  baseURL: `${BASE_API_URL_V1}/`,
 })
 
-export { apiClient }
+export { apiClientV1 }
