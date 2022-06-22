@@ -7,7 +7,7 @@ import { useAppDispatch } from '@app/store'
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
 import { loadLikesTweets } from '@features/tweets/thunks/load-likes-tweets';
 import { loadTweets } from '@features/tweets/thunks/load-tweets'
-import { allTweetsSelector } from '@features/tweets/tweetsSelectors'
+import { allTweetsSelector, allTweetsSortedByDateSelector } from '@features/tweets/tweetsSelectors'
 import { userSelector } from '@features/user/userSelector'
 
 import { Loader } from '@shared/ui/loader/loader'
@@ -21,7 +21,8 @@ const Home: FC = () => {
     const [ newTweetsCount, setNewTweetsCount ] = useState<number>(0);
     const user = useSelector(userSelector)
     const dispatch = useAppDispatch();
-    const {loading, list} = useSelector(allTweetsSelector)
+    const {loading} = useSelector(allTweetsSelector);
+    const tweets = useSelector(allTweetsSortedByDateSelector);
 
     const getTweets = async () => {
         await dispatch(loadTweets())
@@ -33,13 +34,13 @@ const Home: FC = () => {
 
     useEffect(() => {
         onSnapshot(collection(firebaseDB, 'tweets'), (updatedDocs) => {
-            if (updatedDocs.size > list.length) {
-                setNewTweetsCount(updatedDocs.size - list.length);
+            if (updatedDocs.size > tweets.length) {
+                setNewTweetsCount(updatedDocs.size - tweets.length);
             } else {
                 setNewTweetsCount(0);
             }
         })
-    }, [ list ])
+    }, [ tweets ])
 
     useEffect(() => {
         getTweets();
@@ -59,7 +60,7 @@ const Home: FC = () => {
             {loading ? (
                 <Loader/>
             ) : (
-                <TweetList tweets={ list }/>
+                <TweetList tweets={ tweets }/>
             )}
         </div>
     )

@@ -3,4 +3,11 @@ const getDate = (date: string | Date): Date => {
   return date
 }
 
-export { getDate }
+const sortDate = (first: Date | string, second: Date | string): number => {
+  const firstDate = getDate(first)
+  const secondDate = getDate(second)
+
+  return secondDate.getTime() - firstDate.getTime()
+}
+
+export { getDate, sortDate }

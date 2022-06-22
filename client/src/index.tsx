@@ -14,7 +14,7 @@ import './styles/index.scss'
 
 const root = createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <Provider store={store}>
+  <Provider store={ store }>
     <BrowserRouter>
       <App />
     </BrowserRouter>
