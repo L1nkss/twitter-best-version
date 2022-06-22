@@ -1,28 +1,22 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {deleteDoc, doc, setDoc, updateDoc} from 'firebase/firestore';
 
-import {Tweet} from '@features/tweets/models/Tweets.interface';
+import { ChangesEnum } from '@features/tweets/models/enums/ChangesEnums.enum';
+
+import { LikeStatusResponse, LikeStatusResponseWithId } from '@features/tweets/models/interfaces/TweetsThunk.interface';
 
 import {firebaseDB} from '../../../firebase';
 
-type ChangeLikeStatus = 'add' | 'delete';
-
-interface LikeStatusResponse {
-    tweet: Tweet;
-    status: ChangeLikeStatus;
-    currentUserId: string
-}
-
-export const likeStatus = createAsyncThunk<Omit<LikeStatusResponse, 'currentUserId'>, LikeStatusResponse>(
+export const likeStatus = createAsyncThunk<LikeStatusResponse, LikeStatusResponseWithId>(
     '@tweets/like',
     async ({tweet, status, currentUserId}) => {
         await updateDoc(doc(firebaseDB, 'tweets', tweet.id), JSON.parse(JSON.stringify(tweet)));
 
-        if (status === 'add') {
+        if (status === ChangesEnum.ADD) {
             await setDoc(doc(firebaseDB, 'users', currentUserId, 'liked-tweets', tweet.id), JSON.parse(JSON.stringify(tweet)));
         }
 
-        if (status === 'delete') {
+        if (status === ChangesEnum.DELETE) {
             await deleteDoc(doc(firebaseDB, 'users', currentUserId, 'liked-tweets', tweet.id));
         }
 

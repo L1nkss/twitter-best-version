@@ -2,7 +2,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit'
 
 import { doc, setDoc } from 'firebase/firestore';
 
-import {Tweet} from '@features/tweets/models/Tweets.interface'
+import {Tweet} from '@features/tweets/models/interfaces/Tweets.interface'
 
 import {makeRandomString} from '@shared/utils/makeRandomString';
 

@@ -9,7 +9,7 @@ import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
 
-import { Tweet } from '@features/tweets/models/Tweets.interface'
+import { Tweet } from '@features/tweets/models/interfaces/Tweets.interface'
 import { addTweet } from '@features/tweets/thunks/add-tweet'
 import { userSelector } from '@features/user/userSelector'
 import { Button } from '@shared/ui/button/button'

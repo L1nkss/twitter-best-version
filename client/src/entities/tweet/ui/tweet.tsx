@@ -4,7 +4,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch } from '@app/store';
-import { Tweet as ITweet } from '@features/tweets/models/Tweets.interface'
+import { ChangesEnum } from '@features/tweets/models/enums/ChangesEnums.enum';
+import { Tweet as ITweet } from '@features/tweets/models/interfaces/Tweets.interface'
 import { deleteTweet } from '@features/tweets/thunks/delete-tweet';
 import { likeStatus } from '@features/tweets/thunks/like-status';
 import { likedTweetsSelector } from '@features/tweets/tweetsSelectors';
@@ -38,7 +39,7 @@ const Tweet: FC<ITweet> = (props) => {
             const updatedTweet = {...props, tweetInfo: {...props.tweetInfo, likes: updatedLikeCounter}};
             await dispatch(likeStatus({
                 tweet: updatedTweet,
-                status: isTweetLiked ? 'delete' : 'add',
+                status: isTweetLiked ? ChangesEnum.DELETE : ChangesEnum.ADD,
                 currentUserId
             }));
         } catch (e) {

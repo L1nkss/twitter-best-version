@@ -1,7 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {getDocs, collection} from 'firebase/firestore';
 
-import {Tweet} from '@features/tweets/models/Tweets.interface';
+import {Tweet} from '@features/tweets/models/interfaces/Tweets.interface';
 
 import {firebaseDB} from '../../../firebase';
 
