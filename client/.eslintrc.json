@@ -22,6 +22,9 @@
   },
   "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
   "rules": {
+    "react/jsx-curly-spacing": [2, {"when": "always", "spacing": {
+      "objectLiterals": "never"
+    }}],
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
     "spaced-comment": "error",

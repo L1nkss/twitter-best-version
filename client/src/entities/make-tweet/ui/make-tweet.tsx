@@ -4,7 +4,7 @@ import cn from 'classnames'
 
 import { useSelector } from 'react-redux'
 
-import {useAppDispatch} from '@app/store'
+import { useAppDispatch } from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
 import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
@@ -106,25 +106,25 @@ const MakeTweet: FC<MakeTweetProps> = () => {
   return (
     <div className="w-full make-tweet">
       <TwitterTextarea
-        value={value}
-        onChangeHandler={onChange}
-        classes={'make-tweet__textarea mb-3'}
+        value={ value }
+        onChangeHandler={ onChange }
+        classes={ 'make-tweet__textarea mb-3' }
       />
       <div className="flex items-center justify-end">
         {!!value && (
           <ProgressBar
-            percentage={getPercentage()}
-            textValue={getProgressBarValue()}
-            size={30}
-            strokeWidth={3}
-            className={cn('mr-3', getProgressBarClasses())}
+            percentage={ getPercentage() }
+            textValue={ getProgressBarValue() }
+            size={ 30 }
+            strokeWidth={ 3 }
+            className={ cn('mr-3', getProgressBarClasses()) }
           />
         )}
 
         <Button
-          onClick={createTweet}
-          disabled={isButtonDisabled}
-          isLoading={isTweetCreating}
+          onClick={ createTweet }
+          disabled={ isButtonDisabled }
+          isLoading={ isTweetCreating }
         >
           Tweet
         </Button>

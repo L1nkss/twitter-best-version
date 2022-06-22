@@ -37,7 +37,7 @@ function App() {
       routeElement = <route.hocWrapper>{route.element}</route.hocWrapper>
     }
 
-    return <Route key={route.path} path={route.path} element={routeElement} />
+    return <Route key={ route.path } path={ route.path } element={ routeElement } />
   }
 
   const routes: TwitterRoute[] = [
@@ -70,20 +70,20 @@ function App() {
 
   return (
     <AnimatePresence exitBeforeEnter>
-      <Routes key={location.pathname} location={location}>
+      <Routes key={ location.pathname } location={ location }>
         <Route
           path="/"
           element={
-            <GuardRoute isAllowed={isAuth}>
+            <GuardRoute isAllowed={ isAuth }>
               <Layout />
             </GuardRoute>
           }
         >
           {routes.map(createRoute)}
         </Route>
-        <Route path="sign-in" element={<SignIn />} />
-        <Route path="sign-up" element={<SignUp />} />
-        <Route path="mobile-version" element={<MobileVersion />} />
+        <Route path="sign-in" element={ <SignIn /> } />
+        <Route path="sign-up" element={ <SignUp /> } />
+        <Route path="mobile-version" element={ <MobileVersion /> } />
       </Routes>
     </AnimatePresence>
   )
