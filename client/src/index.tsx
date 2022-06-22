@@ -7,7 +7,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import { store } from '@app/store'
 
-import App from './app/App'
+import App from '@app/App'
 import reportWebVitals from './reportWebVitals'
 
 import './styles/index.scss'

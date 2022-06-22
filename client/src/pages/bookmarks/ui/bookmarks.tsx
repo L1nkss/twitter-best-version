@@ -1,10 +1,10 @@
 import React, { FC } from 'react'
 
-import {useSelector} from 'react-redux';
 
 import {likedTweets} from '@features/tweets/tweetsSelectors';
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
+import {useSelector} from 'react-redux';
 
 const Bookmarks: FC = () => {
   const list = useSelector(likedTweets)
