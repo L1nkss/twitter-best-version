@@ -1,8 +1,11 @@
 import {NextFunction, Request, Response} from "express";
+const {db} = require('../database/database');
 
 const getTweetsController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.send({})
+        const snapshot = await db.collection('tweets').get();
+        const data = snapshot.docs.map((doc: any) => doc.data());
+        res.send(data);
     } catch (err) {
         next(err);
     }
