@@ -5,6 +5,9 @@ const tweetsRoute = require('./routes/tweets-route');
 dotenv.config();
 
 const app: Express = express();
+
+app.use(express.json())
+
 const port = process.env.PORT;
 
 app.get('/api', (req: Request, res: Response) => {
