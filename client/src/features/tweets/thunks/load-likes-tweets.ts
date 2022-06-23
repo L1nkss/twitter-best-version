@@ -1,20 +1,15 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {getDocs, collection} from 'firebase/firestore';
 
 import {Tweet} from '@features/tweets/models/interfaces/Tweets.interface';
 
-import {firebaseDB} from '../../../firebase';
+import { apiClientV1 } from '@shared/utils/api-client';
+
 
 export const loadLikesTweets = createAsyncThunk<Tweet[], string>(
     '@user/likedTweets',
     async (userId) => {
-        const querySnapshot = await getDocs(collection(firebaseDB, 'users', userId, 'liked-tweets'));
-        const tweets: Tweet[] = [];
+        const response = await apiClientV1.get(`/user/liked/${userId}`);
 
-        querySnapshot.forEach((doc) => {
-            tweets.push(doc.data() as Tweet);
-        })
-
-        return tweets;
+        return response.data;
     }
 );

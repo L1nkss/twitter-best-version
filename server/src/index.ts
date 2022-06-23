@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-const tweetsRoute = require('./routes/tweets-route');
+const tweetsRoutes = require('./routes/tweets-route');
+const userRoutes = require('./routes/user-route');
 
 dotenv.config();
 
@@ -16,7 +17,8 @@ app.get('/api', (req: Request, res: Response) => {
 
 
 // Routes v1
-app.use('/api/v1/tweets', tweetsRoute);
+app.use('/api/v1/tweets', tweetsRoutes);
+app.use('/api/v1/user', userRoutes);
 
 app.listen(port, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${port}`);

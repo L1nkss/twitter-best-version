@@ -1,13 +1,19 @@
 import {NextFunction, Request, Response} from "express";
+import { DatabaseCollections } from "../database/database.enums";
+const {db} = require('../database/database');
 
-const userLikedTweetsController = async (req: Request, res: Response, next: NextFunction) => {
+const getUserLikedTweetsController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.send({});
+        const {id} = req.params;
+        const snapshot = await db.collection(DatabaseCollections.USERS).doc(id).collection("liked-tweets").get();
+        const data = snapshot.docs.map((doc: any) => doc.data());
+
+        res.send(data);
     } catch (err) {
         next(err)
     }
 }
 
 module.exports = {
-    userLikedTweetsController
+    getUserLikedTweetsController
 }

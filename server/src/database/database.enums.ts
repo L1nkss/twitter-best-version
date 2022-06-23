@@ -1,3 +1,4 @@
 export enum DatabaseCollections {
-    TWEETS = 'tweets'
+    TWEETS = 'tweets',
+    USERS = 'users'
 }
