@@ -15,7 +15,6 @@ app.get('/api', (req: Request, res: Response) => {
     res.send('Express + TypeScript Server');
 });
 
-
 // Routes v1
 app.use('/api/v1/tweets', tweetsRoutes);
 app.use('/api/v1/user', userRoutes);

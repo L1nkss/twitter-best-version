@@ -1,13 +1,10 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {deleteDoc, doc, setDoc} from 'firebase/firestore';
 
 import { ChangesEnum } from '@features/tweets/models/enums/ChangesEnums.enum';
 
 import { LikeStatusResponse, LikeStatusResponseWithId } from '@features/tweets/models/interfaces/TweetsThunk.interface';
 
 import { apiClientV1 } from '@shared/utils/api-client';
-
-import {firebaseDB} from '../../../firebase';
 
 export const likeStatus = createAsyncThunk<LikeStatusResponse, LikeStatusResponseWithId>(
     '@tweets/like',
@@ -17,11 +14,14 @@ export const likeStatus = createAsyncThunk<LikeStatusResponse, LikeStatusRespons
         });
 
         if (status === ChangesEnum.ADD) {
-            await setDoc(doc(firebaseDB, 'users', currentUserId, 'liked-tweets', tweet.id), JSON.parse(JSON.stringify(tweet)));
+            await apiClientV1.post('/user/like-tweet-add', {
+                tweet,
+                currentUserId
+            });
         }
 
         if (status === ChangesEnum.DELETE) {
-            await deleteDoc(doc(firebaseDB, 'users', currentUserId, 'liked-tweets', tweet.id));
+            await apiClientV1.delete(`/user/delete-liked-tweet/${currentUserId}/${tweet.id}`)
         }
 
         return {tweet, status};

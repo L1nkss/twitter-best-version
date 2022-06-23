@@ -8,7 +8,7 @@ export const addTweet = createAsyncThunk<Tweet, Omit<Tweet, 'id'>>(
     '@tweets/add',
     async (tweet) => {
         const response = await apiClientV1.post('/tweets/add', tweet);
-        
+
         return response.data
     }
 )
