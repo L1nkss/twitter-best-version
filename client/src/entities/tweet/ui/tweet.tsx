@@ -52,7 +52,7 @@ const Tweet: FC<ITweet> = (props) => {
     }
 
     const deleteCurrentTweet = async (id: string): Promise<void> => {
-        setPopupVisible(false)
+        setPopupVisible(false);
 
         try {
             await dispatch(deleteTweet(id))

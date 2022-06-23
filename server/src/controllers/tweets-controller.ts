@@ -14,7 +14,13 @@ const getTweetsController = async (req: Request, res: Response, next: NextFuncti
 
 const addTweetController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.send({});
+        const tweet = req.body;
+        const response = await db.collection(DatabaseCollections.TWEETS).add(tweet);
+
+        await response.update({id: response.id})
+        const data = (await response.get()).data();
+
+        res.send({id: response.id, ...data})
     } catch (err) {
         next(err)
     }
@@ -22,7 +28,10 @@ const addTweetController = async (req: Request, res: Response, next: NextFunctio
 
 const deleteTweetController = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        res.send({});
+        const {id} = req.params;
+        await db.collection(DatabaseCollections.TWEETS).doc(id).delete();
+
+        res.sendStatus(200);
     } catch (err) {
         next(err)
     }

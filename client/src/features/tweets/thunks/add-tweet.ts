@@ -1,20 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit'
 
-import { doc, setDoc } from 'firebase/firestore';
-
 import {Tweet} from '@features/tweets/models/interfaces/Tweets.interface'
 
-import {makeRandomString} from '@shared/utils/makeRandomString';
-
-import {firebaseDB} from '../../../firebase';
+import { apiClientV1 } from '@shared/utils/api-client';
 
 export const addTweet = createAsyncThunk<Tweet, Omit<Tweet, 'id'>>(
     '@tweets/add',
     async (tweet) => {
-        const tweetId = makeRandomString(20);
-        const updatedTweet = {id: tweetId, ...tweet};
-        await setDoc(doc(firebaseDB, 'tweets', tweetId), JSON.parse(JSON.stringify(updatedTweet)));
-
-        return updatedTweet
+        const response = await apiClientV1.post('/tweets/add', tweet);
+        
+        return response.data
     }
 )
