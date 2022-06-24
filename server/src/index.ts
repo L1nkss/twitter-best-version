@@ -1,7 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { Socket } from "socket.io";
-import * as http from "http";
 const tweetsRoutes = require('./routes/tweets-route');
 const userRoutes = require('./routes/user-route');
 const app: Express = express();
@@ -28,10 +27,6 @@ app.use(express.json())
 app.get('/api', (req: Request, res: Response) => {
     res.send('Express + TypeScript Server');
 });
-
-setInterval(()=>{
-    io.to('fromSocket').emit('time', new Date())
-},5000)
 
 // Routes v1
 app.use('/api/v1/tweets', tweetsRoutes);

@@ -9,6 +9,8 @@ import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
 import { Button } from '@shared/ui/button/button'
 
+import { FormInput } from '@shared/ui/form-input/form-input';
+
 import {
   auth,
   getFromDataFromFirestore,
@@ -51,48 +53,22 @@ const SignIn: FC = () => {
 
   return (
     <div className="w-screen h-screen flex align-center justify-center items-center">
-      <form onSubmit={handleLoginSubmit}>
+      <form onSubmit={ handleLoginSubmit }>
         <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
           <div className="space-y-4">
             <h1 className="text-center text-2xl font-semibold text-gray-600">
               Sign in
             </h1>
-            <div>
-              <label
-                htmlFor="login"
-                className="block mb-1 text-gray-600 font-semibold"
-              >
-                Email
-              </label>
-              <input
-                id="login"
-                type="text"
-                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
 
-            <div>
-              <label
-                htmlFor="password"
-                className="block mb-1 text-gray-600 font-semibold"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <FormInput id="login" onChangeHandler={ (e) => setEmail(e.target.value) } />
+            <FormInput id="password" type="password" onChangeHandler={ (e) => setPassword(e.target.value) } />
 
             <div className="text-center">
               <Button
                 type="submit"
                 className="w-full flex-initial"
                 buttonType="rounded"
-                isLoading={isLogging}
+                isLoading={ isLogging }
               >
                 Sign in
               </Button>
@@ -109,8 +85,8 @@ const SignIn: FC = () => {
                 type="submit"
                 className="w-full flex-initial mt-2"
                 buttonType="rounded"
-                isLoading={loading}
-                onClick={signInWithGoogle}
+                isLoading={ loading }
+                onClick={ signInWithGoogle }
                 iconName="google-svg"
               >
                 Continue with Google
@@ -122,7 +98,7 @@ const SignIn: FC = () => {
                   className="hover:text-gray-500 focus:text-gray-500
                       focus:outline-none focus:underline hover:underline text-sm
                     font-medium leading-none  text-gray-800 cursor-pointer ml-1"
-                  onClick={() => navigate('/sign-up')}
+                  onClick={ () => navigate('/sign-up') }
                 >
                   Sign up here
                 </a>

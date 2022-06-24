@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { Button } from '@shared/ui/button/button'
 
+import { FormInput } from '@shared/ui/form-input/form-input';
+
 import { registerWithEmailAndPassword } from '../../../firebase'
 
 const SignUp: FC = () => {
@@ -28,63 +30,22 @@ const SignUp: FC = () => {
   }
   return (
     <div className="w-screen h-screen flex align-center justify-center items-center">
-      <form onSubmit={handleLoginSubmit}>
+      <form onSubmit={ handleLoginSubmit }>
         <div className="bg-white px-10 py-8 rounded-xl w-screen shadow-md max-w-sm">
           <div className="space-y-4">
             <h1 className="text-center text-2xl font-semibold text-gray-600">
               Sign up
             </h1>
-
-            <div>
-              <label
-                htmlFor="name"
-                className="block mb-1 text-gray-600 font-semibold"
-              >
-                Name
-              </label>
-              <input
-                id="name"
-                type="text"
-                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setName(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="email"
-                className="block mb-1 text-gray-600 font-semibold"
-              >
-                Email
-              </label>
-              <input
-                id="email"
-                type="text"
-                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block mb-1 text-gray-600 font-semibold"
-              >
-                Password
-              </label>
-              <input
-                id="password"
-                type="password"
-                className="bg-indigo-50 px-4 py-2 outline-none rounded-md w-full"
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            
+            <FormInput id="name" onChangeHandler={ (e) => setName(e.target.value) } />
+            <FormInput id="email" onChangeHandler={ (e) => setEmail(e.target.value) } />
+            <FormInput id="password" type="password" onChangeHandler={ (e) => setPassword(e.target.value) } />
 
             <Button
               type="submit"
               className="w-full"
               buttonType="rounded"
-              isLoading={isSigningUp}
+              isLoading={ isSigningUp }
             >
               Sign up
             </Button>
