@@ -8,10 +8,11 @@ import { notificationsSelector } from '@features/notifications/notificationsSele
 
 const NotificationContainer: FC = () => {
     const notifications = useSelector(notificationsSelector);
+
     return createPortal(
         <div className="notification-container">
-            {notifications.map((notification, index) => {
-                return <Notification key={ index } notification={ notification } />
+            {notifications.map((notification) => {
+                return <Notification key={ notification.id } notification={ notification } />
             })}
         </div>,
         document.body
