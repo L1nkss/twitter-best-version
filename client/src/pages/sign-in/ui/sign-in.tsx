@@ -5,6 +5,7 @@ import { useAuthState } from 'react-firebase-hooks/auth'
 import { useNavigate } from 'react-router-dom'
 
 import {useAppDispatch} from '@app/store';
+import { addNotification } from '@features/notifications/notificationsSlice';
 import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
 import { Button } from '@shared/ui/button/button'
@@ -45,7 +46,7 @@ const SignIn: FC = () => {
     try {
       await logInWithEmailAndPassword(email, password)
     } catch (err) {
-      console.log('err', err)
+      dispatch(addNotification({type: 'error', title: 'Error', description: 'Wrong password or email'}))
     } finally {
       setIsLogging(false)
     }

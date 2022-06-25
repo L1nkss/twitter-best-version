@@ -99,7 +99,7 @@ export const logInWithEmailAndPassword = async (
   try {
     await signInWithEmailAndPassword(auth, email, password)
   } catch (err) {
-    console.error(err)
+    throw new Error();
   }
 }
 

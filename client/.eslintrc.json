@@ -25,6 +25,7 @@
     "react/jsx-curly-spacing": [2, {"when": "always", "spacing": {
       "objectLiterals": "never"
     }}],
+    "react/prop-types": 0,
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
     "spaced-comment": "error",

@@ -22,6 +22,8 @@ import { AnimationPage } from '@widgets/animation-page/ui/animation-page'
 import { GuardRoute } from '@widgets/guard-route/ui/guard-route'
 import { Layout } from '@widgets/layout/ui/layout'
 
+import { NotificationContainer } from '@widgets/notifications/ui/notifications';
+
 import { TwitterRoute } from '../models/interfaces/TwitterRoute.interface'
 
 function App() {
@@ -69,23 +71,26 @@ function App() {
   }
 
   return (
-    <AnimatePresence exitBeforeEnter>
-      <Routes key={ location.pathname } location={ location }>
-        <Route
-          path="/"
-          element={
-            <GuardRoute isAllowed={ isAuth }>
-              <Layout />
-            </GuardRoute>
-          }
-        >
-          {routes.map(createRoute)}
-        </Route>
-        <Route path="sign-in" element={ <SignIn /> } />
-        <Route path="sign-up" element={ <SignUp /> } />
-        <Route path="mobile-version" element={ <MobileVersion /> } />
-      </Routes>
-    </AnimatePresence>
+      <>
+        <AnimatePresence exitBeforeEnter>
+          <Routes key={ location.pathname } location={ location }>
+            <Route
+                path="/"
+                element={
+                  <GuardRoute isAllowed={ isAuth }>
+                    <Layout />
+                  </GuardRoute>
+                }
+            >
+              {routes.map(createRoute)}
+            </Route>
+            <Route path="sign-in" element={ <SignIn /> } />
+            <Route path="sign-up" element={ <SignUp /> } />
+            <Route path="mobile-version" element={ <MobileVersion /> } />
+          </Routes>
+        </AnimatePresence>
+        <NotificationContainer />
+      </>
   )
 }
 
