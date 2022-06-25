@@ -1,0 +1,73 @@
+import React, { FC, useEffect, useState } from 'react'
+
+import { collection, onSnapshot } from 'firebase/firestore'
+import { useSelector } from 'react-redux'
+
+import { useAppDispatch } from '@app/store'
+import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
+import { loadLikesTweets } from '@features/tweets/thunks/load-likes-tweets';
+import { loadTweets } from '@features/tweets/thunks/load-tweets'
+import { allTweetsSelector, allTweetsSortedByDateSelector } from '@features/tweets/tweetsSelectors'
+import { userSelector } from '@features/user/userSelector'
+
+import { Loader } from '@shared/ui/loader/loader'
+import { PageHeader } from '@shared/ui/page-header/page-header'
+import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { socket } from '@shared/utils/socket';
+import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
+
+import { firebaseDB } from '../../../firebase';
+
+const Home: FC = () => {
+    const [ newTweetsCount, setNewTweetsCount ] = useState<number>(0);
+    const user = useSelector(userSelector)
+    const dispatch = useAppDispatch();
+    const {loading} = useSelector(allTweetsSelector);
+    const tweets = useSelector(allTweetsSortedByDateSelector);
+
+    const getTweets = async () => {
+        await dispatch(loadTweets())
+    }
+
+    const loadLikedTweets = async (id: string) => {
+        await dispatch(loadLikesTweets(id));
+    }
+
+    useEffect(() => {
+        onSnapshot(collection(firebaseDB, 'tweets'), (updatedDocs) => {
+            if (updatedDocs.size > tweets.length) {
+                setNewTweetsCount(updatedDocs.size - tweets.length);
+            } else {
+                setNewTweetsCount(0);
+            }
+        })
+    }, [ tweets ])
+
+    useEffect(() => {
+        socket.auth = {userName: user.nickName};
+        socket.connect();
+
+        getTweets();
+        loadLikedTweets(user.uid);
+    }, [])
+
+    return (
+        <div className="home-page">
+            <PageHeader pageName={ 'Home' } classNames={ 'home-page__header' }/>
+
+            <div className="flex p-4 home-page__twit-form">
+                <UserAvatar classes="mr-3" avatarUrl={ user.avatarUrl }/>
+                <MakeTweet/>
+            </div>
+            {Boolean(newTweetsCount) && <div className="home-page__extra-tweets"
+                                             onClick={ () => getTweets() }>Show {newTweetsCount} tweets.</div>}
+            {loading ? (
+                <Loader/>
+            ) : (
+                <TweetList tweets={ tweets }/>
+            )}
+        </div>
+    )
+}
+
+export { Home }

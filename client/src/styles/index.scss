@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+//Mixins
+@import 'mixins/index';
+
+//Variables
+@import 'variables/index';
+
+// Helpers
+@import 'helpers/index';
+
+// Components
+@import 'components/index';
+
+// Widgets
+@import 'widgets/index';
+
+// Pages
+@import 'pages/index';
+
+// Entities
+@import 'entities/index';
