@@ -13,6 +13,7 @@ import { userSelector } from '@features/user/userSelector'
 import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { socket } from '@shared/utils/socket';
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 import { firebaseDB } from '../../../firebase';
@@ -43,6 +44,9 @@ const Home: FC = () => {
     }, [ tweets ])
 
     useEffect(() => {
+        socket.auth = {userName: user.nickName};
+        socket.connect();
+
         getTweets();
         loadLikedTweets(user.uid);
     }, [])

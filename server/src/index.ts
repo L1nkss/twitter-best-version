@@ -1,6 +1,7 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import { Socket } from "socket.io";
+import { ExtendedError } from "socket.io/dist/namespace";
 const tweetsRoutes = require('./routes/tweets-route');
 const userRoutes = require('./routes/user-route');
 const app: Express = express();
@@ -12,10 +13,36 @@ const io = new Server(server, {
     }
 });
 
+interface ISocket extends Socket {
+    userName?: string;
+    // other additional attributes here, example:
+    // surname?: string;
+}
+
+const users: any[] = [];
+
 // Socket io
+io.use(((socket: ISocket, next: (err?: ExtendedError) => void) => {
+    socket.userName = socket.handshake.auth.userName;
+    next()
+}))
 io.on('connection', (socket: Socket) => {
+    console.log('User connected', socket.id);
+
+    for (let [id, socket] of io.of("/").sockets) {
+        users.push({
+            userID: id,
+            userName: socket.handshake.auth.userName,
+        });
+    }
+    console.log('users', users);
+
     socket.on('message', (mgs) => {
         io.emit('client message', mgs)
+    })
+
+    socket.on('get-users', () => {
+        socket.emit("users", users);
     })
 });
 

@@ -36,16 +36,16 @@ const Navigation: FC = () => {
 
     return routes.map((route) => {
       return (
-        <li key={route.id} className="main-navigation__item">
+        <li key={ route.id } className="main-navigation__item">
           <NavLink
-            className={(navData) =>
+            className={ (navData) =>
               navData.isActive
                 ? `${linkClassName} main-navigation__link--active`
                 : linkClassName
             }
-            to={`/${route.id}`}
+            to={ `/${route.id}` }
           >
-            <Icon name={route.icon} />
+            <Icon name={ route.icon } />
             {route.label}
           </NavLink>
         </li>
@@ -61,7 +61,7 @@ const Navigation: FC = () => {
 
         <ul className="main-navigation">{getRoutes()}</ul>
 
-        <Button onClick={signOut}>logout</Button>
+        <Button onClick={ signOut }>logout</Button>
       </div>
     </div>
   )

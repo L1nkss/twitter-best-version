@@ -1,34 +1,36 @@
 import { FC, useEffect, useState } from 'react'
 
-import io from 'socket.io-client';
-
 import { UserMessageCard } from '@entities/user-message-card/ui/user-message-card';
 import { PageHeader } from '@shared/ui/page-header/page-header'
+import { socket } from '@shared/utils/socket';
 
 const Messages: FC = () => {
     const [message, setMessage] = useState<string>();
     const [messages, setMessages] = useState<string[]>([]);
-    const socket = io('http://localhost:8080/');
+    const [users, setUsers] = useState<any[]>([])
 
-    const testMockData = [
-        {
-            id: '1',
-            message: 'Привет как дела?',
-            name: 'Имя Фамилия',
-            isOnline: true
-        },
-        {
-            id: '1',
-            message: 'Какой то длинный текст текст текст текст текст текст текст текст',
-            name: 'Имя Фамилия 2 ',
-            isOnline: false
-        }
-    ]
 
     useEffect(() => {
+        socket.emit('get-users');
+
         socket.on('client message', (mgs) => {
             setMessages((state) => [...state, mgs.value])
         })
+
+        // Тестовое получение всех пользователей подключенных. Todo переделать
+        socket.on('users', (msg) => {
+            const sockerUsers = msg.map((user: any) => {
+                return {
+                    sockerId: user.userID,
+                    isOnline: true,
+                    message: 'Текст',
+                    name: user.username.userName
+                }
+            })
+
+            setUsers(sockerUsers)
+            }
+        )
     }, [])
     
     const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,9 +58,9 @@ const Messages: FC = () => {
             {/*  Разметка чата  */}
             <div className="grid grid-cols-12">
                 <div className="message__chats col-span-4">
-                    {testMockData.map((data) => {
+                    {users.map((data) => {
                         return <UserMessageCard
-                            key={ data.id }
+                            key={ data.sockerId }
                             message={ data.message }
                             name={ data.name }
                             isOnline={ data.isOnline }
