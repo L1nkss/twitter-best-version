@@ -4,6 +4,10 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
 
 import { useAppDispatch } from '@app/store';
+import { Comments } from '@entities/tweet/ui/components/comments/comments';
+import { Likes } from '@entities/tweet/ui/components/likes/likes';
+import { Retweets } from '@entities/tweet/ui/components/retweets/retweets';
+import { Share } from '@entities/tweet/ui/components/share/share';
 import { ChangesEnum } from '@features/tweets/models/enums/ChangesEnums.enum';
 import { Tweet as ITweet } from '@features/tweets/models/interfaces/Tweets.interface'
 import { deleteTweet } from '@features/tweets/thunks/delete-tweet';
@@ -72,9 +76,7 @@ const Tweet: FC<ITweet> = (props) => {
             <div className="w-full">
                 <div className="flex items-center">
                     <h2 className="font-bold mr-1">{props.userInfo.name}</h2>
-                    {props.userInfo.isVerify && (
-                        <Icon name="verify-svg" classNames="mr-1"/>
-                    )}
+                    {props.userInfo.isVerify && <Icon name="verify-svg" classNames="mr-1"/>}
                     <p className="tweet__header-data mr-1">@{props.userInfo.nickName}</p>
                     <p className="tweet__header-data">
                         <time>{getTimeSince(props.createdAt)}</time>
@@ -91,49 +93,10 @@ const Tweet: FC<ITweet> = (props) => {
                 </div>
 
                 <div className="flex justify-between tweet__action mt-3">
-                    <div className="flex items-center tweet__action-item tweet__action-item--comment">
-                        <div className="inline-flex relative mr-2.5">
-                            <div className="tweet__circle"/>
-                            <Icon name="comment-svg" classNames="tweet__svg"/>
-                        </div>
-                        {props.tweetInfo.comments !== 0 && (
-                            <span className="text-xs">{props.tweetInfo.comments}</span>
-                        )}
-                    </div>
-
-                    <div className="flex items-center tweet__action-item tweet__action-item--retweet">
-                        <div className="inline-flex relative mr-2.5">
-                            <div className="tweet__circle"/>
-                            <Icon name="retweet-svg" classNames="tweet__svg"/>
-                        </div>
-                        {props.tweetInfo.retweets !== 0 && (
-                            <span className="text-xs">{props.tweetInfo.retweets}</span>
-                        )}
-                    </div>
-
-                    <div
-                        className="flex items-center tweet__action-item tweet__action-item--likes"
-                        onClick={ () => likeTweetClickHandler() }
-                    >
-                        <div className="inline-flex relative mr-2.5">
-                            <div className="tweet__circle"/>
-                            {isTweetLiked ? (
-                                <Icon name="liked-svg"/>
-                            ) : (
-                                <Icon name="like-svg" classNames="tweet__svg"/>
-                            )}
-                        </div>
-                        {props.tweetInfo.likes !== 0 && (
-                            <span className="text-xs">{props.tweetInfo.likes}</span>
-                        )}
-                    </div>
-
-                    <div className="flex items-center tweet__action-item  tweet__action-item--share">
-                        <div className="inline-flex relative mr-2.5">
-                            <div className="tweet__circle"/>
-                            <Icon name="share-svg" classNames="tweet__svg"/>
-                        </div>
-                    </div>
+                    <Comments counter={ props.tweetInfo.comments } onClick={ () => {} } />
+                    <Retweets counter={ props.tweetInfo.retweets } onClick={ () => {} } />
+                    <Likes counter={ props.tweetInfo.likes } onClick={ likeTweetClickHandler } isLiked={ isTweetLiked } />
+                    <Share onClick={ () => {} } />
                 </div>
             </div>
 
