@@ -7,6 +7,7 @@ import { deleteTweet } from '@features/tweets/thunks/delete-tweet';
 import { likeStatus } from '@features/tweets/thunks/like-status';
 import { loadLikesTweets } from '@features/tweets/thunks/load-likes-tweets';
 import { loadTweets } from '@features/tweets/thunks/load-tweets'
+import { ErrorEnum, ErrorsResponse } from '@shared/models/enums/errors.enum';
 
 const initialState: Tweets = {
   likedTweets: [],
@@ -44,6 +45,10 @@ export const tweetsSlice = createSlice({
       // Удаление твита
       .addCase(deleteTweet.fulfilled, (state, {payload}) => {
         state.allTweets.list = state.allTweets.list.filter((tweet) => tweet.id !== payload);
+      })
+      .addCase(deleteTweet.rejected, (state, action) => {
+        const errorCode = action.error.code || ErrorEnum.ERR_BAD_REQUEST;
+        throw new Error(errorCode)
       })
       // Загрузка лайкнутых твитов пользователя
       .addCase(loadLikesTweets.fulfilled, (state, {payload}) => {

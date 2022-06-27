@@ -8,6 +8,7 @@ import { Comments } from '@entities/tweet/ui/components/comments/comments';
 import { Likes } from '@entities/tweet/ui/components/likes/likes';
 import { Retweets } from '@entities/tweet/ui/components/retweets/retweets';
 import { Share } from '@entities/tweet/ui/components/share/share';
+import { addNotification } from '@features/notifications/notificationsSlice';
 import { ChangesEnum } from '@features/tweets/models/enums/ChangesEnums.enum';
 import { Tweet as ITweet } from '@features/tweets/models/interfaces/Tweets.interface'
 import { deleteTweet } from '@features/tweets/thunks/delete-tweet';
@@ -61,7 +62,7 @@ const Tweet: FC<ITweet> = (props) => {
     try {
       await dispatch(deleteTweet(id))
     } catch (err) {
-      console.log('error', err)
+      dispatch(addNotification({type: 'error', title: 'Error', description: 'Ошибка при запросе на сервер'}))
     }
   }
 
