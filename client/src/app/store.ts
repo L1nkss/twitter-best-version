@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux';
 
 import notificationsReducer from '@features//notifications/notificationsSlice';
+import contactsReducer from '@features/contacts/contactsSlice'
 import tweetReducer from '@features/tweets/tweetsSlice'
 import userReducer from '@features/user/userSlice'
 
@@ -10,7 +11,8 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     tweets: tweetReducer,
-    notifications: notificationsReducer
+    notifications: notificationsReducer,
+    contacts: contactsReducer
   },
 })
 

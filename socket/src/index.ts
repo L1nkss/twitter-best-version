@@ -15,23 +15,43 @@ interface ISocket extends Socket {
     userName?: string;
 }
 
-const users: any[] = [];
+const users: Record<string, string[]> = {}
 
 // Socket io
 io.use(((socket: ISocket, next: (err?: ExtendedError) => void) => {
     socket.userName = socket.handshake.auth.userName;
     next()
 }))
-io.on('connection', (socket: Socket) => {
+
+io.on('connection', (socket: ISocket) => {
     console.log('User connected', socket.id);
 
-    for (let [id, socket] of io.of("/").sockets) {
-        users.push({
-            userID: id,
-            userName: socket.handshake.auth.userName,
-        });
+    if (socket.handshake.auth.userName) {
+        if (users[socket.handshake.auth.userName]) {
+            users[socket.handshake.auth.userName].push(socket.id)
+        } else {
+            users[socket.handshake.auth.userName] = [];
+            users[socket.handshake.auth.userName].push(socket.id)
+        }
     }
     console.log('users', users);
+
+    socket.on('private message', ({ message, to }: {message: string, to: string}) => {
+        const usersIdxs = users[to];
+
+        usersIdxs.forEach((userId) => {
+            socket.to(userId).emit("private message", {
+                message,
+                from: socket.id,
+            });
+        })
+    })
+
+    socket.conn.on("close", (reason) => {
+        users[socket.handshake.auth.userName] = users[socket.handshake.auth.userName].filter((connection) => {
+            connection !== socket.id
+        })
+    });
 
     socket.on('message', (mgs) => {
         io.emit('client message', mgs)

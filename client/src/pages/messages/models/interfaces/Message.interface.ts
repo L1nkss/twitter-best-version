@@ -1,5 +1,6 @@
 export interface MessageProps {
     message: string,
     name: string,
-    isOnline: boolean
+    isOnline: boolean,
+    onClick: () => void
 }
