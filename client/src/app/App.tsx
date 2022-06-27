@@ -33,7 +33,7 @@ function App() {
   const [ isAuth, isLoading ] = useAuth()
 
   const createRoute = (route: TwitterRoute) => {
-    const routeElement = route.hocWrapper ? <route.hocWrapper>{route.element}</route.hocWrapper> : route.element;
+    const routeElement = route.hocWrapper ? <route.hocWrapper classes={ route.classes }>{route.element}</route.hocWrapper> : route.element;
     return <Route key={ route.path } path={ route.path } element={ routeElement }/>
   }
 
@@ -45,7 +45,7 @@ function App() {
       element: <Notifications/>,
       hocWrapper: AnimationPage,
     },
-    {path: 'messages', element: <Messages/>, hocWrapper: AnimationPage},
+    {path: 'messages', element: <Messages/>, hocWrapper: AnimationPage, classes: 'flex flex-col'},
     {path: 'lists', element: <Lists/>, hocWrapper: AnimationPage},
     {path: 'bookmarks', element: <Bookmarks/>, hocWrapper: AnimationPage},
     {path: '/:id', element: <Profile/>, hocWrapper: AnimationPage},

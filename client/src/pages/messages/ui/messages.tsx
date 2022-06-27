@@ -1,7 +1,6 @@
-import { log } from 'util';
-
 import { FC, useEffect, useState } from 'react'
 
+import cn from 'classnames';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '@app/store';
@@ -11,6 +10,8 @@ import { addContact } from '@features/contacts/contactsSlice';
 import { messagesSelector } from '@features/messages/messagesSelector';
 import { addMessage } from '@features/messages/messagesSlice';
 import { userSelector } from '@features/user/userSelector';
+import { KeyboardCodes } from '@shared/models/enums/keys.enum';
+import { Icon } from '@shared/ui/icon/icon';
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { socket } from '@shared/utils/socket';
 
@@ -24,9 +25,52 @@ const Messages: FC = () => {
   const dispatch = useAppDispatch();
   const userMessages = useSelector(messagesSelector);
 
+  const handleEscButton = (evt: KeyboardEvent) => {
+    if (KeyboardCodes.ESC === evt.code) {
+      setActiveChat('');
+    }
+  }
 
   useEffect(() => {
-    // socket.emit('get-users');
+
+    // TEST
+    setUsers([
+      {
+        id: 1,
+        message: 'ПРИВЕТ',
+        name: 'Сергей',
+        isOnline: true,
+        onClick: () => {}
+      },
+      {
+        id: 2,
+        message: 'ПРИВЕТ',
+        name: 'Сергей',
+        isOnline: true,
+        onClick: () => {}
+      },
+      {
+        id: 3,
+        message: 'ПРИВЕТ',
+        name: 'Сергей',
+        isOnline: true,
+        onClick: () => {}
+      }
+    ])
+
+    setMessages([
+      {
+        uid: 1,
+        content: 'HELLO'
+      },
+      {
+        uid: 2,
+        content: 'HELLO 2'
+      }
+    ])
+
+    // TEST END
+    window.addEventListener('keydown', handleEscButton);
 
     socket.on('private message', ({content, from}: {content: string, from:{
       uid: string,
@@ -47,6 +91,10 @@ const Messages: FC = () => {
       console.log('client content', content);
       console.log('client from', from);
     })
+
+    return () => {
+      window.removeEventListener('keydown', handleEscButton)
+    }
   }, [])
 
   useEffect(() => {
@@ -62,12 +110,31 @@ const Messages: FC = () => {
   const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
     setMessage(evt.target.value);
   }
+
   const handleButtonClick = () => {
     socket.emit('private message', {message, to: activeChat, from: {
       uid: user.uid,
       nickName: user.nickName,
       avatarUrl: user.avatarUrl
     }})
+  }
+
+  const NoActiveChat = (): JSX.Element => {
+    return (
+      <div>
+        <Icon name="chat-svg" />
+        Select a chat to start messaging
+      </div>
+    )
+  }
+
+  const ActiveChat = (): JSX.Element => {
+    return (
+      <>
+        {messages.map((m) => {return <div key={ m.uid }>{m.content}</div>})}
+        <input type="text" />
+      </>
+    )
   }
 
   return (
@@ -86,9 +153,9 @@ const Messages: FC = () => {
       {/* Тест*/}
 
       {/*  Разметка чата  */}
-      <div className="grid grid-cols-12">
+      <div className="grid grid-cols-12 flex-1">
         <div className="message__chats col-span-4">
-          {contacts.map((data) => {
+          {users.map((data) => {
             return <UserMessageCard
               key={ data.id }
               message={ '' }
@@ -98,11 +165,9 @@ const Messages: FC = () => {
             />
           })}
         </div>
-        <div className="col-span-8 px-2 ">
-          {!activeChat && <div>Select a chat to start messaging </div>}
-          {activeChat && messages.map((m) => {
-            return <div key={ m.uid }>{m.content}</div>
-          })}
+        <div className={ cn('col-span-8 px-2 message__active-chat', {'flex items-center justify-center': !activeChat}) }>
+          {!activeChat && <NoActiveChat />}
+          {activeChat && <ActiveChat />}
         </div>
       </div>
     </>
