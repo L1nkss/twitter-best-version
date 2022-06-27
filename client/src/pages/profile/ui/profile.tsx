@@ -16,7 +16,7 @@ const Profile: FC = () => {
   const [ user, setUser ] = useState<User>()
   const {id} = useParams()
   const navigate = useNavigate()
-  const hasAccess = useHasUserAccess(user?.uid)
+  const hasAccess = useHasUserAccess(user?.uid || '')
 
   // Получение не по ID, а по нику ?
   const getUserProfile = async (

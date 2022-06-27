@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 
-
 import { useAppDispatch } from '@app/store';
 import { User } from '@features/user/models/User.interface'
 import { setUser } from '@features/user/userSlice'
@@ -10,7 +9,7 @@ const useAuth = (): [ boolean, boolean ] => {
   const [ isAuth, setIsAuth ] = useState<boolean>(false)
   const [ isLoading, setIsLoading ] = useState<boolean>(true)
   const dispatch = useAppDispatch();
-  const user: User | undefined = getCookie('userAuth')
+  const user: User | null = getCookie<User>('userAuth')
 
   useEffect(() => {
     if (user) {

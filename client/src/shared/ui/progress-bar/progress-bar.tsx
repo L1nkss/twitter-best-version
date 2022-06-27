@@ -9,7 +9,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
   textColor = '#1DA1F2',
   textValue,
   ...props
-}: ProgressBarProps) => {
+}) => {
   const getTextValue = (): ReactElement | undefined => {
     if (!textValue) return undefined
 
