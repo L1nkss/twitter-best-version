@@ -18,7 +18,7 @@ const AnimationPage: FC<AnimationPageProps> = ({
   children,
   animation = defaultAnimation,
   transition = defaultTransition,
-}: AnimationPageProps) => {
+}) => {
   return (
     <motion.div
       variants={ animation }

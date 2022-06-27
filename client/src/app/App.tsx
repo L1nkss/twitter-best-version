@@ -33,12 +33,7 @@ function App() {
   const [ isAuth, isLoading ] = useAuth()
 
   const createRoute = (route: TwitterRoute) => {
-    let routeElement = route.element
-
-    if (route.hocWrapper) {
-      routeElement = <route.hocWrapper>{route.element}</route.hocWrapper>
-    }
-
+    const routeElement = route.hocWrapper ? <route.hocWrapper>{route.element}</route.hocWrapper> : route.element;
     return <Route key={ route.path } path={ route.path } element={ routeElement }/>
   }
 

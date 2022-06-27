@@ -6,7 +6,6 @@ import { useSelector } from 'react-redux'
 
 import { useAppDispatch } from '@app/store'
 import { TweetLength } from '@entities/make-tweet/models/enums/TweetLength.enum'
-import { MakeTweetProps } from '@entities/make-tweet/models/interfaces/MakeTweet.interface'
 import { ProgressBarState } from '@entities/make-tweet/models/interfaces/ProgressBar.interface'
 
 import { Tweet } from '@features/tweets/models/interfaces/Tweets.interface'
@@ -16,7 +15,7 @@ import { Button } from '@shared/ui/button/button'
 import { ProgressBar } from '@shared/ui/progress-bar/progress-bar'
 import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
 
-const MakeTweet: FC<MakeTweetProps> = () => {
+const MakeTweet: FC = () => {
   const SYMBOL_MAX_LENGTH = 50
 
   const [ value, setValue ] = useState<string>('')
