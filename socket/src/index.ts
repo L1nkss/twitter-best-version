@@ -12,43 +12,63 @@ const io = new Server(server, {
 });
 
 interface ISocket extends Socket {
-    userName?: string;
+    uid?: string;
 }
 
-const users: Record<string, string[]> = {}
+const users: {
+    [key: string]: {
+        connection: string[],
+        userInfo: {
+            id: string,
+            userName: string,
+            avatarUrl: string
+        }
+    }
+} = {}
 
 // Socket io
 io.use(((socket: ISocket, next: (err?: ExtendedError) => void) => {
-    socket.userName = socket.handshake.auth.userName;
+    socket.uid = socket.handshake.auth.uid;
     next()
 }))
 
 io.on('connection', (socket: ISocket) => {
     console.log('User connected', socket.id);
 
-    if (socket.handshake.auth.userName) {
-        if (users[socket.handshake.auth.userName]) {
-            users[socket.handshake.auth.userName].push(socket.id)
+    if (socket.handshake.auth.uid) {
+        if (users[socket.handshake.auth.uid]) {
+            users[socket.handshake.auth.uid].connection.push(socket.id)
         } else {
-            users[socket.handshake.auth.userName] = [];
-            users[socket.handshake.auth.userName].push(socket.id)
+            users[socket.handshake.auth.uid] = {
+                userInfo: {
+                    id: socket.handshake.auth.uid,
+                    userName: socket.handshake.auth.userName,
+                    avatarUrl: socket.handshake.auth.avatarUrl,
+                },
+                connection: [socket.id]
+            }
         }
     }
     console.log('users', users);
 
-    socket.on('private message', ({ message, to }: {message: string, to: string}) => {
-        const usersIdxs = users[to];
+    socket.on('private message', ({ message, to, from }: {message: string, to: string, from: {}}) => {
+        const usersIdxs = users[to].connection;
+
+        if (!usersIdxs) return;
 
         usersIdxs.forEach((userId) => {
             socket.to(userId).emit("private message", {
-                message,
-                from: socket.id,
+                content: message,
+                from: {
+                    connectionId: socket.id,
+                      ...from
+                },
             });
         })
     })
 
     socket.conn.on("close", (reason) => {
-        users[socket.handshake.auth.userName] = users[socket.handshake.auth.userName].filter((connection) => {
+        users[socket.handshake.auth.uid].connection = users[socket.handshake.auth.uid].connection.filter((connection) => {
             connection !== socket.id
         })
     });

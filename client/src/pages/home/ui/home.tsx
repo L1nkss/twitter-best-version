@@ -44,7 +44,7 @@ const Home: FC = () => {
   }, [ tweets ])
 
   useEffect(() => {
-    socket.auth = {userName: user.uid};
+    socket.auth = {uid: user.uid, userName: user.nickName, avatarUrl: user.avatarUrl};
     socket.connect();
 
     getTweets();
