@@ -19,13 +19,13 @@ const Button: FC<ButtonProps> = ({
 
   return (
     <button
-      {...props}
-      className={cn('button', getButtonTypeClass(), props.className)}
-      disabled={props.disabled}
+      { ...props }
+      className={ cn('button', getButtonTypeClass(), props.className) }
+      disabled={ props.disabled }
     >
-      {iconName && <Icon classNames="mr-2" name={iconName} />}
+      {iconName && <Icon classNames="mr-2" name={ iconName }/>}
       {!isLoading && <span>{props.children}</span>}
-      {isLoading && <Spinner strokeWidth={2} className="rotating" />}
+      {isLoading && <Spinner strokeWidth={ 2 } className="rotating"/>}
     </button>
   )
 }

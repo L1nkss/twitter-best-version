@@ -6,11 +6,12 @@ import { TwitterTextareaProps } from '@shared/ui/twitter-textarea/models/interfa
 
 const TwitterTextarea: FC<TwitterTextareaProps> = ({
   placeholder = 'What`s happening?',
-  onChangeHandler = () => {},
+  onChangeHandler = () => {
+  },
   classes = '',
   value,
 }: TwitterTextareaProps) => {
-  const [showPlaceholder, setShowPlaceholder] = useState<boolean>(true)
+  const [ showPlaceholder, setShowPlaceholder ] = useState<boolean>(true)
   const textareaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -19,7 +20,7 @@ const TwitterTextarea: FC<TwitterTextareaProps> = ({
     if (!value && textareaRef.current) {
       textareaRef.current.innerText = ''
     }
-  }, [value])
+  }, [ value ])
 
   const changeHandler = () => {
     if (textareaRef.current) {
@@ -28,15 +29,15 @@ const TwitterTextarea: FC<TwitterTextareaProps> = ({
   }
 
   return (
-    <div className={cn('twitter-textarea', classes)}>
+    <div className={ cn('twitter-textarea', classes) }>
       {showPlaceholder && (
         <div className="twitter-textarea__placeholder">{placeholder}</div>
       )}
       <div
-        ref={textareaRef}
+        ref={ textareaRef }
         contentEditable="true"
         className="twitter-textarea__text w-full"
-        onInput={changeHandler}
+        onInput={ changeHandler }
       />
     </div>
   )

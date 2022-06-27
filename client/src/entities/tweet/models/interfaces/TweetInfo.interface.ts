@@ -1,10 +1,10 @@
 export interface BaseTweetInfo {
-    counter: number;
-    onClick: () => void
+  counter: number;
+  onClick: () => void
 }
 
 export interface LikesTweetInfo extends BaseTweetInfo {
-    isLiked: boolean
+  isLiked: boolean
 }
 
 export type ShareTweetInfo = Omit<BaseTweetInfo, 'counter'>;

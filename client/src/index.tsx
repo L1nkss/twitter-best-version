@@ -16,7 +16,7 @@ const root = createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <Provider store={ store }>
     <BrowserRouter>
-      <App />
+      <App/>
     </BrowserRouter>
   </Provider>
 )

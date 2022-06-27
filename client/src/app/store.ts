@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import notificationsReducer from '@features//notifications/notificationsSlice';
 import tweetReducer from '@features/tweets/tweetsSlice'

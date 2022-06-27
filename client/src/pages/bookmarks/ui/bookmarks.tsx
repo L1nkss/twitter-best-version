@@ -7,14 +7,14 @@ import { PageHeader } from '@shared/ui/page-header/page-header'
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
 const Bookmarks: FC = () => {
-    const list = useSelector(likedTweetsSelector)
+  const list = useSelector(likedTweetsSelector)
 
-    return (
-        <div>
-            <PageHeader pageName={ 'Bookmarks Page' }/>
-            <TweetList tweets={ list } />
-        </div>
-    )
+  return (
+    <div>
+      <PageHeader pageName={ 'Bookmarks Page' }/>
+      <TweetList tweets={ list }/>
+    </div>
+  )
 }
 
 export { Bookmarks }

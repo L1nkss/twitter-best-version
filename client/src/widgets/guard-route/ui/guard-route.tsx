@@ -11,10 +11,10 @@ const GuardRoute: FC<GuardRouteProps> = ({
   redirectUrl = '/sign-in',
 }) => {
   if (!isAllowed) {
-    return <Navigate to={redirectUrl} replace />
+    return <Navigate to={ redirectUrl } replace/>
   }
 
-  return children ? children : <Outlet />
+  return children ? children : <Outlet/>
 }
 
 export { GuardRoute }

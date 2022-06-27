@@ -5,5 +5,6 @@ interface IContext {
 }
 
 export const Context: React.Context<IContext> = React.createContext<IContext>({
-  likeTweet: () => {},
+  likeTweet: () => {
+  },
 })

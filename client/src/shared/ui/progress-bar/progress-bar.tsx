@@ -15,7 +15,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
 
     return (
       <text
-        fill={textColor}
+        fill={ textColor }
         fontSize="10px"
         x="50%"
         y="50%"
@@ -28,7 +28,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
   }
 
   return (
-    <Spinner {...props} percentage={percentage}>
+    <Spinner { ...props } percentage={ percentage }>
       {getTextValue()}
     </Spinner>
   )

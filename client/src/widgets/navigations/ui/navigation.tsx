@@ -15,20 +15,21 @@ const Navigation: FC = () => {
   const navigate = useNavigate()
 
   const routes: NavigationRoute[] = [
-    { id: 'home', label: 'Home', icon: 'home-svg' },
-    { id: 'explore', label: 'Explore', icon: 'explore-svg' },
-    { id: 'notifications', label: 'Notifications', icon: 'notifications-svg' },
-    { id: 'messages', label: 'Messages', icon: 'messages-svg' },
-    { id: 'lists', label: 'Lists', icon: 'lists-svg' },
-    { id: 'bookmarks', label: 'Bookmarks', icon: 'bookmarks-svg' },
-    { id: user.nickName, label: 'Profile', icon: 'profile-svg' },
+    {id: 'home', label: 'Home', icon: 'home-svg'},
+    {id: 'explore', label: 'Explore', icon: 'explore-svg'},
+    {id: 'notifications', label: 'Notifications', icon: 'notifications-svg'},
+    {id: 'messages', label: 'Messages', icon: 'messages-svg'},
+    {id: 'lists', label: 'Lists', icon: 'lists-svg'},
+    {id: 'bookmarks', label: 'Bookmarks', icon: 'bookmarks-svg'},
+    {id: user.nickName, label: 'Profile', icon: 'profile-svg'},
   ]
 
   const signOut = async () => {
     try {
       await logout()
       navigate('/sign-in')
-    } catch (e) {}
+    } catch (e) {
+    }
   }
 
   const getRoutes = (): Array<React.ReactElement> => {
@@ -45,7 +46,7 @@ const Navigation: FC = () => {
             }
             to={ `/${route.id}` }
           >
-            <Icon name={ route.icon } />
+            <Icon name={ route.icon }/>
             {route.label}
           </NavLink>
         </li>
@@ -56,7 +57,7 @@ const Navigation: FC = () => {
     <div className="navigation">
       <div className="navigation__wrapper">
         <header className="navigation__header">
-          <Icon name="logo-svg" />
+          <Icon name="logo-svg"/>
         </header>
 
         <ul className="main-navigation">{getRoutes()}</ul>

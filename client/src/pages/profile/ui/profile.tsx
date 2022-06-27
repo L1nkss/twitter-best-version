@@ -13,8 +13,8 @@ import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
 import { getFromDataFromFirestore } from '../../../firebase'
 
 const Profile: FC = () => {
-  const [user, setUser] = useState<User>()
-  const { id } = useParams()
+  const [ user, setUser ] = useState<User>()
+  const {id} = useParams()
   const navigate = useNavigate()
   const hasAccess = useHasUserAccess(user?.uid)
 
@@ -24,11 +24,12 @@ const Profile: FC = () => {
   ): Promise<User | undefined> => {
     try {
       return await getFromDataFromFirestore<User>(
-          'users',
-          userNick,
-          'nickName'
+        'users',
+        userNick,
+        'nickName'
       )
-    } catch (e) {}
+    } catch (e) {
+    }
   }
 
   useEffect(() => {
@@ -39,32 +40,32 @@ const Profile: FC = () => {
         }
       })
     }
-  }, [id])
+  }, [ id ])
 
   if (!user) {
-    return <Loader />
+    return <Loader/>
   }
 
   return (
     <div className="profile">
-      <PageHeader pageName={user.name}>
+      <PageHeader pageName={ user.name }>
         <Button
           className="mr-3"
-          onClick={() => navigate(-1)}
+          onClick={ () => navigate(-1) }
           buttonType="outline"
         >
-          <Icon name="arrow-left-svg" />
+          <Icon name="arrow-left-svg"/>
         </Button>
       </PageHeader>
 
       <div className="profile__header">
-        <div className="profile__user-background" />
+        <div className="profile__user-background"/>
         <div className="profile__user-data">
           <div>
             <UserAvatar
               size="xl"
               classes="profile__user-avatar"
-              avatarUrl={user.avatarUrl}
+              avatarUrl={ user.avatarUrl }
             />
 
             {hasAccess && <Button>Edit profile</Button>}

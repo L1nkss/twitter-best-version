@@ -18,27 +18,27 @@ const Spinner: FC<SpinnerProps> = ({
 
   return (
     <svg
-      width={size}
-      height={size}
-      viewBox={viewBox}
-      className={cn('spinner', className)}
+      width={ size }
+      height={ size }
+      viewBox={ viewBox }
+      className={ cn('spinner', className) }
     >
       <circle
         className="spinner__inner-circle"
         fill="none"
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        strokeWidth={`${strokeWidth}px`}
+        cx={ size / 2 }
+        cy={ size / 2 }
+        r={ radius }
+        strokeWidth={ `${strokeWidth}px` }
       />
       <circle
         fill="none"
-        cx={size / 2}
-        cy={size / 2}
-        r={radius}
-        strokeWidth={`${strokeWidth}px`}
-        strokeDasharray={`${dash} ${circumference - dash}`}
-        transform={`rotate(-90 ${size / 2} ${size / 2})`}
+        cx={ size / 2 }
+        cy={ size / 2 }
+        r={ radius }
+        strokeWidth={ `${strokeWidth}px` }
+        strokeDasharray={ `${dash} ${circumference - dash}` }
+        transform={ `rotate(-90 ${size / 2} ${size / 2})` }
         strokeLinecap="round"
       />
       {children}

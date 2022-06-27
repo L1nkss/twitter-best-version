@@ -7,16 +7,16 @@ import { Notification } from '@entities/notification/ui/notification';
 import { notificationsSelector } from '@features/notifications/notificationsSelector';
 
 const NotificationContainer: FC = () => {
-    const notifications = useSelector(notificationsSelector);
+  const notifications = useSelector(notificationsSelector);
 
-    return createPortal(
-        <div className="notification-container">
-            {notifications.map((notification) => {
-                return <Notification key={ notification.id } notification={ notification } />
-            })}
-        </div>,
-        document.body
-    )
+  return createPortal(
+    <div className="notification-container">
+      {notifications.map((notification) => {
+        return <Notification key={ notification.id } notification={ notification }/>
+      })}
+    </div>,
+    document.body
+  )
 }
 
-export {NotificationContainer}
+export { NotificationContainer }

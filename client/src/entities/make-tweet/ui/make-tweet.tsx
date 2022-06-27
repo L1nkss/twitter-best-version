@@ -19,13 +19,13 @@ import { TwitterTextarea } from '@shared/ui/twitter-textarea/twitter-textarea'
 const MakeTweet: FC<MakeTweetProps> = () => {
   const SYMBOL_MAX_LENGTH = 50
 
-  const [value, setValue] = useState<string>('')
-  const [progressBar, setProgressBar] = useState<ProgressBarState>({
+  const [ value, setValue ] = useState<string>('')
+  const [ progressBar, setProgressBar ] = useState<ProgressBarState>({
     hideCircles: false,
     lengthStatus: 'GOOD',
   })
-  const [isButtonDisabled, setIsButtonDisabled] = useState<boolean>(false)
-  const [isTweetCreating, setIsTweetCreating] = useState<boolean>(false)
+  const [ isButtonDisabled, setIsButtonDisabled ] = useState<boolean>(false)
+  const [ isTweetCreating, setIsTweetCreating ] = useState<boolean>(false)
   const user = useSelector(userSelector)
   const dispatch = useAppDispatch();
 
@@ -33,7 +33,7 @@ const MakeTweet: FC<MakeTweetProps> = () => {
     const symbolsLeft = SYMBOL_MAX_LENGTH - value.length
 
     if (symbolsLeft > 20) {
-      setProgressBar((state) => ({ ...state, lengthStatus: TweetLength.GOOD }))
+      setProgressBar((state) => ({...state, lengthStatus: TweetLength.GOOD}))
     } else if (symbolsLeft <= 20 && symbolsLeft > 0) {
       setProgressBar((state) => ({
         ...state,
@@ -47,8 +47,8 @@ const MakeTweet: FC<MakeTweetProps> = () => {
     }
 
     setIsButtonDisabled(symbolsLeft < 0 || !value)
-    setProgressBar((state) => ({ ...state, hideCircles: symbolsLeft < -50 }))
-  }, [value])
+    setProgressBar((state) => ({...state, hideCircles: symbolsLeft < -50}))
+  }, [ value ])
 
   const getPercentage = (): number => {
     return (value.length * 100) / SYMBOL_MAX_LENGTH

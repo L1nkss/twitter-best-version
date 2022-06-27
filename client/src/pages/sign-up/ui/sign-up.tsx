@@ -9,10 +9,10 @@ import { FormInput } from '@shared/ui/form-input/form-input';
 import { registerWithEmailAndPassword } from '../../../firebase'
 
 const SignUp: FC = () => {
-  const [email, setEmail] = useState<string>('')
-  const [name, setName] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [isSigningUp, setIsSigningUp] = useState<boolean>(false)
+  const [ email, setEmail ] = useState<string>('')
+  const [ name, setName ] = useState<string>('')
+  const [ password, setPassword ] = useState<string>('')
+  const [ isSigningUp, setIsSigningUp ] = useState<boolean>(false)
   const navigate = useNavigate()
 
   const handleLoginSubmit = async (evt: FormEvent): Promise<void> => {
@@ -36,10 +36,10 @@ const SignUp: FC = () => {
             <h1 className="text-center text-2xl font-semibold text-gray-600">
               Sign up
             </h1>
-            
-            <FormInput id="name" onChangeHandler={ (e) => setName(e.target.value) } />
-            <FormInput id="email" onChangeHandler={ (e) => setEmail(e.target.value) } />
-            <FormInput id="password" type="password" onChangeHandler={ (e) => setPassword(e.target.value) } />
+
+            <FormInput id="name" onChangeHandler={ (e) => setName(e.target.value) }/>
+            <FormInput id="email" onChangeHandler={ (e) => setEmail(e.target.value) }/>
+            <FormInput id="password" type="password" onChangeHandler={ (e) => setPassword(e.target.value) }/>
 
             <Button
               type="submit"

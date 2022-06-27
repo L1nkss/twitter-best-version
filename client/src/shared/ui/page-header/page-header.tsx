@@ -8,7 +8,7 @@ const PageHeader: FC<PageHeaderProps> = ({
   children,
 }: PageHeaderProps) => {
   return (
-    <header className={`flex items-center p-4 ${classNames}`}>
+    <header className={ `flex items-center p-4 ${classNames}` }>
       {children}
       <h2 className="text-xl font-bold">{pageName}</h2>
     </header>
