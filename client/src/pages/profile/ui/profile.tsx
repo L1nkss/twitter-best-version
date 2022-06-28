@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { useAppDispatch } from '@app/store';
 import { addContact } from '@features/contacts/contactsSlice';
+import { Contact } from '@features/contacts/models/interfaces/Contacts.interface';
 import { User } from '@features/user/models/User.interface'
 import { useHasUserAccess } from '@shared/hooks/useHasUserAccess'
 import { Button } from '@shared/ui/button/button'
@@ -11,6 +12,8 @@ import { Icon } from '@shared/ui/icon/icon'
 import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+
+import { makeRandomString } from '@shared/utils/makeRandomString';
 
 import { getFromDataFromFirestore } from '../../../firebase'
 
@@ -36,8 +39,17 @@ const Profile: FC = () => {
   }
 
   const sendMessage = () => {
-    dispatch(addContact({id: user?.uid, name: user?.name}));
-    navigate('/messages')
+    if (user) {
+      const newContact: Contact = {
+        id: user.uid,
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+        roomId: makeRandomString(6)
+      }
+
+      dispatch(addContact(newContact));
+      navigate('/messages')
+    }
   }
 
   useEffect(() => {

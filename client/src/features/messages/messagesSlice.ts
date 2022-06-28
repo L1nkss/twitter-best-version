@@ -1,33 +1,63 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { MessagesInterface } from '@features/messages/models/interfaces/Messages.interface';
+import {
+  AddMessagePayload,
+  ChatMessage,
+  MessagesInterface
+} from '@features/messages/models/interfaces/Messages.interface';
 
-const initialState: MessagesInterface[] = [];
+const initialState: MessagesInterface = {
+  userId: 'test',
+  messages: []
+};
 
 const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
-    addMessage: (state, {payload}) => {
-      const idx = state.findIndex((chat) => chat.userId === payload.uid);
-      const newMessage = {
-        from: payload.uid,
-        userName: payload.userName,
-        content: payload.content
+    addMessage: (state, {payload}: PayloadAction<AddMessagePayload>) => {
+      const newMessage: ChatMessage = {
+        content: payload.message.content,
+        from: payload.message.from,
+        timestamp: payload.message.timestamp
       }
 
-      if (idx === -1) {
-        const newChat = {
-          userId: payload.uid,
-          messages: [newMessage]
-        }
+      // const roomIdx = state.findIndex((chat) => chat.userId === payload.roomId);
+      // const roomIdx = state.userId === payload.roomId;
 
-        state.push(newChat);
-      } else {
-        state[idx].messages.push(newMessage)
-      }
+      // if (roomIdx === -1) {
+      //   const newChat: MessagesInterface = {
+      //     userId: 'test',
+      //     messages: [newMessage]
+      //   }
+      //
+      //   state.push(newChat)
+      // } else {
+      //   state[roomIdx].messages.push(newMessage)
+      // }
+
+      state.messages.push(newMessage)
 
       return state;
+      // const idx = state.findIndex((chat) => chat.userId === payload.id);
+      // const newMessage = {
+      //   from: payload.uid,
+      //   userName: payload.userName,
+      //   content: payload.content
+      // }
+      //
+      // if (idx === -1) {
+      //   const newChat = {
+      //     userId: payload.uid,
+      //     messages: [newMessage]
+      //   }
+      //
+      //   state.push(newChat);
+      // } else {
+      //   state[idx].messages.push(newMessage)
+      // }
+      //
+      // return state;
     }
   }
 })

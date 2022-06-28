@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { Contacts } from '@features/contacts/models/interfaces/Contacts.interface';
+import { Contact, Contacts } from '@features/contacts/models/interfaces/Contacts.interface';
 
 const initialState: Contacts = {
   list: []
@@ -10,7 +10,7 @@ export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
-    addContact: (state, {payload}) => {
+    addContact: (state, {payload}: PayloadAction<Contact>) => {
       const idx = state.list.findIndex((contact) => contact.id === payload.id);
 
       if (idx === -1) {

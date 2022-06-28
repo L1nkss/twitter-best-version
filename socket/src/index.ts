@@ -1,6 +1,8 @@
 import express, { Express } from 'express';
 import { Socket } from "socket.io";
-import { ExtendedError } from "socket.io/dist/namespace";
+import { ChatEventsEnum } from './models/enums/Chat-events.enum';
+import { User } from './controllers/user';
+const {addUser, isUserExist, addConnectionToUser, removeConnection, addRoomToUser, getAllUsersConnection} = require('./controllers/user');
 
 const app: Express = express();
 const server = require('http').createServer(app);
@@ -11,74 +13,52 @@ const io = new Server(server, {
     }
 });
 
-interface ISocket extends Socket {
-    uid?: string;
+interface PrivateMessageResponse {
+    message: string,
+    to: {
+        id: string,
+        name: string,
+        roomId: string
+    },
+    timestamp: Date,
+    from: User
 }
 
-const users: {
-    [key: string]: {
-        connection: string[],
-        userInfo: {
-            id: string,
-            userName: string,
-            avatarUrl: string
-        }
+io.on(ChatEventsEnum.CONNECTION, (socket: Socket) => {
+    // Подключился новый пользователь или новое соединение существующего пользователя
+    if (isUserExist(socket.handshake.auth.id)) {
+        addConnectionToUser(socket.handshake.auth.id, socket.id)
+    } else {
+        addUser({
+            id: socket.handshake.auth.id,
+            name: socket.handshake.auth.name,
+            avatarUrl: socket.handshake.auth.avatarUrl
+        }, socket.id)
     }
-} = {}
 
-// Socket io
-io.use(((socket: ISocket, next: (err?: ExtendedError) => void) => {
-    socket.uid = socket.handshake.auth.uid;
-    next()
-}))
-
-io.on('connection', (socket: ISocket) => {
-    console.log('User connected', socket.id);
-
-    if (socket.handshake.auth.uid) {
-        if (users[socket.handshake.auth.uid]) {
-            users[socket.handshake.auth.uid].connection.push(socket.id)
-        } else {
-            users[socket.handshake.auth.uid] = {
-                userInfo: {
-                    id: socket.handshake.auth.uid,
-                    userName: socket.handshake.auth.userName,
-                    avatarUrl: socket.handshake.auth.avatarUrl,
-                },
-                connection: [socket.id]
-            }
-        }
-    }
-    console.log('users', users);
-
-    socket.on('private message', ({ message, to, from }: {message: string, to: string, from: {}}) => {
-        const usersIdxs = users[to].connection;
-
-        if (!usersIdxs) return;
-
-        usersIdxs.forEach((userId) => {
-            socket.to(userId).emit("private message", {
-                content: message,
-                from: {
-                    connectionId: socket.id,
-                      ...from
-                },
-            });
-        })
+    socket.on(ChatEventsEnum.JOIN, (roomId: string, userId: string) => {
+        addRoomToUser(userId, roomId);
     })
 
-    socket.conn.on("close", (reason) => {
-        users[socket.handshake.auth.uid].connection = users[socket.handshake.auth.uid].connection.filter((connection) => {
-            connection !== socket.id
-        })
-    });
-
-    socket.on('message', (mgs) => {
-        io.emit('client message', mgs)
+    socket.conn.on(ChatEventsEnum.CLOSE, () => {
+        removeConnection(socket.handshake.auth.id, socket.id);
     })
 
-    socket.on('get-users', () => {
-        socket.emit("users", users);
+    socket.on(ChatEventsEnum.DISCONNECT, () => {
+        removeConnection(socket.handshake.auth.id, socket.id);
+    })
+
+    socket.on(ChatEventsEnum.PRIVATE_MESSAGE, (response: PrivateMessageResponse) => {
+        console.log('response', response);
+        const userConnections = getAllUsersConnection(response.to.id);
+
+        userConnections.forEach((connection: string) => {
+            socket.to(connection).emit(ChatEventsEnum.PRIVATE_MESSAGE, {
+                message: response.message,
+                from: response.from,
+                timestamp: response.timestamp
+            })
+        })
     })
 });
 
