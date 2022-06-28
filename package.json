@@ -1,0 +1,26 @@
+{
+  "name": "twitter-best-version",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "client:dev": "cd client && npm run start",
+    "server:dev": "cd server && npm run dev",
+    "socker:dev": "cd socket && npm run dev",
+    "start:dev": "concurrently \"npm run client:dev\" \" npm run server:dev \" \"npm run socker:dev\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/L1nkss/twitter-best-version.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/L1nkss/twitter-best-version/issues"
+  },
+  "homepage": "https://github.com/L1nkss/twitter-best-version#readme",
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  }
+}
