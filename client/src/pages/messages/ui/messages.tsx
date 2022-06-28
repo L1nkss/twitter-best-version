@@ -122,7 +122,7 @@ const Messages: FC = () => {
   const NoActiveChat = (): JSX.Element => {
     return (
       <div>
-        <Icon name="chat-svg" />
+        <Icon name="new-chat-svg" />
         Select a chat to start messaging
       </div>
     )
@@ -130,34 +130,30 @@ const Messages: FC = () => {
 
   const ActiveChat = (): JSX.Element => {
     return (
-      <>
-        {messages.map((m) => {return <div key={ m.uid }>{m.content}</div>})}
-        <input type="text" />
-      </>
+      <div className="h-full flex flex-col">
+        <div className="flex-1">
+          {messages.map((m) => {return <div key={ m.uid }>{m.content}</div>})}
+        </div>
+        <div className="flex">
+          <div className='flex-1'>
+            <input className="w-full" type="text" style={ {border: '1px solid black'} } />
+          </div>
+          <Icon name="telegram-svg" />
+        </div>
+      </div>
     )
   }
 
   return (
     <>
       <PageHeader pageName={ 'Messages Page' }/>
-      {/* Тест*/}
-      <p>Text</p>
-      <input type="text" style={ {border: '1px solid black'} } onChange={ handleInputChanges }/>
-      <button onClick={ handleButtonClick }>Отправить</button>
-
-      <div className="mb-2">
-        {/* {messages.map((mess, index) => { */}
-        {/*   return <h2 key={ index }>{mess}</h2> */}
-        {/* })} */}
-      </div>
-      {/* Тест*/}
-
       {/*  Разметка чата  */}
       <div className="grid grid-cols-12 flex-1">
         <div className="message__chats col-span-4">
           {users.map((data) => {
             return <UserMessageCard
               key={ data.id }
+              avatarUrl={ data.avatarUrl }
               message={ '' }
               name={ data.name }
               isOnline={ false }
