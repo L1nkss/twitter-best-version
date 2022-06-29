@@ -9,7 +9,7 @@ import { UserMessageCard } from '@entities/user-message-card/ui/user-message-car
 import { contactsSelector } from '@features/contacts/contactsSelector';
 import { addContact } from '@features/contacts/contactsSlice';
 import { Contact } from '@features/contacts/models/interfaces/Contacts.interface';
-import { messagesSelector } from '@features/messages/messagesSelector';
+import { getAllRoomsSelector } from '@features/messages/messagesSelector';
 import { addMessage } from '@features/messages/messagesSlice';
 import { ChatMessage } from '@features/messages/models/interfaces/Messages.interface';
 import { userSelector } from '@features/user/userSelector';
@@ -29,7 +29,8 @@ const Messages: FC = () => {
 
   const contacts = useSelector(contactsSelector)
   const user = useSelector(userSelector);
-  const userMessages = useSelector(messagesSelector);
+  // const userMessages = useSelector(messagesSelector);
+  const userRooms = useSelector(getAllRoomsSelector);
 
   const handleEscButton = (evt: KeyboardEvent) => {
     if (KeyboardCodes.ESC === evt.code) {
@@ -76,6 +77,8 @@ const Messages: FC = () => {
         message
       }))
 
+      setMessages((currentMessages) => [...currentMessages, message])
+
       // todo неправильны айди. Наверно нужна комната для каждого приватного чата
       // dispatch(addMessage({
       //   roomId: 'test', // или юзер?
@@ -97,6 +100,11 @@ const Messages: FC = () => {
   }, [])
 
   useEffect(() => {
+    const chatWithUser = userRooms.find((room) => room.roomId === activeChat?.roomId);
+
+    if (chatWithUser) {
+      setMessages(chatWithUser.messages);
+    }
     // const chat = userMessages.findIndex((id) => id.userId === activeChat?.id);
     //
     // if (chat !== -1) {
@@ -107,7 +115,7 @@ const Messages: FC = () => {
   }, [ activeChat ])
 
   const handleButtonClick = (message: string) => {
-    const timestamp = new Date();
+    const timestamp = new Date().toString();
 
     if (activeChat) {
       socket.emit('private message',
@@ -122,19 +130,23 @@ const Messages: FC = () => {
           }
         })
 
+      const newMessage = {
+        content: message,
+        id: makeRandomString(10),
+        from: {
+          id: user.uid,
+          name: user.nickName,
+          avatarUrl: user.avatarUrl
+        },
+        timestamp: timestamp
+      }
+
       dispatch(addMessage({
         roomId: activeChat.roomId,
-        message: {
-          content: message,
-          id: makeRandomString(10),
-          from: {
-            id: user.uid,
-            name: user.nickName,
-            avatarUrl: user.avatarUrl
-          },
-          timestamp: timestamp
-        }
+        message:  newMessage
       }))
+
+      setMessages((currentMessages) => [...currentMessages, newMessage])
     }
   }
 
@@ -151,7 +163,7 @@ const Messages: FC = () => {
     return (
       <div className="h-full flex flex-col">
         <div className="flex-1">
-          {userMessages.map((m) => {
+          {messages.map((m) => {
             return <div key={ m.id }>{m.content}</div>
           })}
         </div>

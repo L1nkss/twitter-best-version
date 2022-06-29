@@ -6,11 +6,11 @@ export interface ChatMessage {
     name: string,
     avatarUrl: string
   },
-  timestamp: Date
+  timestamp: string
 }
 
 export interface MessagesInterface {
-  userId: string, // или room?
+  roomId: string, // или room?
   messages: ChatMessage[]
 }
 
