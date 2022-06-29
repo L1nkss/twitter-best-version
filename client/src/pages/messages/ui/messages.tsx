@@ -40,59 +40,14 @@ const Messages: FC = () => {
 
   const handleUserCardClick = (userInfo: Contact) => {
     setActiveChat(userInfo)
-    console.log('')
     // Подключаемся к комнате с пользователем
     if (userInfo.roomId) {
       socket.emit('join', userInfo.roomId, user.uid);
     }
-
   }
 
   useEffect(() => {
     window.addEventListener('keydown', handleEscButton);
-
-    socket.on('private message', ({message, roomId}: {message: ChatMessage, roomId: string}) => {
-      // const hasUserInChats = users.findIndex((u) => u.id === from.id);
-      //
-      // if (hasUserInChats === -1) {
-      //   dispatch(addContact({id: from.id, name: from.name, avatarUrl: from.avatarUrl, roomId: ''}))
-      // }
-
-      // message: {
-      //   content: response.message,
-      //     from: response.from,
-      //     timestamp: response.timestamp,
-      //     id: uuid()
-      // },
-      // roomId: response.to.roomId,
-
-
-      // content: payload.message.content,
-      //   from: payload.message.from,
-      //   timestamp: payload.message.timestamp,
-      //   id: payload.message.id
-
-      dispatch(addMessage({
-        roomId: roomId,
-        message
-      }))
-
-      setMessages((currentMessages) => [...currentMessages, message])
-
-      // todo неправильны айди. Наверно нужна комната для каждого приватного чата
-      // dispatch(addMessage({
-      //   roomId: 'test', // или юзер?
-      //   message: {
-      //     content: message,
-      //     from: {
-      //       id: from.id,
-      //       name: from.name,
-      //       avatarUrl: from.avatarUrl
-      //     },
-      //     timestamp: timestamp
-      //   }
-      // }))
-    })
 
     return () => {
       window.removeEventListener('keydown', handleEscButton)
@@ -105,14 +60,18 @@ const Messages: FC = () => {
     if (chatWithUser) {
       setMessages(chatWithUser.messages);
     }
-    // const chat = userMessages.findIndex((id) => id.userId === activeChat?.id);
-    //
-    // if (chat !== -1) {
-    //   setMessages((prev) => {
-    //     return [ ...prev, ...userMessages[chat].messages ]
-    //   });
-    // }
-  }, [ activeChat ])
+
+    socket.on('private message', ({message, roomId}: {message: ChatMessage, roomId: string}) => {
+      dispatch(addMessage({
+        roomId: roomId,
+        message
+      }))
+
+      if (roomId === activeChat?.roomId) {
+        setMessages((currentMessages) => [...currentMessages, message])
+      }
+    })
+  }, [activeChat])
 
   const handleButtonClick = (message: string) => {
     const timestamp = new Date().toString();
@@ -175,7 +134,6 @@ const Messages: FC = () => {
   return (
     <>
       <PageHeader pageName={ 'Messages Page' }/>
-      {/*  Разметка чата  */}
       <div className="grid grid-cols-12 flex-1">
         <div className="message__chats col-span-4">
           {contacts.map((data) => {
