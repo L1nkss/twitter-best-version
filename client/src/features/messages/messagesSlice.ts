@@ -19,7 +19,8 @@ const messagesSlice = createSlice({
       const newMessage: ChatMessage = {
         content: payload.message.content,
         from: payload.message.from,
-        timestamp: payload.message.timestamp
+        timestamp: payload.message.timestamp,
+        id: payload.message.id
       }
 
       // const roomIdx = state.findIndex((chat) => chat.userId === payload.roomId);

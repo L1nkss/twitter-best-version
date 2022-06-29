@@ -5,6 +5,8 @@ import { useSelector } from 'react-redux'
 
 import { useAppDispatch } from '@app/store'
 import { MakeTweet } from '@entities/make-tweet/ui/make-tweet'
+import { addContact } from '@features/contacts/contactsSlice';
+import { Contact } from '@features/contacts/models/interfaces/Contacts.interface';
 import { loadLikesTweets } from '@features/tweets/thunks/load-likes-tweets';
 import { loadTweets } from '@features/tweets/thunks/load-tweets'
 import { allTweetsSelector, allTweetsSortedByDateSelector } from '@features/tweets/tweetsSelectors'
@@ -13,6 +15,7 @@ import { userSelector } from '@features/user/userSelector'
 import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
+import { makeRandomString } from '@shared/utils/makeRandomString';
 import { socket } from '@shared/utils/socket';
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 
@@ -46,6 +49,17 @@ const Home: FC = () => {
   useEffect(() => {
     socket.auth = {id: user.uid, name: user.nickName, avatarUrl: user.avatarUrl};
     socket.connect();
+
+    socket.on('notify user message', (message) => {
+      const newContact: Contact = {
+        id: message.id,
+        name: message.name,
+        avatarUrl: message.avatarUrl,
+        roomId: message.roomId
+      }
+
+      dispatch(addContact(newContact));
+    })
 
     getTweets();
     loadLikedTweets(user.uid);

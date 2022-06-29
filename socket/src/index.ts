@@ -2,7 +2,8 @@ import express, { Express } from 'express';
 import { Socket } from "socket.io";
 import { ChatEventsEnum } from './models/enums/Chat-events.enum';
 import { User } from './controllers/user';
-const {addUser, isUserExist, addConnectionToUser, removeConnection, addRoomToUser, getAllUsersConnection} = require('./controllers/user');
+const { uuid } = require('uuidv4');
+const {addUser, isUserExist, addConnectionToUser, removeConnection, addRoom, getAllUsersConnection, isRoomExist} = require('./controllers/user');
 
 const app: Express = express();
 const server = require('http').createServer(app);
@@ -36,8 +37,14 @@ io.on(ChatEventsEnum.CONNECTION, (socket: Socket) => {
         }, socket.id)
     }
 
-    socket.on(ChatEventsEnum.JOIN, (roomId: string, userId: string) => {
-        addRoomToUser(userId, roomId);
+    socket.on(ChatEventsEnum.JOIN, (roomId: string) => {
+        if (isRoomExist(roomId)) {
+
+        } else {
+            addRoom(roomId);
+        }
+
+        socket.join(roomId);
     })
 
     socket.conn.on(ChatEventsEnum.CLOSE, () => {
@@ -49,15 +56,40 @@ io.on(ChatEventsEnum.CONNECTION, (socket: Socket) => {
     })
 
     socket.on(ChatEventsEnum.PRIVATE_MESSAGE, (response: PrivateMessageResponse) => {
-        console.log('response', response);
         const userConnections = getAllUsersConnection(response.to.id);
 
-        userConnections.forEach((connection: string) => {
-            socket.to(connection).emit(ChatEventsEnum.PRIVATE_MESSAGE, {
-                message: response.message,
-                from: response.from,
-                timestamp: response.timestamp
+        // if (socket.rooms.size === 1) {
+            userConnections.forEach((connection: string) => {
+                socket.to(connection).emit('notify user message', {
+                    roomId: response.to.roomId,
+                    id: response.from.id,
+                    name: response.from.name,
+                    avatarUrl: response.from.avatarUrl,
+                })
             })
+        // }
+
+        // content: payload.message.content,
+        //   from: payload.message.from,
+        //   timestamp: payload.message.timestamp,
+        //   id: payload.message.id
+
+        userConnections.forEach((connection: string) => {
+            socket.to(response.to.roomId).emit(ChatEventsEnum.PRIVATE_MESSAGE, {
+                message: {
+                    content: response.message,
+                    from: response.from,
+                    timestamp: response.timestamp,
+                    id: uuid()
+                },
+                roomId: response.to.roomId,
+
+            })
+            // socket.to(connection).emit(ChatEventsEnum.PRIVATE_MESSAGE, {
+            //     message: response.message,
+            //     from: response.from,
+            //     timestamp: response.timestamp
+            // })
         })
     })
 });

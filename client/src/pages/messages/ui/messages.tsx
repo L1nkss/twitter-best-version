@@ -17,6 +17,7 @@ import { KeyboardCodes } from '@shared/models/enums/keys.enum';
 import { Button } from '@shared/ui/button/button';
 import { Icon } from '@shared/ui/icon/icon';
 import { PageHeader } from '@shared/ui/page-header/page-header'
+import { makeRandomString } from '@shared/utils/makeRandomString';
 import { socket } from '@shared/utils/socket';
 
 const Messages: FC = () => {
@@ -38,6 +39,7 @@ const Messages: FC = () => {
 
   const handleUserCardClick = (userInfo: Contact) => {
     setActiveChat(userInfo)
+    console.log('')
     // Подключаемся к комнате с пользователем
     if (userInfo.roomId) {
       socket.emit('join', userInfo.roomId, user.uid);
@@ -45,30 +47,48 @@ const Messages: FC = () => {
 
   }
 
-  console.log('mess', userMessages)
   useEffect(() => {
     window.addEventListener('keydown', handleEscButton);
 
-    socket.on('private message', ({from, message, timestamp}) => {
-      const hasUserInChats = users.findIndex((u) => u.id === from.id);
+    socket.on('private message', ({message, roomId}: {message: ChatMessage, roomId: string}) => {
+      // const hasUserInChats = users.findIndex((u) => u.id === from.id);
+      //
+      // if (hasUserInChats === -1) {
+      //   dispatch(addContact({id: from.id, name: from.name, avatarUrl: from.avatarUrl, roomId: ''}))
+      // }
 
-      if (hasUserInChats === -1) {
-        dispatch(addContact({id: from.id, name: from.name, avatarUrl: from.avatarUrl, roomId: ''}))
-      }
+      // message: {
+      //   content: response.message,
+      //     from: response.from,
+      //     timestamp: response.timestamp,
+      //     id: uuid()
+      // },
+      // roomId: response.to.roomId,
+
+
+      // content: payload.message.content,
+      //   from: payload.message.from,
+      //   timestamp: payload.message.timestamp,
+      //   id: payload.message.id
+
+      dispatch(addMessage({
+        roomId: roomId,
+        message
+      }))
 
       // todo неправильны айди. Наверно нужна комната для каждого приватного чата
-      dispatch(addMessage({
-        roomId: 'test', // или юзер?
-        message: {
-          content: message,
-          from: {
-            id: from.id,
-            name: from.name,
-            avatarUrl: from.avatarUrl
-          },
-          timestamp: timestamp
-        }
-      }))
+      // dispatch(addMessage({
+      //   roomId: 'test', // или юзер?
+      //   message: {
+      //     content: message,
+      //     from: {
+      //       id: from.id,
+      //       name: from.name,
+      //       avatarUrl: from.avatarUrl
+      //     },
+      //     timestamp: timestamp
+      //   }
+      // }))
     })
 
     return () => {
@@ -87,17 +107,35 @@ const Messages: FC = () => {
   }, [ activeChat ])
 
   const handleButtonClick = (message: string) => {
-    socket.emit('private message',
-      {
-        message,
-        to: activeChat,
-        timestamp: new Date(),
-        from: {
-          id: user.uid,
-          name: user.nickName,
-          avatarUrl: user.avatarUrl
+    const timestamp = new Date();
+
+    if (activeChat) {
+      socket.emit('private message',
+        {
+          message,
+          to: activeChat,
+          timestamp: timestamp,
+          from: {
+            id: user.uid,
+            name: user.nickName,
+            avatarUrl: user.avatarUrl
+          }
+        })
+
+      dispatch(addMessage({
+        roomId: activeChat.roomId,
+        message: {
+          content: message,
+          id: makeRandomString(10),
+          from: {
+            id: user.uid,
+            name: user.nickName,
+            avatarUrl: user.avatarUrl
+          },
+          timestamp: timestamp
         }
-      })
+      }))
+    }
   }
 
   const NoActiveChat = (): JSX.Element => {
@@ -114,7 +152,7 @@ const Messages: FC = () => {
       <div className="h-full flex flex-col">
         <div className="flex-1">
           {userMessages.map((m) => {
-            return <div key={ m.from.id }>{m.content}</div>
+            return <div key={ m.id }>{m.content}</div>
           })}
         </div>
         <ChatControl onButtonClickHandler={ handleButtonClick } />

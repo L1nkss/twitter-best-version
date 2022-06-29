@@ -39,6 +39,7 @@ const Profile: FC = () => {
   }
 
   const sendMessage = () => {
+    // todo нужна проверка, если ли контакт уже в списках
     if (user) {
       const newContact: Contact = {
         id: user.uid,
