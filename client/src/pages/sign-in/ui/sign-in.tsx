@@ -61,8 +61,17 @@ const SignIn: FC = () => {
               Sign in
             </h1>
 
-            <FormInput id="login" onChangeHandler={ (e) => setEmail(e.target.value) }/>
-            <FormInput id="password" type="password" onChangeHandler={ (e) => setPassword(e.target.value) }/>
+            <FormInput
+              id="login"
+              onChangeHandler={ (e) => setEmail(e.target.value) }
+              label="Email"
+            />
+            <FormInput
+              id="password"
+              type="password"
+              label="Password"
+              onChangeHandler={ (e) => setPassword(e.target.value) }
+            />
 
             <div className="text-center">
               <Button

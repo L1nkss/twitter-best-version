@@ -2,14 +2,14 @@ import { FC } from 'react';
 
 import { FormInputProps } from '@shared/ui/form-input/models/intefaces/Form-input.interface';
 
-const FormInput: FC<FormInputProps> = ({id, type = 'text', onChangeHandler}) => {
+const FormInput: FC<FormInputProps> = ({id, type = 'text', onChangeHandler, label}) => {
   return (
     <div>
       <label
         htmlFor={ id }
         className="block mb-1 text-gray-600 font-semibold"
       >
-        Email
+        {label}
       </label>
       <input
         id={ id }

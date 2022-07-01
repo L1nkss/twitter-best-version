@@ -37,9 +37,22 @@ const SignUp: FC = () => {
               Sign up
             </h1>
 
-            <FormInput id="name" onChangeHandler={ (e) => setName(e.target.value) }/>
-            <FormInput id="email" onChangeHandler={ (e) => setEmail(e.target.value) }/>
-            <FormInput id="password" type="password" onChangeHandler={ (e) => setPassword(e.target.value) }/>
+            <FormInput
+              id="name"
+              onChangeHandler={ (e) => setName(e.target.value) }
+              label="userName"
+            />
+            <FormInput
+              id="email"
+              onChangeHandler={ (e) => setEmail(e.target.value) }
+              label="Email"
+            />
+            <FormInput
+              id="password"
+              type="password"
+              onChangeHandler={ (e) => setPassword(e.target.value) }
+              label="Password"
+            />
 
             <Button
               type="submit"
