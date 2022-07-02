@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useMemo } from 'react'
 
 import cn from 'classnames'
 
@@ -10,10 +10,11 @@ const Spinner: FC<SpinnerProps> = ({
   strokeWidth = 2,
   percentage = 25,
   className = '',
+  rotating
 }) => {
-  const viewBox = `0 0 ${size} ${size}`
-  const radius = (size - strokeWidth) / 2
-  const circumference = radius * Math.PI * 2 // длина окружности
+  const viewBox = useMemo(() => `0 0 ${size} ${size}`, [])
+  const radius = useMemo(() => (size - strokeWidth) / 2, [])
+  const circumference = useMemo(() => radius * Math.PI * 2, []) // длина окружности
   const dash = (percentage * circumference) / 100
 
   return (
@@ -21,7 +22,7 @@ const Spinner: FC<SpinnerProps> = ({
       width={ size }
       height={ size }
       viewBox={ viewBox }
-      className={ cn('spinner', className) }
+      className={ cn('spinner', {'rotating': rotating}, className) }
     >
       <circle
         className="spinner__inner-circle"

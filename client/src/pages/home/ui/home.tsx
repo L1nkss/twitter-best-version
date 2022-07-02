@@ -15,7 +15,6 @@ import { userSelector } from '@features/user/userSelector'
 import { Loader } from '@shared/ui/loader/loader'
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { UserAvatar } from '@shared/ui/user-avatar/user-avatar'
-import { makeRandomString } from '@shared/utils/makeRandomString';
 import { socket } from '@shared/utils/socket';
 import { TweetList } from '@widgets/tweet-list/ui/tweet-list'
 

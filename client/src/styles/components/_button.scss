@@ -29,18 +29,18 @@
   }
 
   &--primary {
-    color: #ffffff;
-    background: #416dea;
+    color: var(--cl-white);
+    background: var(--cl-blue-01);
   }
 
   &--outline {
-    color: #416dea;
-    border-color: #416dea;
+    color: var(--cl-blue-01);
+    border-color: currentColor;
   }
 
   &--rounded {
-    color: #ffffff;
-    background: #416dea;
+    color: var(--cl-white);
+    background: var(--cl-blue-01);
     border-radius: 4px;
   }
 

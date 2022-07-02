@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 
-import { ChatControlProps } from '@entities/chat-control/ui/models/interfaces/ChatControl.interface';
+import { ChatControlProps } from '@entities/chat-control/models/interfaces/ChatControl.interface';
 import { Button } from '@shared/ui/button/button';
 
 const ChatControl: FC<ChatControlProps> = ({onButtonClickHandler}) => {

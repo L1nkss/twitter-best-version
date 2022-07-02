@@ -6,4 +6,5 @@ export interface SpinnerProps {
   strokeWidth?: number
   percentage?: number
   className?: string
+  rotating?: boolean
 }

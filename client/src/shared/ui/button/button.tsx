@@ -25,7 +25,7 @@ const Button: FC<ButtonProps> = ({
     >
       {iconName && <Icon classNames="mr-2" name={ iconName }/>}
       {!isLoading && <span>{props.children}</span>}
-      {isLoading && <Spinner strokeWidth={ 2 } className="rotating"/>}
+      {isLoading && <Spinner rotating={ true } />}
     </button>
   )
 }

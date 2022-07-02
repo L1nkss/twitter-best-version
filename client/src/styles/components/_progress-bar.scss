@@ -4,10 +4,10 @@
 
 .progress-bar {
   &--warning {
-    stroke: #ffd400;
+    stroke: var(--cl-yellow);
   }
 
   &--error {
-    stroke: #f4212e;
+    stroke: var(--cl-red);
   }
 }

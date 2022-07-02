@@ -2,13 +2,6 @@
 // MAIN NAVIGATION
 // ===============================================
 
-//e74c3c
-//position: relative;
-//min-height: var(--toastify-toast-min-height);
-//box-sizing: border-box;
-//margin-bottom: 1rem;
-//padding: 8px;
-
 .notification-container {
   position: fixed;
   top: 20px;
@@ -26,7 +19,7 @@
   box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%), 0 2px 15px 0 rgb(0 0 0 / 5%);
 
   &--error {
-    background-color: #e74c3c;
-    color: #ffffff;
+    background-color: var(--cl-red);
+    color: var(--cl-white);
   }
 }

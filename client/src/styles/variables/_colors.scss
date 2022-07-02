@@ -11,6 +11,11 @@
     black-01: #0f1419,
     white: #ffffff,
     blue: #1da1f2,
+    blue-01: #416dea,
+    grey: #333,
+    grey-01: #ccc,
+    yellow: #ffd400,
+    red: #f4212e
   );
 
   @include get-colors($cl);

@@ -9,7 +9,6 @@ import { PopupProps } from '@shared/ui/popup/models/interfaces/popup.interface'
 
 export const Popup: FC<PopupProps> = ({onClose, isVisible, title, children}) => {
   const [ show, setShow ] = useState(false);
-
   const closeHandler = () => {
     setShow(false)
     onClose(false)
