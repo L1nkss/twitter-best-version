@@ -5,7 +5,7 @@ import { PageHeader } from '@shared/ui/page-header/page-header'
 const Notifications: FC = () => {
   return (
     <div>
-      <PageHeader pageName={'Notifications Page'} />
+      <PageHeader pageName={ 'Notifications Page' }/>
     </div>
   )
 }

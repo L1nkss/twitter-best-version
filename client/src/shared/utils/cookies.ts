@@ -1,9 +1,9 @@
 import Cookies from 'js-cookie'
 
-export const getCookie = <T>(name: string): T | undefined => {
+export const getCookie = <T>(name: string): T | null => {
   const valueFromCookie = Cookies.get(name)
 
-  if (!valueFromCookie) return undefined
+  if (!valueFromCookie) return null
 
   return JSON.parse(valueFromCookie)
 }

@@ -9,4 +9,10 @@
     border-right-width: 1px;
     border-top-width: 1px;
   }
+
+  &__active-chat {
+    border-color: rgb(239, 243, 244);
+    border-style: solid;
+    border-top-width: 1px;
+  }
 }

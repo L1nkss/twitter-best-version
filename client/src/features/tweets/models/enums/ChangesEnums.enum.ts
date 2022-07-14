@@ -1,4 +1,4 @@
 export enum ChangesEnum {
-    ADD = 'add',
-    DELETE = 'delete'
+  ADD = 'add',
+  DELETE = 'delete'
 }

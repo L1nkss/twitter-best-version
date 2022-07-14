@@ -1,78 +1,77 @@
-import { FC, useEffect, useState } from 'react'
+import React, { FC, useEffect, useState } from 'react'
 
+import cn from 'classnames';
+import { useSelector } from 'react-redux';
+
+import { Chat } from '@entities/chat/ui/chat';
 import { UserMessageCard } from '@entities/user-message-card/ui/user-message-card';
+import { contactsSelector } from '@features/contacts/contactsSelector';
+import { Contact } from '@features/contacts/models/interfaces/Contacts.interface';
+import { userSelector } from '@features/user/userSelector';
+import { KeyboardCodes } from '@shared/models/enums/keys.enum';
+import { Icon } from '@shared/ui/icon/icon';
 import { PageHeader } from '@shared/ui/page-header/page-header'
 import { socket } from '@shared/utils/socket';
 
 const Messages: FC = () => {
-    const [message, setMessage] = useState<string>();
-    const [messages, setMessages] = useState<string[]>([]);
-    const [users, setUsers] = useState<any[]>([])
+  const [ activeChat, setActiveChat ] = useState<Contact | null>();
 
+  const contacts = useSelector(contactsSelector)
+  const user = useSelector(userSelector);
 
-    useEffect(() => {
-        socket.emit('get-users');
-
-        socket.on('client message', (mgs) => {
-            setMessages((state) => [...state, mgs.value])
-        })
-
-        // Тестовое получение всех пользователей подключенных. Todo переделать
-        socket.on('users', (msg) => {
-            const sockerUsers = msg.map((user: any) => {
-                return {
-                    sockerId: user.userID,
-                    isOnline: true,
-                    message: 'Текст',
-                    name: user.username.userName
-                }
-            })
-
-            setUsers(sockerUsers)
-            }
-        )
-    }, [])
-    
-    const handleInputChanges = (evt: React.ChangeEvent<HTMLInputElement>) => {
-        setMessage(evt.target.value);
+  const handleUserCardClick = (userInfo: Contact) => {
+    setActiveChat(userInfo)
+    // Подключаемся к комнате с пользователем
+    if (userInfo.roomId) {
+      socket.emit('join', userInfo.roomId, user.uid);
     }
+  }
 
-    const handleButtonClick = () => {
-        socket.emit('message', {value: message})
+  const handleEscButton = (evt: KeyboardEvent) => {
+    if (KeyboardCodes.ESC === evt.code) {
+      setActiveChat(null);
     }
+  }
 
+  useEffect(() => {
+    window.addEventListener('keydown', handleEscButton);
+
+    return () => {
+      window.removeEventListener('keydown', handleEscButton)
+    }
+  }, [])
+
+  const NoActiveChat = (): JSX.Element => {
     return (
-        <>
-            <PageHeader pageName={ 'Messages Page' } />
-            {/* Тест*/}
-            <p>Text</p>
-            <input type="text" style={{border: '1px solid black'}} onChange={ handleInputChanges } />
-            <button onClick={ handleButtonClick }>Отправить</button>
-
-            <div className="mb-2">
-                {messages.map((mess, index) => {
-                    return <h2 key={ index }>{mess}</h2>
-                })}
-            </div>
-
-            {/*  Разметка чата  */}
-            <div className="grid grid-cols-12">
-                <div className="message__chats col-span-4">
-                    {users.map((data) => {
-                        return <UserMessageCard
-                            key={ data.sockerId }
-                            message={ data.message }
-                            name={ data.name }
-                            isOnline={ data.isOnline }
-                        />
-                    })}
-                </div>
-                <div className="col-span-8 px-2 ">
-                    <h2>Сообщения</h2>
-                </div>
-            </div>
-        </>
+      <div>
+        <Icon name="new-chat-svg"/>
+        Select a chat to start messaging
+      </div>
     )
+  }
+
+  return (
+    <>
+      <PageHeader pageName={ 'Messages Page' }/>
+      <div className="grid grid-cols-12 flex-1">
+        <div className="message__chats col-span-4">
+          {contacts.map((data) => {
+            return <UserMessageCard
+              key={ data.id }
+              avatarUrl={ data.avatarUrl }
+              message={ '' }
+              name={ data.name }
+              isOnline={ false }
+              onClick={ () => handleUserCardClick(data) }
+            />
+          })}
+        </div>
+        <div className={ cn('col-span-8 px-2 message__active-chat', {'flex items-center justify-center': !activeChat}) }>
+          {activeChat ? <Chat activeChat={ activeChat } /> : <NoActiveChat />}
+        </div>
+      </div>
+    </>
+  )
 }
 
 export { Messages }

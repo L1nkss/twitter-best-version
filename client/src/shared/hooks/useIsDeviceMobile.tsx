@@ -4,7 +4,7 @@ import { Breakpoints } from '../models/enums/breakpoint'
 import { listenerOn, listenerOff } from '../utils/listeners'
 
 const useCheckIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(false)
+  const [ isMobile, setIsMobile ] = useState(false)
 
   useEffect(() => {
     const handleResize = () => {

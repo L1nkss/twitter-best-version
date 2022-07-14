@@ -30,67 +30,62 @@ function App() {
   const isMobile = useCheckIsMobile()
   const navigate = useNavigate()
   const location = useLocation()
-  const [isAuth, isLoading] = useAuth()
+  const [ isAuth, isLoading ] = useAuth()
 
   const createRoute = (route: TwitterRoute) => {
-    let routeElement = route.element
-
-    if (route.hocWrapper) {
-      routeElement = <route.hocWrapper>{route.element}</route.hocWrapper>
-    }
-
-    return <Route key={ route.path } path={ route.path } element={ routeElement } />
+    const routeElement = route.hocWrapper ? <route.hocWrapper classes={ route.classes }>{route.element}</route.hocWrapper> : route.element;
+    return <Route key={ route.path } path={ route.path } element={ routeElement }/>
   }
 
   const routes: TwitterRoute[] = [
-    { path: 'home', element: <Home />, hocWrapper: AnimationPage },
-    { path: 'explore', element: <Explore />, hocWrapper: AnimationPage },
+    {path: 'home', element: <Home/>, hocWrapper: AnimationPage},
+    {path: 'explore', element: <Explore/>, hocWrapper: AnimationPage},
     {
       path: 'notifications',
-      element: <Notifications />,
+      element: <Notifications/>,
       hocWrapper: AnimationPage,
     },
-    { path: 'messages', element: <Messages />, hocWrapper: AnimationPage },
-    { path: 'lists', element: <Lists />, hocWrapper: AnimationPage },
-    { path: 'bookmarks', element: <Bookmarks />, hocWrapper: AnimationPage },
-    { path: '/:id', element: <Profile />, hocWrapper: AnimationPage },
-    { path: '/', element: <Navigate to="/home" /> },
+    {path: 'messages', element: <Messages/>, hocWrapper: AnimationPage, classes: 'flex flex-col'},
+    {path: 'lists', element: <Lists/>, hocWrapper: AnimationPage},
+    {path: 'bookmarks', element: <Bookmarks/>, hocWrapper: AnimationPage},
+    {path: '/:id', element: <Profile/>, hocWrapper: AnimationPage},
+    {path: '/', element: <Navigate to="/home"/>},
   ]
 
   useEffect(() => {
     const route = isMobile ? '/mobile-version' : '/'
     navigate(route)
-  }, [isMobile])
+  }, [ isMobile ])
 
   if (isLoading) {
     return (
       <div className="w-screen h-screen flex justify-center items-center">
-        <Loader />
+        <Loader/>
       </div>
     )
   }
 
   return (
-      <>
-        <AnimatePresence exitBeforeEnter>
-          <Routes key={ location.pathname } location={ location }>
-            <Route
-                path="/"
-                element={
-                  <GuardRoute isAllowed={ isAuth }>
-                    <Layout />
-                  </GuardRoute>
-                }
-            >
-              {routes.map(createRoute)}
-            </Route>
-            <Route path="sign-in" element={ <SignIn /> } />
-            <Route path="sign-up" element={ <SignUp /> } />
-            <Route path="mobile-version" element={ <MobileVersion /> } />
-          </Routes>
-        </AnimatePresence>
-        <NotificationContainer />
-      </>
+    <>
+      <AnimatePresence exitBeforeEnter>
+        <Routes key={ location.pathname } location={ location }>
+          <Route
+            path="/"
+            element={
+              <GuardRoute isAllowed={ isAuth }>
+                <Layout/>
+              </GuardRoute>
+            }
+          >
+            {routes.map(createRoute)}
+          </Route>
+          <Route path="sign-in" element={ <SignIn/> }/>
+          <Route path="sign-up" element={ <SignUp/> }/>
+          <Route path="mobile-version" element={ <MobileVersion/> }/>
+        </Routes>
+      </AnimatePresence>
+      <NotificationContainer/>
+    </>
   )
 }
 

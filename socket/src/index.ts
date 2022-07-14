@@ -1,49 +1,99 @@
 import express, { Express } from 'express';
-import { Socket } from "socket.io";
-import { ExtendedError } from "socket.io/dist/namespace";
+import { Socket } from 'socket.io';
+import { ChatEventsEnum } from './models/enums/Chat-events.enum';
+import { User } from './controllers/user';
+
+const {uuid} = require('uuidv4');
+const {
+  addUser,
+  isUserExist,
+  addConnectionToUser,
+  removeConnection,
+  addRoom,
+  getAllUsersConnection,
+  isRoomExist
+} = require('./controllers/user');
 
 const app: Express = express();
 const server = require('http').createServer(app);
-const { Server } = require('socket.io');
+const {Server} = require('socket.io');
 const io = new Server(server, {
-    cors: {
-        origin: 'http://localhost:3000'
-    }
+  cors: {
+    origin: 'http://localhost:3000'
+  }
 });
 
-interface ISocket extends Socket {
-    userName?: string;
+interface PrivateMessageResponse {
+  message: string,
+  to: {
+    id: string,
+    name: string,
+    roomId: string
+  },
+  timestamp: Date,
+  from: User
 }
 
-const users: any[] = [];
+io.on(ChatEventsEnum.CONNECTION, (socket: Socket) => {
+  // Подключился новый пользователь или новое соединение существующего пользователя
+  if (isUserExist(socket.handshake.auth.id)) {
+    addConnectionToUser(socket.handshake.auth.id, socket.id)
+  } else {
+    addUser({
+      id: socket.handshake.auth.id,
+      name: socket.handshake.auth.name,
+      avatarUrl: socket.handshake.auth.avatarUrl
+    }, socket.id)
+  }
 
-// Socket io
-io.use(((socket: ISocket, next: (err?: ExtendedError) => void) => {
-    socket.userName = socket.handshake.auth.userName;
-    next()
-}))
-io.on('connection', (socket: Socket) => {
-    console.log('User connected', socket.id);
+  socket.on(ChatEventsEnum.JOIN, (roomId: string) => {
+    if (isRoomExist(roomId)) {
 
-    for (let [id, socket] of io.of("/").sockets) {
-        users.push({
-            userID: id,
-            userName: socket.handshake.auth.userName,
-        });
+    } else {
+      addRoom(roomId);
     }
-    console.log('users', users);
 
-    socket.on('message', (mgs) => {
-        io.emit('client message', mgs)
+    socket.join(roomId);
+  })
+
+  socket.conn.on(ChatEventsEnum.CLOSE, () => {
+    removeConnection(socket.handshake.auth.id, socket.id);
+  })
+
+  socket.on(ChatEventsEnum.DISCONNECT, () => {
+    removeConnection(socket.handshake.auth.id, socket.id);
+  })
+
+  socket.on(ChatEventsEnum.PRIVATE_MESSAGE, (response: PrivateMessageResponse) => {
+    const userConnections = getAllUsersConnection(response.to.id);
+
+
+    userConnections.forEach((connection: string) => {
+      socket.to(connection).emit('notify user message', {
+        roomId: response.to.roomId,
+        id: response.from.id,
+        name: response.from.name,
+        avatarUrl: response.from.avatarUrl,
+      })
     })
 
-    socket.on('get-users', () => {
-        socket.emit("users", users);
+    userConnections.forEach((connection: string) => {
+      socket.to(response.to.roomId).emit(ChatEventsEnum.PRIVATE_MESSAGE, {
+        message: {
+          content: response.message,
+          from: response.from,
+          timestamp: response.timestamp,
+          id: uuid()
+        },
+        roomId: response.to.roomId,
+
+      })
     })
+  })
 });
 
 app.use(express.json());
 
 server.listen(3001, () => {
-    console.log(`⚡️[server socket]: Server is running at http://localhost:3001`);
+  console.log(`⚡️[server socket]: Server is running at http://localhost:3001`);
 })

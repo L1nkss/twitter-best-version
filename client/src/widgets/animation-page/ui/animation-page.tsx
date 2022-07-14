@@ -1,13 +1,15 @@
 import React, { FC } from 'react'
 
-import { motion, Variants,Transition } from 'framer-motion'
+import cn from 'classnames'
+import { motion, Variants, Transition } from 'framer-motion'
 
 import { AnimationPageProps } from '@widgets/animation-page/models/animation-page.interface'
 
+
 const defaultAnimation: Variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
+  initial: {opacity: 0},
+  animate: {opacity: 1},
+  exit: {opacity: 0},
 }
 
 const defaultTransition: Transition = {
@@ -18,14 +20,16 @@ const AnimationPage: FC<AnimationPageProps> = ({
   children,
   animation = defaultAnimation,
   transition = defaultTransition,
-}: AnimationPageProps) => {
+  classes = ''
+}) => {
   return (
     <motion.div
-      variants={animation}
+      className={ cn('h-full', classes) }
+      variants={ animation }
       initial="initial"
       animate="animate"
       exit="exit"
-      transition={transition}
+      transition={ transition }
     >
       {children}
     </motion.div>

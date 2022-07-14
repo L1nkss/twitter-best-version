@@ -12,14 +12,14 @@ const UserAvatar: FC<UserAvatarProps> = ({
 }: UserAvatarProps) => {
   return (
     <div
-      className={cn(
+      className={ cn(
         'user-avatar',
         `${size && `user-avatar--${size}`}`,
         classes
-      )}
-      onClick={onClick}
+      ) }
+      onClick={ onClick }
     >
-      <img src={avatarUrl} alt="" />
+      <img src={ avatarUrl } alt=""/>
     </div>
   )
 }

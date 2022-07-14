@@ -6,4 +6,5 @@ export interface AnimationPageProps {
   children: React.ReactElement
   animation?: Variants
   transition?: Transition
+  classes?: string
 }

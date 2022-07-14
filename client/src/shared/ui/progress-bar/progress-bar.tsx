@@ -9,13 +9,13 @@ const ProgressBar: FC<ProgressBarProps> = ({
   textColor = '#1DA1F2',
   textValue,
   ...props
-}: ProgressBarProps) => {
+}) => {
   const getTextValue = (): ReactElement | undefined => {
     if (!textValue) return undefined
 
     return (
       <text
-        fill={textColor}
+        fill={ textColor }
         fontSize="10px"
         x="50%"
         y="50%"
@@ -28,7 +28,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
   }
 
   return (
-    <Spinner {...props} percentage={percentage}>
+    <Spinner { ...props } percentage={ percentage }>
       {getTextValue()}
     </Spinner>
   )

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react'
 
 import axios from 'axios'
 
-const useFetch = <T,>(url: string, initialValue: T): [boolean, T] => {
-  const [data, setData] = useState<T>(initialValue)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+const useFetch = <T, >(url: string, initialValue: T): [ boolean, T ] => {
+  const [ data, setData ] = useState<T>(initialValue)
+  const [ isLoading, setIsLoading ] = useState<boolean>(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,9 +22,9 @@ const useFetch = <T,>(url: string, initialValue: T): [boolean, T] => {
     }
 
     fetchData()
-  }, [url])
+  }, [ url ])
 
-  return [isLoading, data]
+  return [ isLoading, data ]
 }
 
 export { useFetch }

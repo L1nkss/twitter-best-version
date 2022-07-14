@@ -2,7 +2,7 @@
 // POPUP
 // ===============================================
 
-$overlay-bg: var(--cl-black);
+$overlay-bg: #000000;
 
 .overlay {
   visibility: hidden;
@@ -12,7 +12,7 @@ $overlay-bg: var(--cl-black);
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(#000, 0.7);
+  background: rgba($overlay-bg, 0.7);
   transition: opacity 500ms;
   z-index: 10;
   cursor: default;
@@ -34,7 +34,7 @@ $overlay-bg: var(--cl-black);
   z-index: 20;
 
   &__title {
-    color: #333;
+    color: var(--cl-grey);
   }
 
   &__close {
@@ -45,7 +45,7 @@ $overlay-bg: var(--cl-black);
     font-size: 30px;
     font-weight: bold;
     text-decoration: none;
-    color: #333;
+    color: var(--cl-grey);
 
     &:hover {
       color: var(--cl-black);
